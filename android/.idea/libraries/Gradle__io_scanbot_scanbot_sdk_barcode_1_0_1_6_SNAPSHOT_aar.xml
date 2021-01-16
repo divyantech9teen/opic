@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.scanbot:scanbot-sdk-barcode:1.0.1.6-SNAPSHOT@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1e9d3e097a749eb5a181e2e49a0b37f/jetified-scanbot-sdk-barcode-1.0.1.6-SNAPSHOT/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1e9d3e097a749eb5a181e2e49a0b37f/jetified-scanbot-sdk-barcode-1.0.1.6-SNAPSHOT/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1e9d3e097a749eb5a181e2e49a0b37f/jetified-scanbot-sdk-barcode-1.0.1.6-SNAPSHOT/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

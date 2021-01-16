@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.scanbot:sdk-core-sap:1.0.1.6-SNAPSHOT@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5c634b89843c5c66b2a70565f5ba011c/jetified-sdk-core-sap-1.0.1.6-SNAPSHOT/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bdc13d7ad3f26bf8d7b0a1ab86dcc67d/jetified-sdk-core-sap-1.0.1.6-SNAPSHOT/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bdc13d7ad3f26bf8d7b0a1ab86dcc67d/jetified-sdk-core-sap-1.0.1.6-SNAPSHOT/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bdc13d7ad3f26bf8d7b0a1ab86dcc67d/jetified-sdk-core-sap-1.0.1.6-SNAPSHOT/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

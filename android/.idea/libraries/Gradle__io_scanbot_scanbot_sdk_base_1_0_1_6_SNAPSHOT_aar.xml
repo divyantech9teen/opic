@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.scanbot:scanbot-sdk-base:1.0.1.6-SNAPSHOT@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/495cebac6a9216bf2b935ea4cb4391c2/jetified-scanbot-sdk-base-1.0.1.6-SNAPSHOT/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/495cebac6a9216bf2b935ea4cb4391c2/jetified-scanbot-sdk-base-1.0.1.6-SNAPSHOT/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/495cebac6a9216bf2b935ea4cb4391c2/jetified-scanbot-sdk-base-1.0.1.6-SNAPSHOT/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

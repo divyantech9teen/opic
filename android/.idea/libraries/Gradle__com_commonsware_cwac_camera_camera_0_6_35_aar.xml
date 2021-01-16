@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.commonsware.cwac.camera:camera:0.6.35@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/78c32ad05675a800d02a92bf6506ec11/jetified-camera-0.6.35/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/78c32ad05675a800d02a92bf6506ec11/jetified-camera-0.6.35/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/78c32ad05675a800d02a92bf6506ec11/jetified-camera-0.6.35/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
