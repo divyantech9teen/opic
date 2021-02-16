@@ -143,8 +143,7 @@ class _ImageViewState extends State<ImageView> {
             'esys.png': bytes,
           },
           'image/jpg');
-      if (widget.albumData[widget.albumIndex]["IsSelected"]
-          .toString() ==
+      if (widget.albumData[widget.albumIndex]["IsSelected"].toString() ==
           "true") {
         setState(() {
           widget.albumData[widget.albumIndex]["IsSelected"] = "false";
@@ -313,15 +312,15 @@ class _ImageViewState extends State<ImageView> {
     );
   }
 
-  onCommentFunction(value){
-    switch(value){
+  onCommentFunction(value) {
+    switch (value) {
       case 0:
         onComment = widget.onChange;
         break;
     }
   }
 
-  bool _selectedIndex=false;
+  bool _selectedIndex = false;
 
   void _settingModalBottomSheet(context) {
     showModalBottomSheet(
@@ -339,8 +338,6 @@ class _ImageViewState extends State<ImageView> {
   List selectedPhoto = new List();
   List albumData = new List();
   String selectedCount = "0";
-
-
 
   signUpDone(String msg) {
     showDialog(
@@ -394,12 +391,10 @@ class _ImageViewState extends State<ImageView> {
 
   sendSelectImage(String isselected) async {
     try {
-      selectedData.add(
-          {
-            'Id':  widget.albumData[widget.albumIndex]["Id"].toString(),
-            'IsSelected': isselected.toString(),
-          }
-      );
+      selectedData.add({
+        'Id': widget.albumData[widget.albumIndex]["Id"].toString(),
+        'IsSelected': isselected.toString(),
+      });
       //check Internet Connection
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -443,19 +438,19 @@ class _ImageViewState extends State<ImageView> {
       print("yaash" + ImgUrl);
       Platform.isIOS
           ? await GallerySaver.saveImage(path).then((bool success) {
-        print("Success = ${success}");
-        Fluttertoast.showToast(
-            msg: "Download Completed",
-            backgroundColor: cnst.appPrimaryMaterialColorYellow,
-            textColor: Colors.white,
-            gravity: ToastGravity.BOTTOM,
-            toastLength: Toast.LENGTH_SHORT);
-        /*Fluttertoast.showToast(
+              print("Success = ${success}");
+              Fluttertoast.showToast(
+                  msg: "Download Completed",
+                  backgroundColor: cnst.appPrimaryMaterialColorYellow,
+                  textColor: Colors.white,
+                  gravity: ToastGravity.BOTTOM,
+                  toastLength: Toast.LENGTH_SHORT);
+              /*Fluttertoast.showToast(
                   backgroundColor: cnst.appPrimaryMaterialColorYellow,
                   msg: "Download Complete",
                   gravity: ToastGravity.TOP,
                   toastLength: Toast.LENGTH_SHORT);*/
-      })
+            })
           : await downloadAndroid(path);
     }
   }
@@ -616,37 +611,37 @@ class _ImageViewState extends State<ImageView> {
         ],
       ),
       body: GestureDetector(
-        onHorizontalDragEnd: (DragEndDetails details) {
-          setState(() {
-            //_value++;
-          });
-          if (details.velocity.pixelsPerSecond.dx > -1000.0) {
-            print("Drag Left - SubValue");
-            /*if(widget.albumData.length-1==widget.albumIndex){
-            }else{
-              setState(() {
-                widget.albumIndex=widget.albumIndex+1;
-              });
-            }*/
-            if (widget.albumIndex != 0) {
-              setState(() {
-                widget.albumIndex = widget.albumIndex - 1;
-              });
-            }
-            print("Current Index = ${widget.albumData.length}");
-            print("Total Size = ${widget.albumIndex}");
-          } else {
-            print("Drag Right - AddValue");
-            if (widget.albumData.length - 1 == widget.albumIndex) {
-            } else {
-              setState(() {
-                widget.albumIndex = widget.albumIndex + 1;
-              });
-            }
-            print("Current Index = ${widget.albumData.length}");
-            print("Total Size = ${widget.albumIndex}");
-          }
-        },
+        // onHorizontalDragEnd: (DragEndDetails details) {
+        //   setState(() {
+        //     //_value++;
+        //   });
+        //   if (details.velocity.pixelsPerSecond.dx > -1000.0) {
+        //     print("Drag Left - SubValue");
+        //     /*if(widget.albumData.length-1==widget.albumIndex){
+        //     }else{
+        //       setState(() {
+        //         widget.albumIndex=widget.albumIndex+1;
+        //       });
+        //     }*/
+        //     if (widget.albumIndex != 0) {
+        //       setState(() {
+        //         widget.albumIndex = widget.albumIndex - 1;
+        //       });
+        //     }
+        //     print("Current Index = ${widget.albumData.length}");
+        //     print("Total Size = ${widget.albumIndex}");
+        //   } else {
+        //     print("Drag Right - AddValue");
+        //     if (widget.albumData.length - 1 == widget.albumIndex) {
+        //     } else {
+        //       setState(() {
+        //         widget.albumIndex = widget.albumIndex + 1;
+        //       });
+        //     }
+        //     print("Current Index = ${widget.albumData.length}");
+        //     print("Total Size = ${widget.albumIndex}");
+        //   }
+        // },
         child: Container(
           width: MediaQuery.of(context).size.width,
           //height: MediaQuery.of(context).size.height,
@@ -667,55 +662,160 @@ class _ImageViewState extends State<ImageView> {
                   ),
                 ),
               ),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onHorizontalDragEnd: (DragEndDetails details) {
+                        if (details.velocity.pixelsPerSecond.dx > -1000.0) {
+                          print("Drag Left - SubValue");
+                          /*if(widget.albumData.length-1==widget.albumIndex){
+          }else{
+            setState(() {
+              widget.albumIndex=widget.albumIndex+1;
+            });
+          }*/
+                          if (widget.albumIndex != 0) {
+                            setState(() {
+                              widget.albumIndex = widget.albumIndex - 1;
+                            });
+                          }
+                          print("Current Index = ${widget.albumData.length}");
+                          print("Total Size = ${widget.albumIndex}");
+                        }
+                        // else {
+                        //   print("Drag Right - AddValue");
+                        //   if (widget.albumData.length - 1 == widget.albumIndex) {
+                        //   } else {
+                        //     setState(() {
+                        //       widget.albumIndex = widget.albumIndex + 1;
+                        //     });
+                        //   }
+                        //   print("Current Index = ${widget.albumData.length}");
+                        //   print("Total Size = ${widget.albumIndex}");
+                        // }
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(5),
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xff4B4B4B4A),
+                        ),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onHorizontalDragEnd: (DragEndDetails details) {
+                        if (details.velocity.pixelsPerSecond.dx > -1000.0)
+                        //             {
+                        //               print("Drag Left - SubValue");
+                        //               /*if(widget.albumData.length-1==widget.albumIndex){
+                        // }else{
+                        //   setState(() {
+                        //     widget.albumIndex=widget.albumIndex+1;
+                        //   });
+                        // }*/
+                        //               if (widget.albumIndex != 0) {
+                        //                 setState(() {
+                        //                   widget.albumIndex = widget.albumIndex - 1;
+                        //                 });
+                        //               }
+                        //               print("Current Index = ${widget.albumData.length}");
+                        //               print("Total Size = ${widget.albumIndex}");
+                        //             } else
+
+                        {
+                          print("Drag Right - AddValue");
+                          if (widget.albumData.length - 1 ==
+                              widget.albumIndex) {
+                          } else {
+                            setState(() {
+                              widget.albumIndex = widget.albumIndex + 1;
+                            });
+                          }
+                          print("Current Index = ${widget.albumData.length}");
+                          print("Total Size = ${widget.albumIndex}");
+                        }
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(5),
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xff4B4B4B4A),
+                        ),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.only(bottom:16.0),
+                padding: const EdgeInsets.only(bottom: 16.0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
-                      onPressed: (){
-
-    if (widget.albumData[widget.albumIndex]["IsSelected"]
-        .toString() ==
-    "true") {
-      sendSelectImage("false");
-      setState(() {
-    widget.albumData[widget.albumIndex]["IsSelected"] = "false";
-    });
-    widget.onChange(
-    "Remove",
-    widget.albumData[widget.albumIndex]["Id"].toString(),
-    widget.albumData[widget.albumIndex]["Photo"].toString());
-    } else {
-      sendSelectImage("true");
-      setState(() {
-    widget.albumData[widget.albumIndex]["IsSelected"] = "true";
-    });
-    widget.onChange(
-    "Add",
-    widget.albumData[widget.albumIndex]["Id"].toString(),
-    widget.albumData[widget.albumIndex]["Photo"].toString());
-    }
-
-                      },
-                        icon:  widget.albumData[widget.albumIndex]["IsSelected"].toString() ==
-                            "true" ? Icon(
-                          Icons.favorite,
-                          size: 25,
-                          color:  Colors.white,
-                        )
-                            :
-                        Stack(
-                          children: [
-                            Icon(
-                              Icons.favorite_border,
-                              size: 25,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
+                        onPressed: () {
+                          if (widget.albumData[widget.albumIndex]["IsSelected"]
+                                  .toString() ==
+                              "true") {
+                            sendSelectImage("false");
+                            setState(() {
+                              widget.albumData[widget.albumIndex]
+                                  ["IsSelected"] = "false";
+                            });
+                            widget.onChange(
+                                "Remove",
+                                widget.albumData[widget.albumIndex]["Id"]
+                                    .toString(),
+                                widget.albumData[widget.albumIndex]["Photo"]
+                                    .toString());
+                          } else {
+                            sendSelectImage("true");
+                            setState(() {
+                              widget.albumData[widget.albumIndex]
+                                  ["IsSelected"] = "true";
+                            });
+                            widget.onChange(
+                                "Add",
+                                widget.albumData[widget.albumIndex]["Id"]
+                                    .toString(),
+                                widget.albumData[widget.albumIndex]["Photo"]
+                                    .toString());
+                          }
+                        },
+                        icon: widget.albumData[widget.albumIndex]["IsSelected"]
+                                    .toString() ==
+                                "true"
+                            ? Icon(
+                                Icons.favorite,
+                                size: 25,
+                                color: Colors.white,
+                              )
+                            : Stack(
+                                children: [
+                                  Icon(
+                                    Icons.favorite_border,
+                                    size: 25,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -738,7 +838,7 @@ class _ImageViewState extends State<ImageView> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           shareFile(
                               "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"]}");
                         },
@@ -750,7 +850,8 @@ class _ImageViewState extends State<ImageView> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _downloadFile(widget.albumData[widget.albumIndex]["Photo"]);
+                          _downloadFile(
+                              widget.albumData[widget.albumIndex]["Photo"]);
                           _saveNetworkImage(
                               "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
                           if (SelectedPin != "" &&
@@ -763,23 +864,29 @@ class _ImageViewState extends State<ImageView> {
                                 "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
                           }
                           if (widget.albumData[widget.albumIndex]["IsSelected"]
-                              .toString() ==
+                                  .toString() ==
                               "true") {
                             setState(() {
-                              widget.albumData[widget.albumIndex]["IsSelected"] = "false";
+                              widget.albumData[widget.albumIndex]
+                                  ["IsSelected"] = "false";
                             });
                             widget.onChange(
                                 "Remove",
-                                widget.albumData[widget.albumIndex]["Id"].toString(),
-                                widget.albumData[widget.albumIndex]["Photo"].toString());
+                                widget.albumData[widget.albumIndex]["Id"]
+                                    .toString(),
+                                widget.albumData[widget.albumIndex]["Photo"]
+                                    .toString());
                           } else {
                             setState(() {
-                              widget.albumData[widget.albumIndex]["IsSelected"] = "true";
+                              widget.albumData[widget.albumIndex]
+                                  ["IsSelected"] = "true";
                             });
                             widget.onChange(
                                 "Add",
-                                widget.albumData[widget.albumIndex]["Id"].toString(),
-                                widget.albumData[widget.albumIndex]["Photo"].toString());
+                                widget.albumData[widget.albumIndex]["Id"]
+                                    .toString(),
+                                widget.albumData[widget.albumIndex]["Photo"]
+                                    .toString());
                           }
                         },
                         child: Icon(
@@ -805,7 +912,7 @@ class BottomSheet extends StatefulWidget {
   var Data;
   int index;
 
-  BottomSheet({this.Data, this.onComment,this.index});
+  BottomSheet({this.Data, this.onComment, this.index});
 
   @override
   _BottomSheetState createState() => _BottomSheetState();
@@ -822,7 +929,7 @@ class _BottomSheetState extends State<BottomSheet> {
   ProgressDialog pr;
   bool IsLoading = true;
 
-  String CustomerId = "",studioname="";
+  String CustomerId = "", studioname = "";
 
   @override
   void initState() {
@@ -855,7 +962,8 @@ class _BottomSheetState extends State<BottomSheet> {
         setState(() {
           IsLoading = true;
         });
-        Future res = Services.GetImageComment(widget.Data[widget.index]["Id"].toString());
+        Future res = Services.GetImageComment(
+            widget.Data[widget.index]["Id"].toString());
         res.then((data) async {
           if (data != null && data.length > 0) {
             pr.hide();
@@ -925,7 +1033,7 @@ class _BottomSheetState extends State<BottomSheet> {
           'CustomerId': CustomerId,
           'AlbumPhotoId': widget.Data[widget.index]["Id"].toString(),
           'Comment': edtComment.text.toString().trim(),
-          'Name' : studioname,
+          'Name': studioname,
         };
         Services.AddComment(data1).then((data) async {
           pr.hide();
@@ -934,9 +1042,7 @@ class _BottomSheetState extends State<BottomSheet> {
               CommentList.add(data1);
               widget.Data[widget.index]["IsSelected"] = "true";
             });
-            widget.onComment(
-                "Add",
-                widget.Data[widget.index]["Id"].toString(),
+            widget.onComment("Add", widget.Data[widget.index]["Id"].toString(),
                 widget.Data[widget.index]["Photo"].toString());
             print("data1");
             print(data1);
@@ -1027,7 +1133,8 @@ class _BottomSheetState extends State<BottomSheet> {
       //check Internet Connection
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        Services.UploadSelectedImage([widget.Data["Id"].toString()]).then((data) async {
+        Services.UploadSelectedImage([widget.Data["Id"].toString()]).then(
+            (data) async {
           print("data.Data");
           print(data.Data);
           if (data.Data == "1") {
@@ -1041,14 +1148,12 @@ class _BottomSheetState extends State<BottomSheet> {
           showMsg("Try Again.");
         });
       } else {
-
         showMsg("No Internet Connection.");
       }
     } on SocketException catch (_) {
       showMsg("No Internet Connection.");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -1108,8 +1213,7 @@ class _BottomSheetState extends State<BottomSheet> {
                         filled: true,
                         border: InputBorder.none,
                         fillColor: Colors.black.withOpacity(0.1),
-                        hintStyle:
-                        TextStyle(fontSize: 15, color: Colors.black),
+                        hintStyle: TextStyle(fontSize: 15, color: Colors.black),
                         hintText: "Enter Comment",
                       ),
                       keyboardType: TextInputType.text,

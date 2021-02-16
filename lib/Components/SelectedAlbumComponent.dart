@@ -78,9 +78,7 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
       isScrollControlled: true,
       builder: (BuildContext context) => BottomSheet(
         widget.albumData,
-        (action) {
-
-        },
+        (action) {},
       ),
     );
   }
@@ -112,12 +110,10 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
 
   sendSelectImage(String isselected) async {
     try {
-      selectedData.add(
-          {
-            'Id':  widget.albumData["Id"].toString(),
-            'IsSelected': isselected.toString(),
-          }
-      );
+      selectedData.add({
+        'Id': widget.albumData["Id"].toString(),
+        'IsSelected': isselected.toString(),
+      });
       //check Internet Connection
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -161,31 +157,27 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
         widget.onChange(
             "Show", widget.index, widget.albumData["Photo"].toString());
       },
-    onLongPress: (){
-    if (widget.albumData["IsSelected"]
-        .toString() ==
-    "true") {
-    sendSelectImage("false");
-    setState(() {
-    widget.albumData["IsSelected"] = "false";
-    });
-    widget.onChange(
-    "Remove",
-    widget.albumData["Id"].toString(),
-    widget.albumData["Photo"].toString());
-    } else {
-    sendSelectImage("true");
-    setState(() {
-    widget.albumData["IsSelected"] = "true";
-    });
-    widget.onChange(
-    "Add",
-    widget.albumData["Id"].toString(),
-    widget.albumData["Photo"].toString());
-    }},
+      onLongPress: () {
+        if (widget.albumData["IsSelected"].toString() == "true") {
+          sendSelectImage("false");
+          setState(() {
+            widget.albumData["IsSelected"] = "false";
+          });
+          widget.onChange("Remove", widget.albumData["Id"].toString(),
+              widget.albumData["Photo"].toString());
+        } else {
+          sendSelectImage("true");
+          setState(() {
+            widget.albumData["IsSelected"] = "true";
+          });
+          widget.onChange("Add", widget.albumData["Id"].toString(),
+              widget.albumData["Photo"].toString());
+        }
+      },
       child: Container(
-        padding: widget.albumData["IsSelected"].toString() ==
-            "true" ? EdgeInsets.all(10):EdgeInsets.all(0),
+        padding: widget.albumData["IsSelected"].toString() == "true"
+            ? EdgeInsets.all(10)
+            : EdgeInsets.all(0),
         child: Card(
           elevation: 3,
           margin: EdgeInsets.all(0),
@@ -210,8 +202,7 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
                               "${cnst.ImgUrl}${widget.albumData["PhotoThumb"]}",
                           fit: BoxFit.cover,
                         )
-                      :
-                  Container(
+                      : Container(
                           color: Colors.blue[100],
                         ),
                 ),
@@ -224,8 +215,7 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            if (widget.albumData["IsSelected"]
-                                .toString() ==
+                            if (widget.albumData["IsSelected"].toString() ==
                                 "true") {
                               sendSelectImage("false");
                               setState(() {
@@ -256,10 +246,13 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
                                     shape: BoxShape.circle,
                                     color: cnst.appPrimaryMaterialColorPink,
                                   ),
-                                  child: Icon(Icons.check, color: Colors.white,size: 19,),
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: 19,
+                                  ),
                                 )
-                              : 
-                          Container(
+                              : Container(
                                   margin: EdgeInsets.all(5),
                                   height: 25,
                                   width: 25,
@@ -282,10 +275,8 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
                               shape: BoxShape.circle,
                               color: cnst.appPrimaryMaterialColorYellow,
                             ),
-                            child: Icon(
-                              Icons.chat_bubble_outline,
-                              size: 15,color:Colors.white
-                            ),
+                            child: Icon(Icons.chat_bubble_outline,
+                                size: 15, color: Colors.white),
                           ),
                         ),
                         /*Platform.isIOS ?

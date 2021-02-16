@@ -5,7 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33cadf45-0d5a-4b40-bfa1-bb07fb21e1a9" name="Default Changelist" comment="completed client issue of login grey screen by anirudh">
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage10Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage11Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage1Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage2Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage3Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage4Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage5Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage6Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage7Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage8Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage9Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/CollageGallaryComponent.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/CollageGallaryScreen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/fade_route_transition.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_core_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_core_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_monitor_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_monitor_1_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_runner_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__androidx_test_runner_1_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1413569179/android.cloud_audio_player.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1413569179/android.cloud_audio_player.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-699814326/android.gallery_saver.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-699814326/android.gallery_saver.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1591291744/android.barcode_scanner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1591291744/android.barcode_scanner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/464662385/com.example.imagegallerysaver.android.image_gallery_saver.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/464662385/com.example.imagegallerysaver.android.image_gallery_saver.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/app/android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/app/android.app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Components/SelectedAlbumComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/SelectedAlbumComponent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/CustomerGalleryScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/CustomerGalleryScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/ImageView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/ImageView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/SelectedList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/SelectedList.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +79,9 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Keval Work\Flutter Projects\pictik_customer_app\lib\Screen" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Keval Work\Flutter Projects\pic_tik_customer_app\lib\Screen" />
     </key>
@@ -152,6 +194,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1263" y="386" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1608784639614" />
+    <state x="515" y="231" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611998320318">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="515" y="231" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1611998320318" />
     <state x="556" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1604741034778">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -169,35 +215,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="790" y="103" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1608785529881" />
-    <state x="1021" y="175" key="FileChooserDialogImpl" timestamp="1610783355721">
+    <state x="1021" y="175" key="FileChooserDialogImpl" timestamp="1612246801380">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="872" y="148" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1610684097245" />
-    <state x="1021" y="175" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1610783355721" />
+    <state x="1021" y="175" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1612246801380" />
     <state x="1225" y="212" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1609829289781" />
-    <state width="1557" height="291" key="GridCell.Tab.0.bottom" timestamp="1610783316896">
+    <state width="1540" height="99" key="GridCell.Tab.0.bottom" timestamp="1612248299124">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610375406299" />
-    <state width="1557" height="291" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1610783316896" />
+    <state width="1540" height="99" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1612248299124" />
     <state width="937" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
-    <state width="1557" height="291" key="GridCell.Tab.0.center" timestamp="1610783316896">
+    <state width="1540" height="99" key="GridCell.Tab.0.center" timestamp="1612248299124">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610375406298" />
-    <state width="1557" height="291" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1610783316896" />
+    <state width="1540" height="99" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1612248299124" />
     <state width="937" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
-    <state width="1557" height="291" key="GridCell.Tab.0.left" timestamp="1610783316896">
+    <state width="1540" height="99" key="GridCell.Tab.0.left" timestamp="1612248299124">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610375406298" />
-    <state width="1557" height="291" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1610783316896" />
+    <state width="1540" height="99" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1612248299124" />
     <state width="937" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
-    <state width="1557" height="291" key="GridCell.Tab.0.right" timestamp="1610783316896">
+    <state width="1540" height="99" key="GridCell.Tab.0.right" timestamp="1612248299124">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610375406298" />
-    <state width="1557" height="291" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1610783316896" />
+    <state width="1540" height="99" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1612248299124" />
     <state width="937" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
     <state x="0" y="168" key="SettingsEditor" timestamp="1608217991040">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -223,10 +269,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="424" y="27" width="944" height="1047" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1605819991568" />
-    <state x="24" y="77" width="879" height="783" key="find.popup" timestamp="1610373216535">
+    <state x="425" y="-19" width="879" height="783" key="find.popup" timestamp="1612247869381">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="24" y="77" width="879" height="783" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610373216535" />
+    <state x="425" y="-19" width="879" height="783" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1612247869381" />
     <state x="29" y="94" width="1054" height="946" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609828870888" />
     <state x="136" y="244" key="run.anything.popup" timestamp="1604651158093">
       <screen x="0" y="0" width="1920" height="1040" />

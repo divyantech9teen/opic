@@ -17,6 +17,18 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Collage screen/Collage10Screen.dart';
+import 'Collage screen/Collage11Screen.dart';
+import 'Collage screen/Collage1Screen.dart';
+import 'Collage screen/Collage2Screen.dart';
+import 'Collage screen/Collage3Screen.dart';
+import 'Collage screen/Collage4Screen.dart';
+import 'Collage screen/Collage5Screen.dart';
+import 'Collage screen/Collage6Screen.dart';
+import 'Collage screen/Collage7Screen.dart';
+import 'Collage screen/Collage8Screen.dart';
+import 'Collage screen/Collage9Screen.dart';
+import 'Collage screen/fade_route_transition.dart';
 import 'ImageView.dart';
 import 'SelectedAlbum.dart';
 
@@ -117,18 +129,18 @@ class _SelectedListState extends State<SelectedList> {
     await Share.files('esys images', imagedata, '*/*', text: '');
   }
 
- /* downloadAll() async {
+  /* downloadAll() async {
     pr.show();
     for (int i = 0; i < selectedPhone.length; i++) {
       String path =
           "${cnst.ImgUrl}${selectedPhone[i]["ImageUrl"].toString().replaceAll(" ", "%20")}";
-      *//*await GallerySaver.saveImage(path).then((bool success) {
+      */ /*await GallerySaver.saveImage(path).then((bool success) {
         print("Success = ${success}");
         Fluttertoast.showToast(
             msg: "Download Complete",
             gravity: ToastGravity.TOP,
             toastLength: Toast.LENGTH_SHORT);
-      });*//*
+      });*/ /*
       Platform.isIOS
           ? await GallerySaver.saveImage(path).then((bool success) {
               print("Success = ${success}");
@@ -153,19 +165,19 @@ class _SelectedListState extends State<SelectedList> {
           "${cnst.ImgUrl}${selectedPhoto[i]["Photo"].toString().replaceAll(" ", "%20")}";
       Platform.isIOS
           ? await GallerySaver.saveImage(path).then((bool success) {
-        print("Success = ${success}");
-        Fluttertoast.showToast(
-            msg: "Download Completed",
-            backgroundColor: cnst.appPrimaryMaterialColorYellow,
-            textColor: Colors.white,
-            gravity: ToastGravity.BOTTOM,
-            toastLength: Toast.LENGTH_SHORT);
-        /*Fluttertoast.showToast(
+              print("Success = ${success}");
+              Fluttertoast.showToast(
+                  msg: "Download Completed",
+                  backgroundColor: cnst.appPrimaryMaterialColorYellow,
+                  textColor: Colors.white,
+                  gravity: ToastGravity.BOTTOM,
+                  toastLength: Toast.LENGTH_SHORT);
+              /*Fluttertoast.showToast(
                   backgroundColor: cnst.appPrimaryMaterialColorYellow,
                   msg: "Download Complete",
                   gravity: ToastGravity.TOP,
                   toastLength: Toast.LENGTH_SHORT);*/
-      })
+            })
           : await downloadAndroid(path);
     }
     setState(() {
@@ -260,7 +272,7 @@ class _SelectedListState extends State<SelectedList> {
     );
   }
 
- /* setNewArrayList(String Id, String isSelected) {
+  /* setNewArrayList(String Id, String isSelected) {
     bool ischeck = false;
     if (selectedData.length > 0) {
       for (int i = 0; i < selectedData.length; i++) {
@@ -566,6 +578,31 @@ class _SelectedListState extends State<SelectedList> {
                     color: Colors.white))),
         centerTitle: true,
       ),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          _settingModalBottomSheet();
+        },
+        child: Container(
+          height: 60,
+          // color: cnst.appPrimaryMaterialColor,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: <Color>[
+                cnst.appPrimaryMaterialColorYellow,
+                cnst.appPrimaryMaterialColorPink
+              ],
+            ),
+          ),
+          child: Center(
+              child: Text(
+            "Collage Photos",
+            style: TextStyle(
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),
+          )),
+        ),
+      ),
       body: WillPopScope(
         onWillPop: () {
           Navigator.pushReplacement(
@@ -763,63 +800,75 @@ class _SelectedListState extends State<SelectedList> {
                           itemCount: albumData.length,
                           itemBuilder: (BuildContext context, int index) {
                             return SelectedAlbumComponent(
-                                albumData[index], index, (action, Id,ImageUrl) {
+                                albumData[index], index,
+                                (action, Id, ImageUrl) {
                               if (action.toString() == "Show") {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ImageView(
-                                            albumData: albumData,
-                                            albumIndex: index,
-                                            onChange:(action, Id, ImageUrl) {
-                                              if (action.toString() == "Remove") {
-                                                pr1 = new ProgressDialog(context,
-                                                    type: ProgressDialogType.Normal);
-                                                pr1.style(
-                                                    message: "Please Wait",
-                                                    borderRadius: 10.0,
-                                                    progressWidget: Container(
-                                                      padding: EdgeInsets.all(15),
-                                                      child: CircularProgressIndicator(),
-                                                    ),
-                                                    elevation: 10.0,
-                                                    insetAnimCurve: Curves.easeInOut,
-                                                    messageTextStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 17.0,
-                                                        fontWeight: FontWeight.w600));
-                                                int count = int.parse(selectedCount);
-                                                count = count - 1;
-                                                setState(() {
-                                                  selectedCount = count.toString();
-                                                });
-                                                setNewArrayList(Id, "false", ImageUrl);
-                                              } else {
-                                                pr1 = new ProgressDialog(context,
-                                                    type: ProgressDialogType.Normal);
-                                                pr1.style(
-                                                    message: "Please Wait",
-                                                    borderRadius: 10.0,
-                                                    progressWidget: Container(
-                                                      padding: EdgeInsets.all(15),
-                                                      child: CircularProgressIndicator(),
-                                                    ),
-                                                    elevation: 10.0,
-                                                    insetAnimCurve: Curves.easeInOut,
-                                                    messageTextStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 17.0,
-                                                        fontWeight: FontWeight.w600));
-                                                int count = int.parse(selectedCount);
-                                                count = count + 1;
-                                                setState(() {
-                                                  selectedCount = count.toString();
-                                                });
-                                                setNewArrayList(Id, "true", ImageUrl);
-                                              }
-                                            }
-                                        ),
-                                    ),
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ImageView(
+                                        albumData: albumData,
+                                        albumIndex: index,
+                                        onChange: (action, Id, ImageUrl) {
+                                          if (action.toString() == "Remove") {
+                                            pr1 = new ProgressDialog(context,
+                                                type:
+                                                    ProgressDialogType.Normal);
+                                            pr1.style(
+                                                message: "Please Wait",
+                                                borderRadius: 10.0,
+                                                progressWidget: Container(
+                                                  padding: EdgeInsets.all(15),
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                ),
+                                                elevation: 10.0,
+                                                insetAnimCurve:
+                                                    Curves.easeInOut,
+                                                messageTextStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 17.0,
+                                                    fontWeight:
+                                                        FontWeight.w600));
+                                            int count =
+                                                int.parse(selectedCount);
+                                            count = count - 1;
+                                            setState(() {
+                                              selectedCount = count.toString();
+                                            });
+                                            setNewArrayList(
+                                                Id, "false", ImageUrl);
+                                          } else {
+                                            pr1 = new ProgressDialog(context,
+                                                type:
+                                                    ProgressDialogType.Normal);
+                                            pr1.style(
+                                                message: "Please Wait",
+                                                borderRadius: 10.0,
+                                                progressWidget: Container(
+                                                  padding: EdgeInsets.all(15),
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                ),
+                                                elevation: 10.0,
+                                                insetAnimCurve:
+                                                    Curves.easeInOut,
+                                                messageTextStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 17.0,
+                                                    fontWeight:
+                                                        FontWeight.w600));
+                                            int count =
+                                                int.parse(selectedCount);
+                                            count = count + 1;
+                                            setState(() {
+                                              selectedCount = count.toString();
+                                            });
+                                            setNewArrayList(
+                                                Id, "true", ImageUrl);
+                                          }
+                                        }),
+                                  ),
                                 );
                               } else if (action.toString() == "Remove") {
                                 int count = int.parse(selectedCount);
@@ -827,7 +876,7 @@ class _SelectedListState extends State<SelectedList> {
                                 setState(() {
                                   selectedCount = count.toString();
                                 });
-                                setNewArrayList(Id, "false",ImageUrl);
+                                setNewArrayList(Id, "false", ImageUrl);
                               } else {
                                 int count = int.parse(selectedCount);
                                 count = count + 1;
@@ -850,5 +899,1341 @@ class _SelectedListState extends State<SelectedList> {
         ),
       ),
     );
+  }
+
+  void _settingModalBottomSheet() {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        backgroundColor: Colors.white,
+        context: context,
+        builder: (builder) {
+          return new Container(
+              //height: 190.0,
+              color: Colors.transparent,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        "Collage Images",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600
+                            //fontWeight: FontWeight.bold
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10.0, left: 15, right: 15, bottom: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    //  page: CollageSample(CollageType.VSplit)),
+                                    page: Collage1Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 70,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 10,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 3.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        height: 70,
+                                        width: 40,
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 10,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigator.pushNamed(context, '/CollageScreen');
+                                Navigator.of(context).push(
+                                  FadeRouteTransition(
+                                      page: Collage2Screen(
+                                    albumId: widget.albumId,
+                                    albumName: widget.albumName,
+                                    totalImg: widget.totalImg,
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 33,
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 10,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 3.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          height: 33,
+                                          width: 75,
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 10,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    page: Collage3Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 33,
+                                          width: 35,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 10,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3.0),
+                                          child: Container(
+                                            height: 33,
+                                            width: 35,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 33,
+                                            width: 35,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 33,
+                                              width: 35,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    page: Collage4Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: 23,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 10,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3.0),
+                                          child: Container(
+                                            height: 20,
+                                            width: 23,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3.0),
+                                          child: Container(
+                                            height: 20,
+                                            width: 23,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 20,
+                                            width: 23,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 20,
+                                              width: 23,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 20,
+                                              width: 23,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 20,
+                                            width: 23,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 20,
+                                              width: 23,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 20,
+                                              width: 23,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigator.pushNamed(context, '/CollageScreen');
+                                Navigator.of(context).push(
+                                  FadeRouteTransition(
+                                      page: Collage5Screen(
+                                    albumId: widget.albumId,
+                                    albumName: widget.albumName,
+                                    totalImg: widget.totalImg,
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 10,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 3.0),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 33,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 3.0),
+                                              child: Container(
+                                                height: 33,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    page: Collage6Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 33,
+                                      width: 75,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 10,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 33,
+                                            width: 35,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 33,
+                                              width: 35,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    page: Collage7Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 45,
+                                          width: 48,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 10,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 3.0),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 3.0),
+                                                child: Container(
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[300],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    size: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigator.pushNamed(context, '/CollageScreen');
+                                Navigator.of(context).push(
+                                  FadeRouteTransition(
+                                      page: Collage8Screen(
+                                    albumId: widget.albumId,
+                                    albumName: widget.albumName,
+                                    totalImg: widget.totalImg,
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 3.0),
+                                                child: Container(
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[300],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    size: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: Container(
+                                              height: 45,
+                                              width: 48,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 3.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 20,
+                                              width: 21,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 3.0),
+                                              child: Container(
+                                                height: 20,
+                                                width: 21,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 3.0),
+                                              child: Container(
+                                                height: 20,
+                                                width: 21,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    page: Collage9Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 70,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 10,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 3.0),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 22,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Container(
+                                              height: 22,
+                                              width: 30,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 3.0),
+                                            child: Container(
+                                              height: 22,
+                                              width: 30,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, '/CollageScreen');
+                              Navigator.of(context).push(
+                                FadeRouteTransition(
+                                    page: Collage10Screen(
+                                  albumId: widget.albumId,
+                                  albumName: widget.albumName,
+                                  totalImg: widget.totalImg,
+                                )),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                //color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          height: 24,
+                                          width: 33,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 10,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 1.0),
+                                          child: Container(
+                                            height: 24,
+                                            width: 33,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 1.0),
+                                          child: Container(
+                                            height: 24,
+                                            width: 33,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 3.0),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 18,
+                                            width: 40,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1.0),
+                                            child: Container(
+                                              height: 18,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1.0),
+                                            child: Container(
+                                              height: 18,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1.0),
+                                            child: Container(
+                                              height: 18,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigator.pushNamed(context, '/CollageScreen');
+                                Navigator.of(context).push(
+                                  FadeRouteTransition(
+                                      page: Collage11Screen(
+                                    albumId: widget.albumId,
+                                    albumName: widget.albumName,
+                                    totalImg: widget.totalImg,
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Container(
+                                            height: 24,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 10,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1.0),
+                                            child: Container(
+                                              height: 24,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1.0),
+                                            child: Container(
+                                              height: 24,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 3.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          height: 73,
+                                          width: 30,
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 10,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 3.0),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 24,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[300],
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 10,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 1.0),
+                                              child: Container(
+                                                height: 24,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 1.0),
+                                              child: Container(
+                                                height: 24,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[300],
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 10,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ));
+        });
   }
 }

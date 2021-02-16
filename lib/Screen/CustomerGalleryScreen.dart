@@ -530,7 +530,7 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                                             )
                                             //     :
                                             // FadeInImage.assetNetwork(
-                                            //   placeholder: 'images/logo.png',
+                                            //   placeholder: 'images/logo.png',,
                                             //   //image:"${i[_current]["${cnst.ImgUrl}"]["Image"]}",
                                             //   image: "${cnst.ImgUrl}${i["Image"]}",
                                             //   fit: BoxFit.cover,
