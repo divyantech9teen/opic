@@ -77,6 +77,7 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
         margin: EdgeInsets.all(0),
         elevation: 5,
         child: Stack(
+          alignment: Alignment.bottomCenter,
           children: <Widget>[
             Container(
               //height: 190,
@@ -107,10 +108,10 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color.fromRGBO(0, 0, 0, 0.7),
-                      Color.fromRGBO(0, 0, 0, 0.7),
-                      Color.fromRGBO(0, 0, 0, 0.7),
-                      Color.fromRGBO(0, 0, 0, 0.7)
+                      Color.fromRGBO(0, 0, 0, 0.4),
+                      Color.fromRGBO(0, 0, 0, 0.4),
+                      Color.fromRGBO(0, 0, 0, 0.4),
+                      Color.fromRGBO(0, 0, 0, 0.4)
                     ],
                   ),
                   //borderRadius: new BorderRadius.all(Radius.circular(6)),

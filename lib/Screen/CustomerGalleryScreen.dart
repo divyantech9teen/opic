@@ -407,7 +407,7 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, '/MyCustomer');
+                    Navigator.pushNamed(context, '/MyCustomer');
                   }),
               SpeedDialChild(
                   child: Icon(Icons.brush),
@@ -463,267 +463,258 @@ class _CustomerGalleryState extends State<CustomerGallery> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(right: 15.0, left: 15, top: 15),
-                      child: Column(
-                        children: [
-                          PhotographerList.length > 0 &&
-                                  PortfolioData.length > 0
-                              ? CarouselSlider(
-                                  height: 180,
-                                  viewportFraction: 0.9,
-                                  autoPlayAnimationDuration:
-                                      Duration(milliseconds: 1500),
-                                  reverse: false,
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  autoPlay: true,
-                                  onPageChanged: (index) {
-                                    _current = index;
-                                  },
-                                  items: bothdata.map((i) {
-                                    print(i);
-                                    return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.30,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          print(i["isOffers"]);
-                                          Navigator.push(
-                                            context,
-                                            (i["isOffers"]) == "true"
-                                                ? MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        OfferDetailScreen(
-                                                      PhotographerListData: i,
-                                                      current: 0,
-                                                    ),
-                                                  )
-                                                : MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PortfolioImages(
-                                                      i["Id"].toString(),
-                                                      i["Title"].toString(),
-                                                    ),
+                    Column(
+                      children: [
+                        PhotographerList.length > 0 && PortfolioData.length > 0
+                            ? CarouselSlider(
+                                height: 200,
+                                viewportFraction: 1.0,
+                                autoPlayAnimationDuration:
+                                    Duration(milliseconds: 1500),
+                                reverse: false,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                autoPlay: true,
+                                onPageChanged: (index) {
+                                  _current = index;
+                                },
+                                items: bothdata.map((i) {
+                                  print(i);
+                                  return Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.30,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print(i["isOffers"]);
+                                        Navigator.push(
+                                          context,
+                                          (i["isOffers"]) == "true"
+                                              ? MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OfferDetailScreen(
+                                                    PhotographerListData: i,
+                                                    current: 0,
                                                   ),
-                                          );
-                                        },
-                                        child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            //color: Colors.blueAccent,
-                                            child: Image.network(
-                                              i["Image"],
-                                              fit: BoxFit.fill,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.78,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.25,
-                                            )
-                                            //     :
-                                            // FadeInImage.assetNetwork(
-                                            //   placeholder: 'images/logo.png',,
-                                            //   //image:"${i[_current]["${cnst.ImgUrl}"]["Image"]}",
-                                            //   image: "${cnst.ImgUrl}${i["Image"]}",
-                                            //   fit: BoxFit.cover,
-                                            // ),
-                                            ),
-                                      ),
-                                    );
-                                  }).toList(),
-                                )
-                              : PhotographerList.length > 0 &&
-                                      PortfolioData.length == 0
-                                  ? CarouselSlider(
-                                      height: 180,
-                                      viewportFraction: 0.9,
-                                      autoPlayAnimationDuration:
-                                          Duration(milliseconds: 1500),
-                                      reverse: false,
-                                      autoPlayCurve: Curves.fastOutSlowIn,
-                                      autoPlay: true,
-                                      onPageChanged: (index) {
-                                        _current = index;
+                                                )
+                                              : MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PortfolioImages(
+                                                    i["Id"].toString(),
+                                                    i["Title"].toString(),
+                                                  ),
+                                                ),
+                                        );
                                       },
-                                      items: bothdata1.map((i) {
-                                        return Builder(
-                                            builder: (BuildContext context) {
-                                          return Container(
+                                      child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          //color: Colors.blueAccent,
+                                          child: Image.network(
+                                            i["Image"],
+                                            fit: BoxFit.fill,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.78,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.30,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            OfferDetailScreen(
-                                                                PhotographerListData:
-                                                                    i,
-                                                                current: 0)));
-                                              },
-                                              child: Card(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                //color: Colors.blueAccent,
-                                                child: Image.network(
-                                                  i["Image"],
-                                                  fit: BoxFit.fill,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.78,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.25,
-                                                ),
+                                                0.25,
+                                          )
+                                          //     :
+                                          // FadeInImage.assetNetwork(
+                                          //   placeholder: 'images/logo.png',,
+                                          //   //image:"${i[_current]["${cnst.ImgUrl}"]["Image"]}",
+                                          //   image: "${cnst.ImgUrl}${i["Image"]}",
+                                          //   fit: BoxFit.cover,
+                                          // ),
+                                          ),
+                                    ),
+                                  );
+                                }).toList(),
+                              )
+                            : PhotographerList.length > 0 &&
+                                    PortfolioData.length == 0
+                                ? CarouselSlider(
+                                    height: 180,
+                                    viewportFraction: 0.9,
+                                    autoPlayAnimationDuration:
+                                        Duration(milliseconds: 1500),
+                                    reverse: false,
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    autoPlay: true,
+                                    onPageChanged: (index) {
+                                      _current = index;
+                                    },
+                                    items: bothdata1.map((i) {
+                                      return Builder(
+                                          builder: (BuildContext context) {
+                                        return Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.30,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          OfferDetailScreen(
+                                                              PhotographerListData:
+                                                                  i,
+                                                              current: 0)));
+                                            },
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
                                               ),
-                                            ),
-                                          );
-                                        });
-                                      }).toList(),
-                                    )
-                                  : PhotographerList.length == 0 &&
-                                          PortfolioData.length > 0
-                                      ? CarouselSlider(
-                                          height: 180,
-                                          viewportFraction: 0.9,
-                                          autoPlayAnimationDuration:
-                                              Duration(milliseconds: 1500),
-                                          reverse: false,
-                                          autoPlayCurve: Curves.fastOutSlowIn,
-                                          autoPlay: true,
-                                          onPageChanged: (index) {
-                                            _current = index;
-                                          },
-                                          items: bothdata2.map((i) {
-                                            return Builder(builder:
-                                                (BuildContext context) {
-                                              return Container(
+                                              //color: Colors.blueAccent,
+                                              child: Image.network(
+                                                i["Image"],
+                                                fit: BoxFit.fill,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.78,
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.30,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PortfolioImages(
-                                                                    i["Id"]
-                                                                        .toString(),
-                                                                    i["Title"]
-                                                                        .toString())));
-                                                  },
-                                                  child: Card(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    //color: Colors.blueAccent,
-                                                    child: FadeInImage
-                                                        .assetNetwork(
-                                                      placeholder:
-                                                          'images/logo.png',
-                                                      image: "${i["Image"]}",
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                    // Image.network(
-                                                    //   "${i}",
-                                                    //   fit: BoxFit.fill,
-                                                    //   width: MediaQuery.of(context).size.width*0.78,
-                                                    //   height: MediaQuery.of(context).size.height*0.25,
-                                                    // ),
-                                                  ),
-                                                ),
-                                              );
-                                            });
-                                          }).toList(),
-                                        )
-                                      : Container(
-                                          height: 150,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.9,
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
+                                                    0.25,
+                                              ),
                                             ),
-                                            //color: Colors.blueAccent,
-                                            child: Center(
-                                              child: Text(
-                                                "No Data Found",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20,
+                                          ),
+                                        );
+                                      });
+                                    }).toList(),
+                                  )
+                                : PhotographerList.length == 0 &&
+                                        PortfolioData.length > 0
+                                    ? CarouselSlider(
+                                        height: 180,
+                                        viewportFraction: 0.9,
+                                        autoPlayAnimationDuration:
+                                            Duration(milliseconds: 1500),
+                                        reverse: false,
+                                        autoPlayCurve: Curves.fastOutSlowIn,
+                                        autoPlay: true,
+                                        onPageChanged: (index) {
+                                          _current = index;
+                                        },
+                                        items: bothdata2.map((i) {
+                                          return Builder(
+                                              builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.30,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PortfolioImages(
+                                                                  i["Id"]
+                                                                      .toString(),
+                                                                  i["Title"]
+                                                                      .toString())));
+                                                },
+                                                child: Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  //color: Colors.blueAccent,
+                                                  child:
+                                                      FadeInImage.assetNetwork(
+                                                    placeholder:
+                                                        'images/logo.png',
+                                                    image: "${i["Image"]}",
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  // Image.network(
+                                                  //   "${i}",
+                                                  //   fit: BoxFit.fill,
+                                                  //   width: MediaQuery.of(context).size.width*0.78,
+                                                  //   height: MediaQuery.of(context).size.height*0.25,
+                                                  // ),
                                                 ),
+                                              ),
+                                            );
+                                          });
+                                        }).toList(),
+                                      )
+                                    : Container(
+                                        height: 150,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          //color: Colors.blueAccent,
+                                          child: Center(
+                                            child: Text(
+                                              "No Data Found",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
                                               ),
                                             ),
                                           ),
                                         ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    height: 1,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    height: 1,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    height: 1,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                ],
-                              ),
+                                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     WillPopScope(
                       onWillPop: onWillPop,

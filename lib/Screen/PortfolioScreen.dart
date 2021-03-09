@@ -24,9 +24,14 @@ class PortfolioScreen extends StatefulWidget {
 }
 
 class _PortfolioScreenState extends State<PortfolioScreen> {
-
-  String studioid="";
+  String studioid = "";
   String studiomobile;
+
+  @override
+  void initState() {
+    _StudioDigitalCardId();
+  }
+
   showMsg(String msg) {
     showDialog(
       context: context,
@@ -64,7 +69,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
           setState(() {
             studioid = data;
           });
-          if (data != "0" ) {
+          if (data != "0") {
             SharedPreferences prefs = await SharedPreferences.getInstance();
           } else {
             showMsg(data.Message);
@@ -81,31 +86,32 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.index==null ? AppBar(
-        centerTitle: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: <Color>[
-                cnst.appPrimaryMaterialColorYellow,
-                cnst.appPrimaryMaterialColorPink
-              ],
-            ),
-          ),
-        ),
-        title: Text("Portfolio",
-            style: GoogleFonts.aBeeZee(
-                textStyle: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white))),
-      ):null,
+      appBar: widget.index == null
+          ? AppBar(
+              centerTitle: true,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: <Color>[
+                      cnst.appPrimaryMaterialColorYellow,
+                      cnst.appPrimaryMaterialColorPink
+                    ],
+                  ),
+                ),
+              ),
+              title: Text("Portfolio",
+                  style: GoogleFonts.aBeeZee(
+                      textStyle: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white))),
+            )
+          : null,
       body: Stack(
         children: <Widget>[
           Container(
@@ -127,54 +133,53 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 return snapshot.connectionState == ConnectionState.done
                     ? snapshot.data != null && snapshot.data.length > 0
-                    ? StaggeredGridView.countBuilder(
-                  padding:
-                  const EdgeInsets.only(left: 3, right: 3, top: 5),
-                  itemCount: snapshot.data.length,
-                  //shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  crossAxisCount: 4,
-                  addRepaintBoundaries: false,
-                  staggeredTileBuilder: (_) => StaggeredTile.fit(2),
-                  mainAxisSpacing: 2,
-                  crossAxisSpacing: 2,
-                  itemBuilder: (BuildContext context, int index) {
-                    return PortfolioComponents(snapshot.data[index]);
-                  },
-                )
-                    : NoDataComponent()
+                        ? StaggeredGridView.countBuilder(
+                            padding: const EdgeInsets.only(
+                                left: 3, right: 3, top: 5),
+                            itemCount: snapshot.data.length,
+                            //shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            crossAxisCount: 4,
+                            addRepaintBoundaries: false,
+                            staggeredTileBuilder: (_) => StaggeredTile.fit(2),
+                            mainAxisSpacing: 2,
+                            crossAxisSpacing: 2,
+                            itemBuilder: (BuildContext context, int index) {
+                              return PortfolioComponents(snapshot.data[index]);
+                            },
+                          )
+                        : NoDataComponent()
                     : LoadinComponent();
               },
             ),
           ),
-
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom:15.0,right: 15 ),
+                padding: const EdgeInsets.only(bottom: 15.0, right: 15),
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: FloatingActionButton(
                     onPressed: () async {
-                      _StudioDigitalCardId();
-                      String profileUrl = cnst.profileUrl
-                          .replaceAll("#id",studioid);
+                      // _StudioDigitalCardId();
+                      String profileUrl =
+                          cnst.profileUrl.replaceAll("#id", studioid);
                       if (await canLaunch(profileUrl)) {
                         await launch(profileUrl);
                       } else {
                         throw 'Could not launch $profileUrl';
                       }
                     },
-                    child: Icon(Icons.preview,
-                    size: 35,
+                    child: Icon(
+                      Icons.preview,
+                      size: 35,
                     ),
                   ),
                 ),
               ),
             ],
-
           ),
         ],
       ),

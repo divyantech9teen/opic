@@ -9,7 +9,8 @@ class GuestPortfolioComponents extends StatefulWidget {
 
   GuestPortfolioComponents(this.GalleryData);
   @override
-  _GuestPortfolioComponentsState createState() => _GuestPortfolioComponentsState();
+  _GuestPortfolioComponentsState createState() =>
+      _GuestPortfolioComponentsState();
 }
 
 class _GuestPortfolioComponentsState extends State<GuestPortfolioComponents> {
@@ -37,18 +38,18 @@ class _GuestPortfolioComponentsState extends State<GuestPortfolioComponents> {
                 borderRadius: new BorderRadius.circular(6.0),
                 child: widget.GalleryData["Image"] != null
                     ? FadeInImage.assetNetwork(
-                  placeholder: 'images/No_photo.png',
-                  image: "${cnst.ImgUrl}${widget.GalleryData["Image"]}",
-                  fit: BoxFit.cover,
-                )
-                /*Image(
+                        placeholder: 'images/No_photo.png',
+                        image: "${cnst.ImgUrl}${widget.GalleryData["Image"]}",
+                        fit: BoxFit.cover,
+                      )
+                    /*Image(
                         image: NetworkToFileImage(
                             url: "${cnst.ImgUrl}${widget.GalleryData["Image"]}",
                             debug: true,
                             file: compressedFile))*/
                     : Container(
-                  color: Colors.grey[100],
-                ),
+                        color: Colors.grey[100],
+                      ),
               ),
             ),
             Container(

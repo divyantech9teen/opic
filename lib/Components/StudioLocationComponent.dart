@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:pictiknew/Components/StudioNameOnTap.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,7 +20,6 @@ class StudioLocationComponent extends StatefulWidget {
 }
 
 class _StudioLocationComponentState extends State<StudioLocationComponent> {
-
   List NewList = [];
   ProgressDialog pr;
   bool isLoading = true;
@@ -34,8 +34,8 @@ class _StudioLocationComponentState extends State<StudioLocationComponent> {
         progressWidget: Container(
           padding: EdgeInsets.all(15),
           child: CircularProgressIndicator(
-            //backgroundColor: cnst.appPrimaryMaterialColor,
-          ),
+              //backgroundColor: cnst.appPrimaryMaterialColor,
+              ),
         ),
         elevation: 10.0,
         insetAnimCurve: Curves.easeInOut,
@@ -48,8 +48,7 @@ class _StudioLocationComponentState extends State<StudioLocationComponent> {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         SharedPreferences preferences = await SharedPreferences.getInstance();
-        String CustomerId =
-        await preferences.getString(cnst.Session.StudioId);
+        String CustomerId = await preferences.getString(cnst.Session.StudioId);
         print("yyy=> " + preferences.getString(cnst.Session.StudioId));
         Future res = Services.GetAddressBranch(CustomerId);
         setState(() {
@@ -119,17 +118,16 @@ class _StudioLocationComponentState extends State<StudioLocationComponent> {
     }
   }
 
-  Widget detailsofstudio(){
-    int current=0;
-      // return SingleChildScrollView(
-      //     child:
-      //     StudioNameOnTap(NewList[current]),
-      // );
+  Widget detailsofstudio() {
+    int current = 0;
+    // return SingleChildScrollView(
+    //     child:
+    //     StudioNameOnTap(NewList[current]),
+    // );
     return ListView.builder(
         itemCount: NewList.length,
         itemBuilder: (BuildContext context, int index) {
-          return
-              StudioNameOnTap(NewList[index]);
+          return StudioNameOnTap(NewList[index]);
         });
   }
 
@@ -147,25 +145,38 @@ class _StudioLocationComponentState extends State<StudioLocationComponent> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: GestureDetector(
-        // onTap: (){
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => detailsofstudio(),
-        //     ),
-        //   );
-        // },
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // builder: (context) => detailsofstudio(),
+              builder: (context) => StudioNameOnTap(widget.NewList),
+            ),
+          );
+        },
         child: Card(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          elevation: 5,
+              borderRadius: BorderRadius.all(Radius.circular(3.0))),
+          elevation: 1,
           child: Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            padding: EdgeInsets.symmetric(
-                horizontal: 10.0, vertical: 10.0),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              // gradient: LinearGradient(
+              //   begin: Alignment.centerLeft,
+              //   end: Alignment.centerRight,
+              //   colors: <Color>[
+              //     cnst.appPrimaryMaterialColorYellow[500],
+              //     cnst.appPrimaryMaterialColorPink[500]
+              //   ],
+              // ),
+              color: Colors.grey[100],
+              // border: Border.all(
+              //   color: Colors.black,
+              //   width: 1,
+              // ),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -173,110 +184,140 @@ class _StudioLocationComponentState extends State<StudioLocationComponent> {
                   children: <Widget>[
                     Expanded(
                       flex: 7,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text("${widget.NewList["MainStudioName"]}",
-                          style: TextStyle(
-                            fontSize: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                "${widget.NewList["MainStudioName"]}",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                            ),
                           ),
-                          ),
-                        ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 6.0),
+                                child: IconButton(
+                                    icon: Icon(Icons.gps_fixed,
+                                        color: Colors.blueAccent),
+                                    onPressed: () {
+                                      launch(
+                                          "https://www.google.com/maps/search/?api=1&query=${widget.NewList["LatLong"]}");
+                                      //  launch(widget.NewList["LatLong"]);
+                                    }),
+                              ),
+                              IconButton(
+                                  icon: Icon(Icons.call, color: Colors.green),
+                                  onPressed: () {
+                                    launch(
+                                        "tel:" + '${widget.NewList["Mobile"]}');
+                                  }),
+                              IconButton(
+                                  icon: Icon(Icons.mail, color: Colors.red),
+                                  onPressed: () {
+                                    launch(
+                                        'mailto:${widget.NewList["Email"]}?subject=Sample Subject&body=This is a Sample email');
+                                  }),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ],
                 ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left :6.0),
-                              child: IconButton(
-                                  icon: Icon(Icons.call, color: Colors.green),
-                                  onPressed: () {
-                                    launch("tel:" + '${widget.NewList["Mobile"]}');
-                                  }),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left : 16.0),
-                              child: Text(
-                                "Call",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.deepOrange,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left :6.0),
-                              child: IconButton(
-                                  icon: Icon(Icons.mail, color: Colors.green),
-                                  onPressed: () {
-                                      launch('mailto:${widget.NewList["Email"]}?subject=Sample Subject&body=This is a Sample email');
-                                  }
-                                    ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left : 16.0),
-                              child: Text(
-                                "Email",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.deepOrange,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        // Column(
-                        //   children: [
-                        //     Padding(
-                        //       padding: const EdgeInsets.only(left :6.0,top: 13),
-                        //       child: GestureDetector(
-                        //         onTap: (){
-                        //           launch('https://www.google.com/maps/dir/api=1');
-                        //         },
-                        //         child: Image.asset(
-                        //           "images/google-maps.png",
-                        //           height: 27,
-                        //           width: 27,
-                        //         fit: BoxFit.cover,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     SizedBox(
-                        //       height: 10,
-                        //     ),
-                        //     Padding(
-                        //       padding: const EdgeInsets.only(left : 16.0),
-                        //       child: Text(
-                        //         "Maps",
-                        //         style: TextStyle(
-                        //           fontWeight: FontWeight.bold,
-                        //           fontSize: 20,
-                        //           color: Colors.deepOrange,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                      ],
-                    ),
-
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     Column(
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 6.0),
+                //           child: IconButton(
+                //               icon: Icon(Icons.call, color: Colors.green),
+                //               onPressed: () {
+                //                 launch("tel:" + '${widget.NewList["Mobile"]}');
+                //               }),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 16.0),
+                //           child: Text(
+                //             "Call",
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 20,
+                //               color: Colors.deepOrange,
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //     Column(
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 6.0),
+                //           child: IconButton(
+                //               icon: Icon(Icons.mail, color: Colors.green),
+                //               onPressed: () {
+                //                 launch(
+                //                     'mailto:${widget.NewList["Email"]}?subject=Sample Subject&body=This is a Sample email');
+                //               }),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 16.0),
+                //           child: Text(
+                //             "Email",
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 20,
+                //               color: Colors.deepOrange,
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //     // Column(
+                //     //   children: [
+                //     //     Padding(
+                //     //       padding: const EdgeInsets.only(left :6.0,top: 13),
+                //     //       child: GestureDetector(
+                //     //         onTap: (){
+                //     //           launch('https://www.google.com/maps/dir/api=1');
+                //     //         },
+                //     //         child: Image.asset(
+                //     //           "images/google-maps.png",
+                //     //           height: 27,
+                //     //           width: 27,
+                //     //         fit: BoxFit.cover,
+                //     //         ),
+                //     //       ),
+                //     //     ),
+                //     //     SizedBox(
+                //     //       height: 10,
+                //     //     ),
+                //     //     Padding(
+                //     //       padding: const EdgeInsets.only(left : 16.0),
+                //     //       child: Text(
+                //     //         "Maps",
+                //     //         style: TextStyle(
+                //     //           fontWeight: FontWeight.bold,
+                //     //           fontSize: 20,
+                //     //           color: Colors.deepOrange,
+                //     //         ),
+                //     //       ),
+                //     //     ),
+                //     //   ],
+                //     // ),
+                //   ],
+                // ),
               ],
             ),
           ),
         ),
       ),
     );
-
   }
 }

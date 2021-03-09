@@ -14,8 +14,8 @@ class Offers extends StatefulWidget {
 }
 
 class _OffersState extends State<Offers> {
-  String dropdownValue,photographerId="";
-  List PhotographerList=[];
+  String dropdownValue, photographerId = "";
+  List PhotographerList = [];
 
   showMsg(String msg) {
     showDialog(
@@ -68,7 +68,6 @@ class _OffersState extends State<Offers> {
             //showMsg("Try Again.");
           }
         }, onError: (e) {
-
           print("Error : on Login Call $e");
           //showMsg("$e");
         });
@@ -83,150 +82,155 @@ class _OffersState extends State<Offers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: <Color>[
-                  cnst.appPrimaryMaterialColorYellow,
-                  cnst.appPrimaryMaterialColorPink
-                ],
-              ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: <Color>[
+                cnst.appPrimaryMaterialColorYellow,
+                cnst.appPrimaryMaterialColorPink
+              ],
             ),
           ),
-          automaticallyImplyLeading: false,
-          title: Text(
-            "Offers",
-            style: GoogleFonts.aBeeZee(
-              textStyle: TextStyle(
-                  fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
-            ),
-          ),
-          actions: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.only(right:8.0),
-            //   child: GestureDetector(
-            //     onTap: (){
-            //       setState(() {
-            //         EditName.text = name;
-            //         EditMobile.text = mobile;
-            //         EditEmail.text = email;
-            //         editpressed = true;
-            //       });
-            //     },
-            //       child: !editpressed ||updatepressed? Icon(
-            //           Icons.edit,
-            //       ) : GestureDetector(
-            //         onTap: (){
-            //           setState(() {
-            //             name  =EditName.text;
-            //             mobile = EditMobile.text;
-            //             email = EditEmail.text;
-            //           });
-            //           _updateProfile();
-            //           setState(() {
-            //             updatepressed = true;
-            //           });
-            //         },
-            //         child: Icon(
-            //           Icons.update,
-            //         ),
-            //       ),
-            //   ),
-            // ),
-          ],
         ),
-        body:
-        Padding(
-          padding: const EdgeInsets.only(right: 15.0, left: 15, top: 15),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    // scrollDirection: Axis.horizontal,
-                    itemCount: PhotographerList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => OfferDetailScreen(PhotographerList:PhotographerList,index:index)));
-                              },
-                              child: Container(
-                                height: 179,
-                                width: MediaQuery.of(context).size.width,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                      "${PhotographerList[index]["Image"]}",
-                                    fit: BoxFit.fill,
-                                  ),
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Offers",
+          style: GoogleFonts.aBeeZee(
+            textStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
+        ),
+        actions: <Widget>[
+          // Padding(
+          //   padding: const EdgeInsets.only(right:8.0),
+          //   child: GestureDetector(
+          //     onTap: (){
+          //       setState(() {
+          //         EditName.text = name;
+          //         EditMobile.text = mobile;
+          //         EditEmail.text = email;
+          //         editpressed = true;
+          //       });
+          //     },
+          //       child: !editpressed ||updatepressed? Icon(
+          //           Icons.edit,
+          //       ) : GestureDetector(
+          //         onTap: (){
+          //           setState(() {
+          //             name  =EditName.text;
+          //             mobile = EditMobile.text;
+          //             email = EditEmail.text;
+          //           });
+          //           _updateProfile();
+          //           setState(() {
+          //             updatepressed = true;
+          //           });
+          //         },
+          //         child: Icon(
+          //           Icons.update,
+          //         ),
+          //       ),
+          //   ),
+          // ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(right: 15.0, left: 15, top: 15),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  // scrollDirection: Axis.horizontal,
+                  itemCount: PhotographerList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OfferDetailScreen(
+                                          PhotographerList: PhotographerList,
+                                          index: index)));
+                            },
+                            child: Container(
+                              height: 179,
+                              width: MediaQuery.of(context).size.width,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  "${PhotographerList[index]["Image"]}",
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
-                            Positioned(
-                              top: 0.0,
-                              left: 0.0,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(12.0),
-                                        topRight: Radius.circular(12.0),
-                                        topLeft: Radius.circular(12.0)),
-                                    color: Color(0xff16B8FF3D),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                        "${PhotographerList[index]["Title"]}",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 0.0,
-                              right: 0.0,
+                          ),
+                          Positioned(
+                            top: 0.0,
+                            left: 0.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                height: 24,
-                                width: 200,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
                                       topLeft: Radius.circular(12.0)),
                                   color: Color(0xff16B8FF3D),
-                                  //color: ColorUtils.buttonDarkBlueColor,
                                 ),
                                 child: Center(
-                                    child: Text(
-                                      "Expires on ${PhotographerList[index]["ValidTill"]}",
-                                      style: TextStyle(color: Colors.white,                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  child: Text(
+                                    "${PhotographerList[index]["Title"]}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    }),
-              ),
-            ],
-          ),
+                          ),
+                          Positioned(
+                            bottom: 0.0,
+                            right: 0.0,
+                            child: Container(
+                              height: 24,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(12.0),
+                                    topLeft: Radius.circular(12.0)),
+                                color: Color(0xff16B8FF3D),
+                                //color: ColorUtils.buttonDarkBlueColor,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Expires on ${PhotographerList[index]["ValidTill"]}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+          ],
         ),
+      ),
     );
   }
 }

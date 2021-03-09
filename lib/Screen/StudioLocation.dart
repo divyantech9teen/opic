@@ -43,8 +43,7 @@ class _StudioLocationState extends State<StudioLocation> {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         SharedPreferences preferences = await SharedPreferences.getInstance();
-        String CustomerId =
-            await preferences.getString(cnst.Session.StudioId);
+        String CustomerId = await preferences.getString(cnst.Session.StudioId);
         print("yyy=> " + preferences.getString(cnst.Session.StudioId));
         Future res = Services.GetAddressBranch(CustomerId);
         setState(() {
@@ -107,6 +106,7 @@ class _StudioLocationState extends State<StudioLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -146,23 +146,22 @@ class _StudioLocationState extends State<StudioLocation> {
               isLoading
                   ? Center(child: CircularProgressIndicator())
                   : NewList.length > 0
-                  ? Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                      itemCount: NewList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return SingleChildScrollView(
-                            child:
-                            StudioLocationComponent(NewList[index]));
-                      }),
-                ),
-              )
-                  : Expanded(child: NoDataComponent())
+                      ? Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListView.builder(
+                                itemCount: NewList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SingleChildScrollView(
+                                      child: StudioLocationComponent(
+                                          NewList[index]));
+                                }),
+                          ),
+                        )
+                      : Expanded(child: NoDataComponent())
             ],
           ),
         ],
-
       ),
     );
   }

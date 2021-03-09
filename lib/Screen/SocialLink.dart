@@ -105,7 +105,7 @@ class _SocialLinkState extends State<SocialLink> {
         title: Text("Social Links",
             style: GoogleFonts.aBeeZee(
                 textStyle: TextStyle(
-                    fontSize: 23,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: Colors.white))),
       ),
@@ -127,14 +127,14 @@ class _SocialLinkState extends State<SocialLink> {
               : _socialLinkData.length > 0
                   ? Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image.asset(
-                            "images/connection.png",
-                            height: 80,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10.0),
+                        //   child: Image.asset(
+                        //     "images/connection.png",
+                        //     height: 80,
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        // ),
                         Expanded(
                           child: ListView.builder(
                               itemCount: _socialLinkData.length,
@@ -144,85 +144,192 @@ class _SocialLinkState extends State<SocialLink> {
                                       left: 7, bottom: 7, right: 7, top: 12),
                                   child: Column(
                                     children: <Widget>[
-                                      Text(
-                                        "${_socialLinkData[index]["StudioName"]}",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      /*Padding(padding: EdgeInsets.only(top: 40)),*/
-                                      _socialLinkData[index]["SocialLinkList"]
-                                                  .length > 0
-                                          ? ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: _socialLinkData[index]
-                                                      ["SocialLinkList"]
-                                                  .length,
-                                              physics: ClampingScrollPhysics(),
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int i) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    _launchURL(
-                                                        "${_socialLinkData[index]["SocialLinkList"][i]["Link"]}");
-                                                  },
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Card(
-                                                        margin:
-                                                            EdgeInsets.all(8),
-                                                        child: Container(
-                                                          padding:
-                                                              EdgeInsets.all(7),
-                                                          child: Row(
-                                                            children: <Widget>[
-                                                              _socialLinkData[index]["SocialLinkList"]
-                                                                              [i]
-                                                                          ["Image"] != null
-                                                                  ? FadeInImage.assetNetwork(
-                                                                      placeholder:
-                                                                          'images/instagram.png',
-                                                                      image:
-                                                                          "${cnst.ImgUrl}${_socialLinkData[index]["SocialLinkList"][i]["Image"]}",
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      height:
-                                                                          35,
-                                                                      width: 35)
-                                                                  : Image.asset(
-                                                                      'images/insta_placeholder.png',
-                                                                      fit: BoxFit
-                                                                          .fill,
-                                                                      height:
-                                                                          35,
-                                                                      width: 35,
-                                                                    ),
-                                                              Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              15)),
-                                                              Text(
-                                                                  "${_socialLinkData[index]["SocialLinkList"][i]["Title"]}",
-                                                                  style: GoogleFonts.aBeeZee(
-                                                                      textStyle: TextStyle(
-                                                                          fontSize:
-                                                                              16,
-                                                                          fontWeight: FontWeight
-                                                                              .w600,
-                                                                          color:
-                                                                              Colors.grey[800]))),
-                                                            ],
-                                                          ),
+                                      ExpansionTile(
+                                        title: Text(
+                                          "${_socialLinkData[index]["StudioName"]}",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        children: <Widget>[
+                                          // Container(
+                                          //   height: 100,
+                                          //   child: ListView.builder(
+                                          //     itemCount: 5,
+                                          //     shrinkWrap: true,
+                                          //     scrollDirection: Axis.horizontal,
+                                          //     itemBuilder: (context, index) {
+                                          //       return Text('5');
+                                          //     },
+                                          //   ),
+                                          // ),
+                                          _socialLinkData[index]
+                                                          ["SocialLinkList"]
+                                                      .length >
+                                                  0
+                                              ? Container(
+                                                  height: 100,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: _socialLinkData[
+                                                                index]
+                                                            ["SocialLinkList"]
+                                                        .length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int i) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          _launchURL(
+                                                              "${_socialLinkData[index]["SocialLinkList"][i]["Link"]}");
+                                                        },
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Card(
+                                                              margin: EdgeInsets
+                                                                  .all(8),
+                                                              child: Container(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(7),
+                                                                child: Row(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    _socialLinkData[index]["SocialLinkList"][i]["Image"] !=
+                                                                            null
+                                                                        ? FadeInImage.assetNetwork(
+                                                                            placeholder:
+                                                                                'images/instagram.png',
+                                                                            image:
+                                                                                "${cnst.ImgUrl}${_socialLinkData[index]["SocialLinkList"][i]["Image"]}",
+                                                                            fit: BoxFit
+                                                                                .cover,
+                                                                            height:
+                                                                                35,
+                                                                            width:
+                                                                                35)
+                                                                        : Image
+                                                                            .asset(
+                                                                            'images/insta_placeholder.png',
+                                                                            fit:
+                                                                                BoxFit.fill,
+                                                                            height:
+                                                                                35,
+                                                                            width:
+                                                                                35,
+                                                                          ),
+                                                                    // Text(
+                                                                    //     "${_socialLinkData[index]["SocialLinkList"][i]["Title"]}",
+                                                                    //     style: GoogleFonts.aBeeZee(
+                                                                    //         textStyle: TextStyle(
+                                                                    //             fontSize: 16,
+                                                                    //             fontWeight: FontWeight.w600,
+                                                                    //             color: Colors.grey[800]))),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                    ],
+                                                      );
+                                                    },
                                                   ),
-                                                );
-                                              },
-                                            )
-                                          : Center(child: NoDataComponent()),
+                                                )
+                                              : Center(
+                                                  child: NoDataComponent()),
+                                        ],
+                                      ),
+                                      // Text(
+                                      //   "${_socialLinkData[index]["StudioName"]}",
+                                      //   style: TextStyle(
+                                      //       fontSize: 18,
+                                      //       fontWeight: FontWeight.w800),
+                                      // ),
+                                      // /*Padding(padding: EdgeInsets.only(top: 40)),*/
+                                      // _socialLinkData[index]["SocialLinkList"]
+                                      //             .length >
+                                      //         0
+                                      //     ? ListView.builder(
+                                      //         shrinkWrap: true,
+                                      //         itemCount: _socialLinkData[index]
+                                      //                 ["SocialLinkList"]
+                                      //             .length,
+                                      //         physics: ClampingScrollPhysics(),
+                                      //         itemBuilder:
+                                      //             (BuildContext context,
+                                      //                 int i) {
+                                      //           return GestureDetector(
+                                      //             onTap: () {
+                                      //               _launchURL(
+                                      //                   "${_socialLinkData[index]["SocialLinkList"][i]["Link"]}");
+                                      //             },
+                                      //             child: Column(
+                                      //               children: <Widget>[
+                                      //                 Card(
+                                      //                   margin:
+                                      //                       EdgeInsets.all(8),
+                                      //                   child: Container(
+                                      //                     padding:
+                                      //                         EdgeInsets.all(7),
+                                      //                     child: Row(
+                                      //                       children: <Widget>[
+                                      //                         _socialLinkData[index]["SocialLinkList"]
+                                      //                                         [
+                                      //                                         i]
+                                      //                                     [
+                                      //                                     "Image"] !=
+                                      //                                 null
+                                      //                             ? FadeInImage.assetNetwork(
+                                      //                                 placeholder:
+                                      //                                     'images/instagram.png',
+                                      //                                 image:
+                                      //                                     "${cnst.ImgUrl}${_socialLinkData[index]["SocialLinkList"][i]["Image"]}",
+                                      //                                 fit: BoxFit
+                                      //                                     .cover,
+                                      //                                 height:
+                                      //                                     35,
+                                      //                                 width: 35)
+                                      //                             : Image.asset(
+                                      //                                 'images/insta_placeholder.png',
+                                      //                                 fit: BoxFit
+                                      //                                     .fill,
+                                      //                                 height:
+                                      //                                     35,
+                                      //                                 width: 35,
+                                      //                               ),
+                                      //                         Padding(
+                                      //                             padding: EdgeInsets
+                                      //                                 .only(
+                                      //                                     left:
+                                      //                                         15)),
+                                      //                         Text(
+                                      //                             "${_socialLinkData[index]["SocialLinkList"][i]["Title"]}",
+                                      //                             style: GoogleFonts.aBeeZee(
+                                      //                                 textStyle: TextStyle(
+                                      //                                     fontSize:
+                                      //                                         16,
+                                      //                                     fontWeight: FontWeight
+                                      //                                         .w600,
+                                      //                                     color:
+                                      //                                         Colors.grey[800]))),
+                                      //                       ],
+                                      //                     ),
+                                      //                   ),
+                                      //                 ),
+                                      //               ],
+                                      //             ),
+                                      //           );
+                                      //         },
+                                      //       )
+                                      //     : Center(child: NoDataComponent()),
                                     ],
                                   ),
                                 );
@@ -231,7 +338,6 @@ class _SocialLinkState extends State<SocialLink> {
                       ],
                     )
                   : Center(child: NoDataComponent()),
-
         ],
       ),
     );
