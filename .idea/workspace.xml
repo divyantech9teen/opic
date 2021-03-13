@@ -5,26 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33cadf45-0d5a-4b40-bfa1-bb07fb21e1a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_arm64_v8a_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_armeabi_v7a_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_flutter_embedding_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_x86_64_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_x86_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_50.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_50.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_50.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/modules/388010131/android.maps_launcher.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/CustomerGalleryComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/CustomerGalleryComponent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/GuestPortfolioComponents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/GuestPortfolioComponents.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/PortfolioComponents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/PortfolioComponents.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/StudioLocationComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/StudioLocationComponent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/StudioNameOnTap.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/StudioNameOnTap.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Pages/Profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Pages/Profile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/CustomerGalleryScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/CustomerGalleryScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/OfferDetailScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/OfferDetailScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Offers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Offers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/PortfolioScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/PortfolioScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/SocialLink.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/SocialLink.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/StudioLocation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/StudioLocation.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_arm64_v8a_debug_1_0_0_ae90085a8437c0ae94d6b5ad2741739ebc742cb4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_armeabi_v7a_debug_1_0_0_ae90085a8437c0ae94d6b5ad2741739ebc742cb4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_flutter_embedding_debug_1_0_0_ae90085a8437c0ae94d6b5ad2741739ebc742cb4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_x86_64_debug_1_0_0_ae90085a8437c0ae94d6b5ad2741739ebc742cb4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/libraries/Gradle__io_flutter_x86_debug_1_0_0_ae90085a8437c0ae94d6b5ad2741739ebc742cb4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1149423806/android.contacts_service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1149423806/android.contacts_service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1413569179/android.cloud_audio_player.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1413569179/android.cloud_audio_player.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1779432142/android.google_maps_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1779432142/android.google_maps_flutter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-302749592/io.flutter.plugins.sharedpreferences.android.shared_preferences.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-302749592/io.flutter.plugins.sharedpreferences.android.shared_preferences.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-471344636/io.flutter.plugins.urllauncher.android.url_launcher.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-471344636/io.flutter.plugins.urllauncher.android.url_launcher.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-699814326/android.gallery_saver.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-699814326/android.gallery_saver.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1264610543/android.flutter_plugin_android_lifecycle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1264610543/android.flutter_plugin_android_lifecycle.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1394211556/io.flutter.plugins.pathprovider.android.path_provider.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1394211556/io.flutter.plugins.pathprovider.android.path_provider.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1419426497/android.fluttertoast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1419426497/android.fluttertoast.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1576374751/android.audioplayer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1576374751/android.audioplayer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1591291744/android.barcode_scanner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1591291744/android.barcode_scanner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1632372860/io.flutter.plugins.imagepicker.android.image_picker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1632372860/io.flutter.plugins.imagepicker.android.image_picker.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1918147634/io.flutter.plugins.share.android.share.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1918147634/io.flutter.plugins.share.android.share.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1932563255/android.esys_flutter_share.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1932563255/android.esys_flutter_share.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1984242962/com.example.flutternativeimage.android.flutter_native_image.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1984242962/com.example.flutternativeimage.android.flutter_native_image.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/2101154024/android.permission_handler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/2101154024/android.permission_handler.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/464662385/com.example.imagegallerysaver.android.image_gallery_saver.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/464662385/com.example.imagegallerysaver.android.image_gallery_saver.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/modules/app/android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/app/android.app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +72,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pictik_studio_app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -167,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613455035407</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="by rinki">
+      <created>1615281400165</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615281400165</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -194,49 +219,49 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="604" y="37" width="701" height="695" key="AVDManager/0.0.1600.860@0.0.1600.860" timestamp="1610373048771" />
-    <state x="658" y="0" key="CommitChangelistDialog2" timestamp="1613455032081">
+    <state x="658" y="0" key="CommitChangelistDialog2" timestamp="1615281394788">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="658" y="0" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1613455032081" />
+    <state x="658" y="0" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1615281394788" />
     <state x="790" y="103" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1608785529881" />
-    <state x="1021" y="175" key="FileChooserDialogImpl" timestamp="1615278982410">
+    <state x="1021" y="175" key="FileChooserDialogImpl" timestamp="1615291079101">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="872" y="148" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1610684097245" />
-    <state x="1021" y="175" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1615278982410" />
+    <state x="1021" y="175" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1615291079101" />
     <state x="1225" y="212" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1609829289781" />
-    <state width="1540" height="504" key="GridCell.Tab.0.bottom" timestamp="1615281244138">
+    <state width="1540" height="504" key="GridCell.Tab.0.bottom" timestamp="1615281479047">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610375406299" />
-    <state width="1540" height="504" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1615281244138" />
+    <state width="1540" height="504" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
     <state width="937" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
-    <state width="1540" height="504" key="GridCell.Tab.0.center" timestamp="1615281244138">
+    <state width="1540" height="504" key="GridCell.Tab.0.center" timestamp="1615281479047">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610375406298" />
-    <state width="1540" height="504" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1615281244138" />
+    <state width="1540" height="504" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
     <state width="937" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
-    <state width="1540" height="504" key="GridCell.Tab.0.left" timestamp="1615281244138">
+    <state width="1540" height="504" key="GridCell.Tab.0.left" timestamp="1615281479047">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610375406298" />
-    <state width="1540" height="504" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1615281244138" />
+    <state width="1540" height="504" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
     <state width="937" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
-    <state width="1540" height="504" key="GridCell.Tab.0.right" timestamp="1615281244138">
+    <state width="1540" height="504" key="GridCell.Tab.0.right" timestamp="1615281479047">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1136" height="163" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610375406298" />
-    <state width="1540" height="504" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1615281244138" />
+    <state width="1540" height="504" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
     <state width="937" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610166416765" />
     <state x="0" y="168" key="SettingsEditor" timestamp="1608217991040">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="168" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1608217991040" />
-    <state x="403" y="159" key="Vcs.Push.Dialog.v2" timestamp="1613455047789">
+    <state x="403" y="159" key="Vcs.Push.Dialog.v2" timestamp="1615281423345">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="403" y="159" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1613455047789" />
+    <state x="403" y="159" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1615281423345" />
     <state x="483" y="192" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1608785542507" />
     <state x="241" y="361" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615204519722">
       <screen x="0" y="0" width="1600" height="860" />
