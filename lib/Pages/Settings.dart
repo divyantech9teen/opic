@@ -64,8 +64,8 @@ class _SettingsState extends State<Settings> {
   _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        '/LoginWithUsername', (Route<dynamic> route) => false);
   }
 
   confirmation(String msg) {
@@ -74,7 +74,7 @@ class _SettingsState extends State<Settings> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("PICTIK"),
+          title: new Text("Opicxo"),
           content: new Text(msg),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
@@ -121,6 +121,27 @@ class _SettingsState extends State<Settings> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
+          appBar:  AppBar(
+            centerTitle: true,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[
+                    cnst.appPrimaryMaterialColorYellow,
+                    cnst.appPrimaryMaterialColorPink
+                  ],
+                ),
+              ),
+            ),
+            title: Text("Settings",
+                style: GoogleFonts.aBeeZee(
+                    textStyle: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white))),
+          ),
           body: Stack(
         children: <Widget>[
           Container(
@@ -164,7 +185,7 @@ class _SettingsState extends State<Settings> {
                           ],
                         ),
                       ),
-                  /*    Divider(
+                      /*    Divider(
                         thickness: 1.5,
                       ),
                       InkWell(

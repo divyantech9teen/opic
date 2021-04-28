@@ -179,7 +179,7 @@ class _CollageGallaryComponentState extends State<CollageGallaryComponent> {
               borderRadius: new BorderRadius.circular(10.0),
               child: widget.albumData["Photo"] != null
                   ? FadeInImage.assetNetwork(
-                      placeholder: 'images/logo.png',
+                      placeholder: 'images/opicxologo.png',
                       image: "${ImgUrl}${widget.albumData["PhotoThumb"]}",
                       fit: BoxFit.cover,
                     )

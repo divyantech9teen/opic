@@ -409,18 +409,18 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                   onTap: () {
                     Navigator.pushNamed(context, '/MyCustomer');
                   }),
-              SpeedDialChild(
-                  child: Icon(Icons.brush),
-                  backgroundColor: Colors.blue,
-                  label: 'View Portfolio',
-                  labelStyle: GoogleFonts.aBeeZee(
-                    textStyle: TextStyle(
-                      fontSize: 17,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/PortfolioScreen');
-                  }),
+              // SpeedDialChild(
+              //     child: Icon(Icons.brush),
+              //     backgroundColor: Colors.blue,
+              //     label: 'View Portfolio',
+              //     labelStyle: GoogleFonts.aBeeZee(
+              //       textStyle: TextStyle(
+              //         fontSize: 17,
+              //       ),
+              //     ),
+              //     onTap: () {
+              //       Navigator.pushNamed(context, '/PortfolioScreen');
+              //     }),
               SpeedDialChild(
                 child: Icon(Icons.link),
                 backgroundColor: Colors.green,
@@ -434,15 +434,15 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                   Navigator.pushNamed(context, '/SocialLink');
                 },
               ),
-              SpeedDialChild(
-                child: Icon(Icons.add_location),
-                backgroundColor: Colors.teal,
-                label: 'Branches',
-                labelStyle: TextStyle(fontSize: 17.0),
-                onTap: () {
-                  Navigator.pushNamed(context, '/StudioLocation');
-                },
-              ),
+              // SpeedDialChild(
+              //   child: Icon(Icons.add_location),
+              //   backgroundColor: Colors.teal,
+              //   label: 'Branches',
+              //   labelStyle: TextStyle(fontSize: 17.0),
+              //   onTap: () {
+              //     Navigator.pushNamed(context, '/StudioLocation');
+              //   },
+              // ),
             ],
           ),
         ),
@@ -525,7 +525,7 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                                           )
                                           //     :
                                           // FadeInImage.assetNetwork(
-                                          //   placeholder: 'images/logo.png',,
+                                          //   placeholder: 'images/opicxologo.png',,
                                           //   //image:"${i[_current]["${cnst.ImgUrl}"]["Image"]}",
                                           //   image: "${cnst.ImgUrl}${i["Image"]}",
                                           //   fit: BoxFit.cover,
@@ -639,7 +639,7 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                                                   child:
                                                       FadeInImage.assetNetwork(
                                                     placeholder:
-                                                        'images/logo.png',
+                                                        'images/opicxologo.png',
                                                     image: "${i["Image"]}",
                                                     fit: BoxFit.cover,
                                                   ),

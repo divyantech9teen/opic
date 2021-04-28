@@ -37,6 +37,7 @@ class ImageView extends StatefulWidget {
 
 class _ImageViewState extends State<ImageView> {
   bool downloading = false;
+  bool isFav = false;
   Function onComment;
   ProgressDialog pr;
   String SelectedPin = "", PinSelection = "";
@@ -72,11 +73,14 @@ class _ImageViewState extends State<ImageView> {
 
   Future<void> _downloadFile(String url) async {
     var file = url.split('/');
-
+    setState(() {
+      isFav = true;
+    });
     Dio dio = Dio();
     try {
       var dir = await getExternalStorageDirectory();
       print("${dir.path}/${file[3].toString()}");
+
       print("demo  --> " +
           "http://pictick.itfuturz.com/${url.replaceAll(" ", "%20")}");
       Platform.isIOS
@@ -93,19 +97,22 @@ class _ImageViewState extends State<ImageView> {
             })
           : await downloadAndroid(
               "http://pictick.itfuturz.com/${url.replaceAll(" ", "%20")}");
+      setState(() {
+        isFav = false;
+      });
       /*await dio.download(
           "http://pictick.itfuturz.com/${url.replaceAll(" ", "%20")}",
           "${dir.path}/${file[3].toString()}", onReceiveProgress: (rec, total) {
         print("Rec: $rec , Total: $total");
         setState(() {
-          downloading = true;
+          isFav = true;
         });
       });*/
     } catch (e) {
       print(e);
     }
     setState(() {
-      downloading = false;
+      isFav = false;
     });
   }
 
@@ -143,24 +150,24 @@ class _ImageViewState extends State<ImageView> {
             'esys.png': bytes,
           },
           'image/jpg');
-      if (widget.albumData[widget.albumIndex]["IsSelected"].toString() ==
-          "true") {
-        setState(() {
-          widget.albumData[widget.albumIndex]["IsSelected"] = "false";
-        });
-        widget.onChange(
-            "Remove",
-            widget.albumData[widget.albumIndex]["Id"].toString(),
-            widget.albumData[widget.albumIndex]["Photo"].toString());
-      } else {
-        setState(() {
-          widget.albumData[widget.albumIndex]["IsSelected"] = "true";
-        });
-        widget.onChange(
-            "Add",
-            widget.albumData[widget.albumIndex]["Id"].toString(),
-            widget.albumData[widget.albumIndex]["Photo"].toString());
-      }
+      // if (widget.albumData[widget.albumIndex]["IsSelected"].toString() ==
+      //     "true") {
+      //   setState(() {
+      //     widget.albumData[widget.albumIndex]["IsSelected"] = "false";
+      //   });
+      //   widget.onChange(
+      //       "Remove",
+      //       widget.albumData[widget.albumIndex]["Id"].toString(),
+      //       widget.albumData[widget.albumIndex]["Photo"].toString());
+      // } else {
+      //   setState(() {
+      //     widget.albumData[widget.albumIndex]["IsSelected"] = "true";
+      //   });
+      //   widget.onChange(
+      //       "Add",
+      //       widget.albumData[widget.albumIndex]["Id"].toString(),
+      //       widget.albumData[widget.albumIndex]["Photo"].toString());
+      // }
     }
   }
 
@@ -852,44 +859,44 @@ class _ImageViewState extends State<ImageView> {
                         onTap: () {
                           _downloadFile(
                               widget.albumData[widget.albumIndex]["Photo"]);
-                          _saveNetworkImage(
-                              "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
-                          if (SelectedPin != "" &&
-                              (PinSelection == "false" ||
-                                  PinSelection == "" ||
-                                  PinSelection.toString() == "null")) {
-                            downloadAll();
-                          } else {
-                            _saveNetworkImage(
-                                "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
-                          }
-                          if (widget.albumData[widget.albumIndex]["IsSelected"]
-                                  .toString() ==
-                              "true") {
-                            setState(() {
-                              widget.albumData[widget.albumIndex]
-                                  ["IsSelected"] = "false";
-                            });
-                            widget.onChange(
-                                "Remove",
-                                widget.albumData[widget.albumIndex]["Id"]
-                                    .toString(),
-                                widget.albumData[widget.albumIndex]["Photo"]
-                                    .toString());
-                          } else {
-                            setState(() {
-                              widget.albumData[widget.albumIndex]
-                                  ["IsSelected"] = "true";
-                            });
-                            widget.onChange(
-                                "Add",
-                                widget.albumData[widget.albumIndex]["Id"]
-                                    .toString(),
-                                widget.albumData[widget.albumIndex]["Photo"]
-                                    .toString());
-                          }
+                          // _saveNetworkImage(
+                          //     "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
+                          // if (SelectedPin != "" &&
+                          //     (PinSelection == "false" ||
+                          //         PinSelection == "" ||
+                          //         PinSelection.toString() == "null")) {
+                          //   downloadAll();
+                          // } else {
+                          //   _saveNetworkImage(
+                          //       "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
+                          // }
+                          // if (widget.albumData[widget.albumIndex]["IsSelected"]
+                          //         .toString() ==
+                          //     "true") {
+                          //   setState(() {
+                          //     widget.albumData[widget.albumIndex]
+                          //         ["IsSelected"] = "false";
+                          //   });
+                          //   widget.onChange(
+                          //       "Remove",
+                          //       widget.albumData[widget.albumIndex]["Id"]
+                          //           .toString(),
+                          //       widget.albumData[widget.albumIndex]["Photo"]
+                          //           .toString());
+                          // } else {
+                          //   setState(() {
+                          //     widget.albumData[widget.albumIndex]
+                          //         ["IsSelected"] = "true";
+                          //   });
+                          //   widget.onChange(
+                          //       "Add",
+                          //       widget.albumData[widget.albumIndex]["Id"]
+                          //           .toString(),
+                          //       widget.albumData[widget.albumIndex]["Photo"]
+                          //           .toString());
+                          // }
                         },
-                        child: Icon(
+                        child:isFav? CircularProgressIndicator(): Icon(
                           Icons.download_rounded,
                           size: 25,
                           color: Colors.white,

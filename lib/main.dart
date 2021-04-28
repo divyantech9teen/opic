@@ -10,6 +10,7 @@ import 'Screen/BookAppointment.dart';
 import 'Screen/CustomerAboutUs.dart';
 import 'Screen/Dashboard.dart';
 import 'Screen/Login.dart';
+import 'Screen/LoginWithUsername.dart';
 import 'Screen/MyInvites.dart';
 import 'Screen/CustomerNotificationPage.dart';
 import 'Screen/OTPVerification.dart';
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
         routes: {
           '/': (context) => Splash(),
           '/Login': (context) => Login(),
+          '/LoginWithUsername': (context) => LoginWithUsername(),
           '/OTPVerification': (context) => OTPVerification(),
           '/Dashboard': (context) => Dashboard(),
           '/SignUpGuest': (context) => SignUpGuest(),

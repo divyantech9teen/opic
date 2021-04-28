@@ -48,12 +48,12 @@ class _GalleryComponentState extends State<GalleryComponent> {
                   borderRadius: new BorderRadius.circular(9.0),
                   child: widget.GalleryData["GalleryCover"] != null
                       ? FadeInImage.assetNetwork(
-                          placeholder: 'images/logo.png',
+                          placeholder: 'images/opicxologo.png',
                           image: "${widget.GalleryData["GalleryCover"]}",
                           fit: BoxFit.fitWidth,
                         )
                       : Image.asset(
-                          'images/logo.png',
+                          'images/opicxologo.png',
                           height: 100,
                         ),
                 ),

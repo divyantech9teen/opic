@@ -33,9 +33,12 @@ Map<int, Color> appprimarycolors = {
   800: Color.fromRGBO(0, 152, 219, .9),
   900: Color.fromRGBO(0, 152, 219, 1)
 };
+//
+// MaterialColor appPrimaryMaterialColor =
+// MaterialColor(0xFF0098db, appprimarycolors);
 
 MaterialColor appPrimaryMaterialColor =
-MaterialColor(0xFF0098db, appprimarycolors);
+MaterialColor(0xFF0266a5, appprimarycolors);
 
 Map<int, Color> appprimarycolorspink = {
   50: Color.fromRGBO(238, 62, 95, .1),
@@ -50,8 +53,10 @@ Map<int, Color> appprimarycolorspink = {
   900: Color.fromRGBO(238, 62, 95, 1)
 };
 
+// MaterialColor appPrimaryMaterialColorPink =
+//     MaterialColor(0xFFEE3E5F, appprimarycolorspink);
 MaterialColor appPrimaryMaterialColorPink =
-    MaterialColor(0xFFEE3E5F, appprimarycolorspink);
+    MaterialColor(0xFF0266a5, appprimarycolorspink);
 
 Map<int, Color> appprimarycolorsyellow = {
   50: Color.fromRGBO(244, 135, 46, .1),
@@ -66,8 +71,10 @@ Map<int, Color> appprimarycolorsyellow = {
   900: Color.fromRGBO(244, 135, 46, 1)
 };
 
+// MaterialColor appPrimaryMaterialColorYellow =
+//     MaterialColor(0xFFF4872E, appprimarycolorsyellow);
 MaterialColor appPrimaryMaterialColorYellow =
-    MaterialColor(0xFFF4872E, appprimarycolorsyellow);
+    MaterialColor(0xFF0266a5, appprimarycolorsyellow);
 
 class MESSAGES {
   static const String INTERNET_ERROR = "No Internet Connection";
@@ -134,4 +141,8 @@ class Session {
   static const String MusicURLId = "MusicURLId";
   static const String MusicURL = "MusicURL";
   static const String SlideTime = "SlideTime";
+
+  //opicxo
+  static const String opicxoUserId = "opicxoUserId";
+  static const String opicxoUserPass = "opicxoUserPass";
 }

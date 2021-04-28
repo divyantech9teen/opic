@@ -6,19 +6,23 @@ import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'LoginWithMobile.dart';
 import 'LoginWithUsername.dart';
 
 class Login extends StatefulWidget {
-  String username,password;
-  Login({this.password,this.username});
+  String username, password;
+
+  Login({this.password, this.username});
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   TextEditingController edtMobile = new TextEditingController();
+  String _url = 'https://www.opicxo.com/register/customer?returnUrl=%2F';
 
   ProgressDialog pr;
 
@@ -172,7 +176,7 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: const EdgeInsets.only(top: 0),
                       child: Image.asset(
-                        'images/logo.png',
+                        'images/opicxologo.png',
                         fit: BoxFit.fill,
                         width: 200,
                         height: 70,
@@ -185,24 +189,20 @@ class _LoginState extends State<Login> {
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(top: 25),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
+                          width: MediaQuery.of(context).size.width,
                           height: 45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.redAccent,
+                            color: cnst.appPrimaryMaterialColor,
                           ),
                           child: MaterialButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(9.0)),
                             onPressed: () {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context){
-                                    return LoginWithMobile();
-                                  })
-                              );
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginWithMobile();
+                              }));
                             },
                             child: Text(
                               "Login with Mobile",
@@ -215,26 +215,22 @@ class _LoginState extends State<Login> {
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 25),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
+                          width: MediaQuery.of(context).size.width,
                           height: 45,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: Colors.redAccent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: cnst.appPrimaryMaterialColor),
                           child: MaterialButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(9.0)),
                             onPressed: () {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context){
-                                    return LoginWithUsername();
-                                  })
-                              );
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginWithUsername();
+                              }));
                             },
                             child: Text(
-
                               "Login with Username",
                               style: TextStyle(
                                   color: Colors.white,
@@ -363,7 +359,10 @@ class _LoginState extends State<Login> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/SignUpGuest');
+                            //by rinki on 24/april
+                            //Navigator.pushNamed(context, '/SignUpGuest');
+
+                            _launchURL();
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
@@ -387,8 +386,7 @@ class _LoginState extends State<Login> {
                                       textStyle: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          color: cnst
-                                              .appPrimaryMaterialColorYellow),
+                                          color: cnst.appPrimaryMaterialColor),
                                     ),
                                   ),
                                 ),
@@ -426,4 +424,8 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw 'Could not launch $_url';
 }

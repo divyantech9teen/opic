@@ -139,7 +139,7 @@ class _Collage7ScreenState extends State<Collage7Screen> {
                             child: ClipRRect(
                               borderRadius: new BorderRadius.circular(5.0),
                               child: FadeInImage.assetNetwork(
-                                placeholder: 'images/logo.png',
+                                placeholder: 'images/opicxologo.png',
                                 image: "${ImgUrl}${Image}",
                                 fit: BoxFit.fill,
                               ),
@@ -194,7 +194,7 @@ class _Collage7ScreenState extends State<Collage7Screen> {
                                     borderRadius:
                                         new BorderRadius.circular(5.0),
                                     child: FadeInImage.assetNetwork(
-                                      placeholder: 'images/logo.png',
+                                      placeholder: 'images/opicxologo.png',
                                       image: "${ImgUrl}${Image1}",
                                       fit: BoxFit.fill,
                                     ),
@@ -246,7 +246,7 @@ class _Collage7ScreenState extends State<Collage7Screen> {
                                       borderRadius:
                                           new BorderRadius.circular(5.0),
                                       child: FadeInImage.assetNetwork(
-                                        placeholder: 'images/logo.png',
+                                        placeholder: 'images/opicxologo.png',
                                         image: "${ImgUrl}${Image2}",
                                         fit: BoxFit.fill,
                                       ),
@@ -302,7 +302,7 @@ class _Collage7ScreenState extends State<Collage7Screen> {
                               child: ClipRRect(
                                 borderRadius: new BorderRadius.circular(5.0),
                                 child: FadeInImage.assetNetwork(
-                                  placeholder: 'images/logo.png',
+                                  placeholder: 'images/opicxologo.png',
                                   image: "${ImgUrl}${Image3}",
                                   fit: BoxFit.fill,
                                 ),
@@ -349,7 +349,7 @@ class _Collage7ScreenState extends State<Collage7Screen> {
                                 child: ClipRRect(
                                   borderRadius: new BorderRadius.circular(5.0),
                                   child: FadeInImage.assetNetwork(
-                                    placeholder: 'images/logo.png',
+                                    placeholder: 'images/opicxologo.png',
                                     image: "${ImgUrl}${Image4}",
                                     fit: BoxFit.fill,
                                   ),
@@ -397,7 +397,7 @@ class _Collage7ScreenState extends State<Collage7Screen> {
                                 child: ClipRRect(
                                   borderRadius: new BorderRadius.circular(5.0),
                                   child: FadeInImage.assetNetwork(
-                                    placeholder: 'images/logo.png',
+                                    placeholder: 'images/opicxologo.png',
                                     image: "${ImgUrl}${Image5}",
                                     fit: BoxFit.fill,
                                   ),

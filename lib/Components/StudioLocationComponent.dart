@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:maps_launcher/maps_launcher.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:pictiknew/Components/StudioNameOnTap.dart';
 import 'package:url_launcher/url_launcher.dart';

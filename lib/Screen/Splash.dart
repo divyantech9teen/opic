@@ -16,17 +16,27 @@ class _SplashState extends State<Splash> {
       String MemberId = prefs.getString(cnst.Session.StudioId);
       String veri = prefs.getString(cnst.Session.IsVerified);
       String Type = prefs.getString(cnst.Session.Type);
-
-      if (MemberId != null && MemberId != "" && veri == "true") {
-        if (Type.toString() == "Guest") {
-          Navigator.pushReplacementNamed(context, '/Dashboard');
-          // Navigator.pushReplacementNamed(context, '/GuestDashboard');
-        } else {
-          Navigator.pushReplacementNamed(context, '/Dashboard');
-        }
+      String mobile = prefs.getString(cnst.Session.Mobile);
+      if (mobile == null) {
+        //Navigator.pushReplacementNamed(context, '/LoginScreen');
+        Navigator.of(context).pushReplacementNamed('/LoginWithUsername');
       } else {
-        Navigator.pushReplacementNamed(context, '/Login');
+        Navigator.pushReplacementNamed(context, '/Dashboard');
       }
+
+
+
+
+      // if (MemberId != null && MemberId != "" && veri == "true") {
+      //   if (Type.toString() == "Guest") {
+      //     Navigator.pushReplacementNamed(context, '/Dashboard');
+      //     // Navigator.pushReplacementNamed(context, '/GuestDashboard');
+      //   } else {
+      //     Navigator.pushReplacementNamed(context, '/Dashboard');
+      //   }
+      // } else {
+      //   Navigator.pushReplacementNamed(context, '/Login');
+      // }
       /*//Navigator.pushReplacementNamed(context, '/Login');
       Navigator.pushReplacementNamed(context, '/Dashboard');*/
     });
@@ -42,7 +52,7 @@ class _SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset("images/logo.png",
+            Image.asset("images/opicxologo.png",
                 width: 250.0, height: 250.0, fit: BoxFit.contain),
             /*Padding(
               padding: EdgeInsets.only(top: 10.0),

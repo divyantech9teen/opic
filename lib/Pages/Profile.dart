@@ -616,64 +616,65 @@ class _ProfileState extends State<Profile> {
     return Material(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: <Color>[
-                  cnst.appPrimaryMaterialColorYellow,
-                  cnst.appPrimaryMaterialColorPink
-                ],
-              ),
-            ),
-          ),
-          automaticallyImplyLeading: false,
-          title: Text(
-            "Profile",
-            style: GoogleFonts.aBeeZee(
-              textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
-            ),
-          ),
-          actions: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.only(right:8.0),
-            //   child: GestureDetector(
-            //     onTap: (){
-            //       setState(() {
-            //         EditName.text = name;
-            //         EditMobile.text = mobile;
-            //         EditEmail.text = email;
-            //         editpressed = true;
-            //       });
-            //     },
-            //       child: !editpressed ||updatepressed? Icon(
-            //           Icons.edit,
-            //       ) : GestureDetector(
-            //         onTap: (){
-            //           setState(() {
-            //             name  =EditName.text;
-            //             mobile = EditMobile.text;
-            //             email = EditEmail.text;
-            //           });
-            //           _updateProfile();
-            //           setState(() {
-            //             updatepressed = true;
-            //           });
-            //         },
-            //         child: Icon(
-            //           Icons.update,
-            //         ),
-            //       ),
-            //   ),
-            // ),
-          ],
-        ),
+        //changed n 17 april by rinki
+        // appBar: AppBar(
+        //   centerTitle: true,
+        //   flexibleSpace: Container(
+        //     decoration: BoxDecoration(
+        //       gradient: LinearGradient(
+        //         begin: Alignment.centerLeft,
+        //         end: Alignment.centerRight,
+        //         colors: <Color>[
+        //           cnst.appPrimaryMaterialColorYellow,
+        //           cnst.appPrimaryMaterialColorPink
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        //   automaticallyImplyLeading: false,
+        //   title: Text(
+        //     "Profile",
+        //     style: GoogleFonts.aBeeZee(
+        //       textStyle: TextStyle(
+        //           fontSize: 20,
+        //           fontWeight: FontWeight.w600,
+        //           color: Colors.white),
+        //     ),
+        //   ),
+        //   actions: <Widget>[
+        //     // Padding(
+        //     //   padding: const EdgeInsets.only(right:8.0),
+        //     //   child: GestureDetector(
+        //     //     onTap: (){
+        //     //       setState(() {
+        //     //         EditName.text = name;
+        //     //         EditMobile.text = mobile;
+        //     //         EditEmail.text = email;
+        //     //         editpressed = true;
+        //     //       });
+        //     //     },
+        //     //       child: !editpressed ||updatepressed? Icon(
+        //     //           Icons.edit,
+        //     //       ) : GestureDetector(
+        //     //         onTap: (){
+        //     //           setState(() {
+        //     //             name  =EditName.text;
+        //     //             mobile = EditMobile.text;
+        //     //             email = EditEmail.text;
+        //     //           });
+        //     //           _updateProfile();
+        //     //           setState(() {
+        //     //             updatepressed = true;
+        //     //           });
+        //     //         },
+        //     //         child: Icon(
+        //     //           Icons.update,
+        //     //         ),
+        //     //       ),
+        //     //   ),
+        //     // ),
+        //   ],
+        // ),
         body: SingleChildScrollView(
           child: WillPopScope(
             onWillPop: onWillPop,
@@ -835,56 +836,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/PortfolioScreen');
-                                },
-                                child: Container(
-                                  height: 120,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.1,
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: Colors.blue,
-                                          ),
-                                          //color: Colors.pink,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Icon(
-                                              Icons.brush,
-                                              size: 30,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          "View Portfolio",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
+                              //changed n 17 april by rinki
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(context, '/SocialLink');
@@ -892,16 +844,16 @@ class _ProfileState extends State<Profile> {
                                 child: Container(
                                   height: 120,
                                   width:
-                                      MediaQuery.of(context).size.width / 2.1,
+                                  MediaQuery.of(context).size.width / 2.1,
                                   child: Card(
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(30),
+                                            BorderRadius.circular(30),
                                             color: Colors.green,
                                           ),
                                           //color: Colors.pink,
@@ -930,70 +882,166 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/StudioLocation');
-                                },
-                                child: Container(
-                                  height: 120,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.12,
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: Colors.teal,
-                                          ),
-                                          //color: Colors.pink,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, '/StudioLocation');
-                                            },
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(2.0),
-                                              child: Icon(
-                                                Icons.add_location,
-                                                size: 30,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, '/StudioLocation');
-                                          },
-                                          child: Text(
-                                            "Branches",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Navigator.pushNamed(
+                              //         context, '/PortfolioScreen');
+                              //   },
+                              //   child: Container(
+                              //     height: 120,
+                              //     width:
+                              //         MediaQuery.of(context).size.width / 2.1,
+                              //     child: Card(
+                              //       child: Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [
+                              //           Container(
+                              //             decoration: BoxDecoration(
+                              //               borderRadius:
+                              //                   BorderRadius.circular(30),
+                              //               color: Colors.blue,
+                              //             ),
+                              //             //color: Colors.pink,
+                              //             child: Padding(
+                              //               padding: const EdgeInsets.all(2.0),
+                              //               child: Icon(
+                              //                 Icons.brush,
+                              //                 size: 30,
+                              //                 color: Colors.white,
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           SizedBox(
+                              //             height: 5,
+                              //           ),
+                              //           Text(
+                              //             "View Portfolio",
+                              //             style: TextStyle(
+                              //               fontWeight: FontWeight.w500,
+                              //               color: Colors.black,
+                              //               fontSize: 15,
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
+                          //changed n 17 april by rinki
+                          // Row(
+                          //   children: [
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         Navigator.pushNamed(context, '/SocialLink');
+                          //       },
+                          //       child: Container(
+                          //         height: 120,
+                          //         width:
+                          //             MediaQuery.of(context).size.width / 2.1,
+                          //         child: Card(
+                          //           child: Column(
+                          //             mainAxisAlignment:
+                          //                 MainAxisAlignment.center,
+                          //             children: [
+                          //               Container(
+                          //                 decoration: BoxDecoration(
+                          //                   borderRadius:
+                          //                       BorderRadius.circular(30),
+                          //                   color: Colors.green,
+                          //                 ),
+                          //                 //color: Colors.pink,
+                          //                 child: Padding(
+                          //                   padding: const EdgeInsets.all(2.0),
+                          //                   child: Icon(
+                          //                     Icons.link,
+                          //                     size: 30,
+                          //                     color: Colors.white,
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //               SizedBox(
+                          //                 height: 5,
+                          //               ),
+                          //               Text(
+                          //                 "Social Link",
+                          //                 style: TextStyle(
+                          //                   fontWeight: FontWeight.w500,
+                          //                   color: Colors.black,
+                          //                   fontSize: 15,
+                          //                 ),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         Navigator.pushNamed(
+                          //             context, '/StudioLocation');
+                          //       },
+                          //       child: Container(
+                          //         height: 120,
+                          //         width:
+                          //             MediaQuery.of(context).size.width / 2.12,
+                          //         child: Card(
+                          //           child: Column(
+                          //             mainAxisAlignment:
+                          //                 MainAxisAlignment.center,
+                          //             children: [
+                          //               Container(
+                          //                 decoration: BoxDecoration(
+                          //                   borderRadius:
+                          //                       BorderRadius.circular(30),
+                          //                   color: Colors.teal,
+                          //                 ),
+                          //                 //color: Colors.pink,
+                          //                 child: GestureDetector(
+                          //                   onTap: () {
+                          //                     Navigator.pushNamed(
+                          //                         context, '/StudioLocation');
+                          //                   },
+                          //                   child: Padding(
+                          //                     padding:
+                          //                         const EdgeInsets.all(2.0),
+                          //                     child: Icon(
+                          //                       Icons.add_location,
+                          //                       size: 30,
+                          //                       color: Colors.white,
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //               SizedBox(
+                          //                 height: 10,
+                          //               ),
+                          //               GestureDetector(
+                          //                 onTap: () {
+                          //                   Navigator.pushNamed(
+                          //                       context, '/StudioLocation');
+                          //                 },
+                          //                 child: Text(
+                          //                   "Branches",
+                          //                   style: TextStyle(
+                          //                     fontWeight: FontWeight.w500,
+                          //                     color: Colors.black,
+                          //                     fontSize: 15,
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 10,
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
@@ -1007,12 +1055,12 @@ class _ProfileState extends State<Profile> {
                   //           opacity: 1,
                   //           child: StudioLogo == null
                   //               ? Image.asset(
-                  //                   "images/logo.png",
+                  //                   "images/opicxologo.png",
                   //                   height: 50,
                   //                   width: 50,
                   //                   fit: BoxFit.fill,
                   //                 )
-                  //               : Image.asset("images/logo.png"),
+                  //               : Image.asset("images/opicxologo.png"),
                   //         ),
                   //       ),
                   //       Padding(
@@ -1040,7 +1088,7 @@ class _ProfileState extends State<Profile> {
                   //                               opacity: 1,
                   //                               child: StudioLogo == null
                   //                                   ? Image.asset(
-                  //                                       "images/logo.png",
+                  //                                       "images/opicxologo.png",
                   //                                     )
                   //                                   : Image.asset(
                   //                                       "images/onlylogo.jpeg"),
@@ -1594,12 +1642,12 @@ class _ProfileState extends State<Profile> {
             //         opacity: 1,
             //         child: StudioLogo == null
             //             ? Image.asset(
-            //                 "images/logo.png",
+            //                 "images/opicxologo.png",
             //                 height: 50,
             //                 width: 50,
             //                 fit: BoxFit.fill,
             //               )
-            //             : Image.asset("images/logo.png"),
+            //             : Image.asset("images/opicxologo.png"),
             //       ),
             //     ),
             //     Padding(
@@ -1627,7 +1675,7 @@ class _ProfileState extends State<Profile> {
             //                             opacity: 1,
             //                             child: StudioLogo == null
             //                                 ? Image.asset(
-            //                                     "images/logo.png",
+            //                                     "images/opicxologo.png",
             //                                   )
             //                                 : Image.asset(
             //                                     "images/onlylogo.jpeg"),

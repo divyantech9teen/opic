@@ -122,7 +122,7 @@ class _PortfolioImagesComponentState extends State<PortfolioImagesComponent> {
                   borderRadius: new BorderRadius.circular(10.0),
                   child: widget.albumData["Image"] != null
                       ? FadeInImage.assetNetwork(
-                          placeholder: 'images/logo.png',
+                          placeholder: 'images/opicxologo.png',
                           image:
                               "${cnst.ImgUrl}${widget.albumData["ImageThumb"]}",
                           fit: BoxFit.cover,

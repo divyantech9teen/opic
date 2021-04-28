@@ -197,7 +197,7 @@ class _SelectedAlbumComponentState extends State<SelectedAlbumComponent> {
                   borderRadius: new BorderRadius.circular(10.0),
                   child: widget.albumData["Photo"] != null
                       ? FadeInImage.assetNetwork(
-                          placeholder: 'images/logo.png',
+                          placeholder: 'images/opicxologo.png',
                           image:
                               "${cnst.ImgUrl}${widget.albumData["PhotoThumb"]}",
                           fit: BoxFit.cover,

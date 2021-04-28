@@ -17,7 +17,7 @@ class LoginWithMobile extends StatefulWidget {
 class _LoginWithMobileState extends State<LoginWithMobile> {
   TextEditingController txtMobile = new TextEditingController();
   ProgressDialog pr;
-
+  bool isLoading =false;
   @override
   void initState() {
     super.initState();
@@ -42,10 +42,16 @@ class _LoginWithMobileState extends State<LoginWithMobile> {
       try {
         final result = await InternetAddress.lookup('google.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          pr.show();
+       //   pr.show();
+          setState(() {
+            isLoading=true;
+          });
           Future res = Services.MemberLogin(txtMobile.text);
           res.then((data) async {
-            pr.hide();
+         //   pr.hide();
+            setState(() {
+              isLoading=false;
+            });
             print("data");
             print(data);
             SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -109,10 +115,13 @@ class _LoginWithMobileState extends State<LoginWithMobile> {
               showMsg("Invalid login Detail");
             }
           }, onError: (e) {
-            setState(() {
-              pr.hide();
-            });
+            // setState(() {
+            //   pr.hide();
+            // });
 
+            setState(() {
+              isLoading=false;
+            });
             print("Error : on Login Call $e");
             showMsg("$e");
           });
@@ -190,7 +199,7 @@ class _LoginWithMobileState extends State<LoginWithMobile> {
                   Padding(
                     padding: const EdgeInsets.only(top: 0),
                     child: Image.asset(
-                      'images/logo.png',
+                      'images/opicxologo.png',
                       fit: BoxFit.fill,
                       width: 200,
                       height: 70,
@@ -230,14 +239,27 @@ class _LoginWithMobileState extends State<LoginWithMobile> {
                         height: 45,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.redAccent),
+                            color: cnst.appPrimaryMaterialColor),
                         child: MaterialButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(9.0)),
                           onPressed: () {
-                            _photographerLogin();
+                           _photographerLogin();
+
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Dashboard(
+                            //           name: "abc",
+                            //           loginWithMobile: true,
+                            //         )));
                           },
-                          child: Text(
+                          child:  isLoading == true
+                              ? CircularProgressIndicator(
+                            valueColor: new AlwaysStoppedAnimation<Color>(
+                                Colors.white),
+                          )
+                              : Text(
                             "Login",
                             style: TextStyle(
                                 color: Colors.white,

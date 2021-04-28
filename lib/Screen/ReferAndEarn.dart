@@ -36,7 +36,7 @@ class _ReferAndEarnState extends State<ReferAndEarn> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 90),
                 child: Image.asset(
-                  "images/logo.png",
+                  "images/opicxologo.png",
                   height: MediaQuery.of(context).size.height / 4,
                   width: MediaQuery.of(context).size.width,
                 ),

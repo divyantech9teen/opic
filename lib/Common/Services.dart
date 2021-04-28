@@ -118,6 +118,31 @@ class Services {
       throw Exception("something went wrong");
     }
   }
+  static Future<List> userloginwithusernameemail(String username,String password) async {
+    String url = API_URL + 'CustomerOpicxoLogin?username=$username&Opicxo_CustomerGuid=$password';
+    print("userloginwithusernameemail URL: " + url);
+    try {
+      Response response = await dio.get(url);
+      if (response.statusCode == 200) {
+        List list = [];
+        print("userloginwithusernameemail Response: " + response.data.toString());
+        var memberDataClass = response.data;
+        if (memberDataClass["IsSuccess"] == true &&
+            memberDataClass["Data"].length > 0) {
+          print(memberDataClass["Data"]);
+          list = memberDataClass["Data"];
+        } else {
+          list = [];
+        }
+        return list;
+      } else {
+        throw Exception("something went wrong");
+      }
+    } catch (e) {
+      print("userloginwithusernameemail Erorr : " + e.toString());
+      throw Exception("something went wrong");
+    }
+  }
 
   static Future<SaveDataClass> sendOtpCode(String mobileno, String code) async {
     String url = API_URL + 'SendVerificationCode?mobileNo=$mobileno&code=$code';

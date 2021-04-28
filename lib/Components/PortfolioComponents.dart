@@ -86,7 +86,7 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
                 borderRadius: new BorderRadius.circular(6.0),
                 child: widget.GalleryData["Image"] != null
                     ? FadeInImage.assetNetwork(
-                        placeholder: 'images/logo.png',
+                        placeholder: 'images/opicxologo.png',
                         image: "${widget.GalleryData["Image"]}",
                         fit: BoxFit.cover,
                       )

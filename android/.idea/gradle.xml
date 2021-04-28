@@ -7,7 +7,6 @@
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="JDK" />
         <option name="modules">
           <set>
             <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayer-0.8.1/android" />

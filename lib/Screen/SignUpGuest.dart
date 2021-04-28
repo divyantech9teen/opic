@@ -74,7 +74,7 @@ class _SignUpGuestState extends State<SignUpGuest> {
                 gravity: ToastGravity.TOP,
                 toastLength: Toast.LENGTH_SHORT);
             Navigator.push(context, MaterialPageRoute(builder: (context) => Login(username : edtName.text,password:edtPassword.text)));
-            // Navigator.of(context).pushNamedAndRemoveUntil(
+            // Navigator.of(context).pushNamedAndRemoveUntil
             //     '/Login', (Route<dynamic> route) => false);
           } else {
             showMsg(data.Message);
@@ -145,7 +145,7 @@ class _SignUpGuestState extends State<SignUpGuest> {
                         child: ClipRRect(
                           borderRadius: new BorderRadius.circular(15.0),
                           child: Image.asset(
-                            'images/logo.png',
+                            'images/opicxologo.png',
                             fit: BoxFit.fill,
                             width: 150,
                             height: 50,

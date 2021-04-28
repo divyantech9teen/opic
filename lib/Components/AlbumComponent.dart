@@ -43,7 +43,7 @@ class _AlbumComponentState extends State<AlbumComponent> {
                 borderRadius: new BorderRadius.circular(9.0),
                 child: widget.AlbumData["Photo"] != null
                     ? FadeInImage.assetNetwork(
-                        placeholder: 'images/logo.png',
+                        placeholder: 'images/opicxologo.png',
                         image: "${cnst.ImgUrl}${widget.AlbumData["Photo"]}",
                         fit: BoxFit.fitWidth,
                       )

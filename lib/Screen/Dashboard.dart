@@ -307,11 +307,11 @@ class _DashboardState extends State<Dashboard> {
       iconData: Icons.person,
       color: Colors.yellow.shade900,
     ),
-    BarItem(
-      text: "Offers",
-      iconData: Icons.person,
-      color: Colors.yellow.shade900,
-    ),
+    // BarItem(
+    //   text: "Offers",
+    //   iconData: Icons.person,
+    //   color: Colors.yellow.shade900,
+    // ),
     BarItem(
       text: "Profile",
       iconData: Icons.person,
@@ -327,7 +327,7 @@ class _DashboardState extends State<Dashboard> {
   List<String> titleList = [
     "Studio Name",
     "Portfolio",
-    "Offers",
+    //"Offers",
     "Profile",
     "Settings",
   ];
@@ -409,16 +409,16 @@ class _DashboardState extends State<Dashboard> {
       case 1:
         return PortfolioScreen(index: 1);
         break;
+//change date 17 april by rinki
+      // case 2:
+      //   return Offers();
+      //   break;
 
       case 2:
-        return Offers();
-        break;
-
-      case 3:
         return Profile();
         break;
 
-      case 4:
+      case 3:
         return Settings();
         break;
 
@@ -432,7 +432,9 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _currentIndex != 3 && _currentIndex != 2
+      appBar: _currentIndex != 3
+      //change date 17 april by rinki
+          //&& _currentIndex != 2
           ? AppBar(
               centerTitle: true,
               flexibleSpace: Container(
@@ -451,7 +453,8 @@ class _DashboardState extends State<Dashboard> {
               title: Text(
                 _currentIndex != 0
                     ? titleList[_currentIndex].toString()
-                    : "Pictik ${"- " + studioname}",
+                   // : "Opicxo ${"- " + studioname}",
+                    : "Opicxo",
                 style: GoogleFonts.aBeeZee(
                   textStyle: TextStyle(
                       fontSize: 25,
@@ -470,6 +473,22 @@ class _DashboardState extends State<Dashboard> {
                           padding: const EdgeInsets.only(right: 11),
                           child: Icon(
                             Icons.share,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      )
+                    : Container(),
+               //change on 17 april by rinki
+               _currentIndex == 1
+                    ? GestureDetector(
+                        onTap: () {
+                          Services.GetportfolioGalleryList();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 11),
+                          child: Icon(
+                            Icons.refresh,
                             color: Colors.white,
                             size: 30,
                           ),
@@ -510,13 +529,16 @@ class _DashboardState extends State<Dashboard> {
             ),
             title: "Portfolio",
           ),
-          TabItem(
-            icon: Icon(
-              Icons.person,
-              //color: cnst.appPrimaryMaterialColorYellow,
-            ),
-            title: "Offers",
-          ),
+
+          // change date 17 april by rinki
+
+          // TabItem(
+          //   icon: Icon(
+          //     Icons.person,
+          //     //color: cnst.appPrimaryMaterialColorYellow,
+          //   ),
+          //   title: "Offers",
+          // ),
           TabItem(
             icon: Icon(
               Icons.person,
