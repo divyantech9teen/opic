@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:pictiknew/Common/Constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AppClass.dart';
 
@@ -47,7 +49,8 @@ class AppServices {
           options: Options(
             headers: {'Authorization': 'Bearer $token'},
           ));
-      print("22"); print("${response.toString()}");
+      print("22");
+      print("${response.toString()}");
       if (response.statusCode == 200) {
         print("33");
         print("${response.data}");
@@ -79,8 +82,9 @@ class AppServices {
   }
 
   static Future<DataClass> AboutUs(String token) async {
-    String url =
-        "https://origin.opicxo.com/api/v1/studios/55/description";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int studioId =int.parse(prefs.getString(Session.StudioId));
+    String url = "https://origin.opicxo.com/api/v1/studios/${studioId}/description";
     print("Get about opicxo   URL: " + url);
     try {
       print("11");
@@ -88,7 +92,8 @@ class AppServices {
           options: Options(
             headers: {'Authorization': 'Bearer $token'},
           ));
-      print("22"); print("${response.toString()}");
+      print("22");
+      print("${response.toString()}");
       if (response.statusCode == 200) {
         print("33");
         print("${response.data}");
@@ -111,6 +116,115 @@ class AppServices {
       }
     } catch (e) {
       print("about Error : " + e.toString());
+      throw Exception("Something went wrong");
+    }
+  }
+ static Future<DataClass> StudioDetail(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int studioId =int.parse(prefs.getString(Session.StudioId));
+    String url = "https://origin.opicxo.com/api/v1/studios/${studioId}/detail";
+    print("Get about opicxo   URL: " + url);
+    try {
+      print("11");
+      final response = await dio.get(url,
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ));
+      print("22");
+      print("${response.toString()}");
+      if (response.statusCode == 200) {
+        print("33");
+        print("${response.data}");
+        DataClass dataClass = new DataClass(message: 'No Data', value: null);
+        final jsonResponse = response.data;
+        print("${jsonResponse.toString()}");
+        print("list Responce: ${jsonResponse}");
+        List list = [];
+        list = [
+          {
+            "studio_detail": jsonResponse["studio_detail"],
+          }
+        ];
+
+        dataClass.studioDetail = list;
+        print("opicxo about Responce: ${list}");
+
+        return dataClass;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } catch (e) {
+      print("about Error : " + e.toString());
+      throw Exception("Something went wrong");
+    }
+  }
+
+  static Future<DataClass> SliderBanner(String token, int StudioId) async {
+    String url =
+        "https://origin.opicxo.com/api/v1/studios/${StudioId}/sliderbanner";
+    print("Get studio banners opicxo   URL: " + url);
+    try {
+      print("11");
+      final response = await dio.get(url,
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ));
+      print("22");
+      print("${response.toString()}");
+      if (response.statusCode == 200) {
+        print("33");
+        print("${response.data}");
+        DataClass dataClass = new DataClass(message: 'No Data', value: null);
+        final jsonResponse = response.data;
+        dataClass.message = jsonResponse['message'];
+        print("${jsonResponse.toString()}");
+        print("list Responce: ${jsonResponse}");
+       // List list = [];
+       // list = jsonResponse['studio_slider_banner'][0]["picture_urls"];
+
+        dataClass.studioBanner = jsonResponse['studio_slider_banner'];
+        print("opicxo studio banners Responce: ${jsonResponse['studio_slider_banner']}");
+        return dataClass;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } catch (e) {
+      print("studio banners Error : " + e.toString());
+      throw Exception("Something went wrong");
+    }
+  }
+
+  static Future<DataClass> OpicxoPortfolio(String token, int StudioId) async {
+    String url =
+        "https://origin.opicxo.com/api/v1/studios/${StudioId}/portfolio";
+    print("Get studio portfolio opicxo   URL: " + url);
+    try {
+      print("11");
+      final response = await dio.get(url,
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ));
+      print("22");
+      print("${response.toString()}");
+      if (response.statusCode == 200) {
+        print("33");
+        print("${response.data}");
+        DataClass dataClass = new DataClass(message: 'No Data', value: null);
+        final jsonResponse = response.data;
+        dataClass.message = jsonResponse['message'];
+        print("${jsonResponse.toString()}");
+        print("list Responce: ${jsonResponse}");
+       // List list = [];
+       // list = jsonResponse['studio_slider_banner'][0]["picture_urls"];
+
+        dataClass.studioPortfolio = jsonResponse['studio_portfolios'];
+        print("opicxo studio portfolio Responce: ${jsonResponse['studio_portfolios']}");
+        return dataClass;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } catch (e) {
+      print("studio portfolio Error : " + e.toString());
       throw Exception("Something went wrong");
     }
   }

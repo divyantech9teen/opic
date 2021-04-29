@@ -119,7 +119,7 @@ class _DashboardState extends State<Dashboard> {
     print("dataaddedd");
     print(cnst.Session.dataaddedd);
     if (data == null && cnst.Session.dataaddedd == "false") {
-      adddata();
+     // adddata();
     } else {
       return;
     }
@@ -131,7 +131,7 @@ class _DashboardState extends State<Dashboard> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Add Details"),
+          title: new Text("Add Detailssss"),
           content: Container(
             width: MediaQuery.of(context).size.width * 0.9,
             height: MediaQuery.of(context).size.height * 0.4,

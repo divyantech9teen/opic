@@ -72,6 +72,30 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
         );
       },
     );
+  }showMsg1(String msg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          elevation: 2,
+          title: new Text("Login"),
+          content: new Text(msg),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text(
+                "Close",
+                style: TextStyle(color: Colors.black),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   accessToken() async {
@@ -86,9 +110,9 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
           AppServices.AccessToken(txtUsername.text, txtPassword.text).then(
               (data) async {
             print("done1");
-            setState(() {
-              isLoading = false;
-            });
+            // setState(() {
+            //   isLoading = false;
+            // });
             //  if (data.value == "true") {
             print("Message : " + data.access_token);
             await prefs.setString(cnst.Session.opicxoUserId, "${txtUsername.text}");
@@ -127,9 +151,9 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
           isLoading = true;
         });
         AppServices.LoginApp(username, pass, token).then((data) async {
-          setState(() {
-            isLoading = false;
-          });
+          // setState(() {
+          //   isLoading = false;
+          // });
           print("Message : " + data.message);
           setState(() {
             profileData = data.login_response;
@@ -143,7 +167,8 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
             isLoading = false;
           });
           print("error on call -> ${e.message}");
-          Fluttertoast.showToast(msg: "Something Went Wrong");
+         // Fluttertoast.showToast(msg: "Something Went Wrong");
+          showMsg1("Please connect your studio to get an access to albums");
         });
       }
     } on SocketException catch (_) {

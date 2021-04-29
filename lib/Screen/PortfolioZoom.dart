@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -13,19 +14,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:progress_dialog/progress_dialog.dart';
-
-class PortfolioImageView extends StatefulWidget {
+class PortfolioZoom extends StatefulWidget {
   List albumData;
   int albumIndex;
   var gallerydata;
 
-  PortfolioImageView({this.albumData, this.albumIndex,this.gallerydata});
-
+  PortfolioZoom({this.albumData, this.albumIndex,this.gallerydata});
   @override
-  _PortfolioImageViewState createState() => _PortfolioImageViewState();
+  _PortfolioZoomState createState() => _PortfolioZoomState();
 }
 
-class _PortfolioImageViewState extends State<PortfolioImageView> {
+class _PortfolioZoomState extends State<PortfolioZoom> {
   bool downloading = false;
 
   ProgressDialog pr;
@@ -57,11 +56,11 @@ class _PortfolioImageViewState extends State<PortfolioImageView> {
       print("${dir.path}/${file[3].toString()}");
       await dio.download("${cnst.ImgUrl}${url.replaceAll(" ", "%20")}",
           "${dir.path}/${file[3].toString()}", onReceiveProgress: (rec, total) {
-        print("Rec: $rec , Total: $total");
-        setState(() {
-          downloading = true;
-        });
-      });
+            print("Rec: $rec , Total: $total");
+            setState(() {
+              downloading = true;
+            });
+          });
     } catch (e) {
       print(e);
     }
@@ -89,13 +88,13 @@ class _PortfolioImageViewState extends State<PortfolioImageView> {
     //String path = '${url}';
     Platform.isIOS
         ? await GallerySaver.saveImage(url).then((bool success) {
-            print("Success = ${success}");
-            Fluttertoast.showToast(
-                backgroundColor: cnst.appPrimaryMaterialColorYellow,
-                msg: "Download Complete",
-                gravity: ToastGravity.TOP,
-                toastLength: Toast.LENGTH_SHORT);
-          })
+      print("Success = ${success}");
+      Fluttertoast.showToast(
+          backgroundColor: cnst.appPrimaryMaterialColorYellow,
+          msg: "Download Complete",
+          gravity: ToastGravity.TOP,
+          toastLength: Toast.LENGTH_SHORT);
+    })
         : await downloadAndroid(url);
     pr.hide();
   }
@@ -104,7 +103,7 @@ class _PortfolioImageViewState extends State<PortfolioImageView> {
     var response = await Dio()
         .get("${path}", options: Options(responseType: ResponseType.bytes));
     final result =
-        await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
     print(result);
     Fluttertoast.showToast(
         backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -112,7 +111,6 @@ class _PortfolioImageViewState extends State<PortfolioImageView> {
         gravity: ToastGravity.TOP,
         toastLength: Toast.LENGTH_SHORT);
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,7 +177,7 @@ class _PortfolioImageViewState extends State<PortfolioImageView> {
           GestureDetector(
             onTap: () {
               shareFile(
-                  "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Image"]}");
+                  "${widget.gallerydata[widget.albumIndex]}");
             },
             child: Padding(
               padding: const EdgeInsets.only(
@@ -240,19 +238,19 @@ class _PortfolioImageViewState extends State<PortfolioImageView> {
           width: MediaQuery.of(context).size.width,
           //height: MediaQuery.of(context).size.height,
           child: Stack(
-           // crossAxisAlignment: CrossAxisAlignment.center,
-           // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Center(
                   child: CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              )),
+                    backgroundColor: Colors.white,
+                  )),
               Center(
                 child: PhotoView(
                   imageProvider: NetworkImage(
                     //"${cnst.ImgUrl}" + widget.albumData[widget.albumIndex]["Photo"],
-                   "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Image"]}",
-                   // "${widget.gallerydata[widget.albumIndex]}",
+                   // "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Image"]}",
+                    "${widget.gallerydata[widget.albumIndex]}",
                   ),
                   loadingChild: Center(
                     child: CircularProgressIndicator(

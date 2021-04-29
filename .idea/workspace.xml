@@ -22,57 +22,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33cadf45-0d5a-4b40-bfa1-bb07fb21e1a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+    <list default="true" id="33cadf45-0d5a-4b40-bfa1-bb07fb21e1a9" name="Default Changelist" comment="by rinki at 11:24 am">
+      <change afterPath="$PROJECT_DIR$/lib/Screen/PortfolioZoom.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Common/AppClass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Common/AppClass.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Common/AppService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Common/AppService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Common/Constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Common/Constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Common/Services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Common/Services.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/AlbumComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/AlbumComponent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/CustomerGalleryComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/CustomerGalleryComponent.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Components/PortfolioComponents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/PortfolioComponents.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Components/PortfolioImagesComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/PortfolioImagesComponent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/SelectedAlbumComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/SelectedAlbumComponent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Components/StudioLocationComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Components/StudioLocationComponent.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Pages/Profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Pages/Profile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Pages/Settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Pages/Settings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/AdvertisemnetDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/AdvertisemnetDetail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage10Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage10Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage11Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage11Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage1Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage1Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage2Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage2Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage3Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage3Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage4Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage4Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage5Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage5Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage6Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage6Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage7Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage7Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage8Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage8Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage9Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/Collage9Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Collage screen/CollageGallaryComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Collage screen/CollageGallaryComponent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/CustomerAboutUs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/CustomerAboutUs.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screen/CustomerGalleryScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/CustomerGalleryScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screen/Dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Dashboard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/ImageView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/ImageView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Login.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/LoginWithMobile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/LoginWithMobile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screen/LoginWithUsername.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/LoginWithUsername.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/ReferAndEarn.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/ReferAndEarn.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/SignUpGuest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/SignUpGuest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Splash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/Splash.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/PortfolioImageView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/PortfolioImageView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/PortfolioImages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/PortfolioImages.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/PortfolioScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/PortfolioScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/SocialLink.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screen/SocialLink.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615281400165</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="by rinki at 11:24 am">
+      <created>1619589313842</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1619589313842</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -243,7 +214,8 @@
     <MESSAGE value="google view done by anirudh" />
     <MESSAGE value="completed client issue of login grey screen by anirudh" />
     <MESSAGE value="by rinki" />
-    <option name="LAST_COMMIT_MESSAGE" value="by rinki" />
+    <MESSAGE value="by rinki at 11:24 am" />
+    <option name="LAST_COMMIT_MESSAGE" value="by rinki at 11:24 am" />
   </component>
   <component name="WindowStateProjectService">
     <state x="515" y="231" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611998320318">
@@ -267,47 +239,48 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="789" y="400" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1619588629109" />
-    <state width="1863" height="464" key="GridCell.Tab.0.bottom" timestamp="1619516894713">
+    <state width="1863" height="222" key="GridCell.Tab.0.bottom" timestamp="1619698783191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1540" height="504" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
-    <state width="1863" height="464" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1619516894713" />
-    <state width="1863" height="464" key="GridCell.Tab.0.center" timestamp="1619516894713">
+    <state width="1863" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1619698783191" />
+    <state width="1863" height="222" key="GridCell.Tab.0.center" timestamp="1619698783191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1540" height="504" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
-    <state width="1863" height="464" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1619516894713" />
-    <state width="1863" height="464" key="GridCell.Tab.0.left" timestamp="1619516894713">
+    <state width="1863" height="222" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1619698783191" />
+    <state width="1863" height="222" key="GridCell.Tab.0.left" timestamp="1619698783191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1540" height="504" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
-    <state width="1863" height="464" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1619516894713" />
-    <state width="1863" height="464" key="GridCell.Tab.0.right" timestamp="1619516894713">
+    <state width="1863" height="222" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1619698783191" />
+    <state width="1863" height="222" key="GridCell.Tab.0.right" timestamp="1619698783191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1540" height="504" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1615281479047" />
-    <state width="1863" height="464" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1619516894713" />
+    <state width="1863" height="222" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1619698783191" />
     <state x="354" y="85" key="SettingsEditor" timestamp="1619589260370">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="354" y="85" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1619589260370" />
-    <state x="484" y="192" key="Vcs.Push.Dialog.v2" timestamp="1619588530853">
+    <state x="484" y="192" key="Vcs.Push.Dialog.v2" timestamp="1619589350366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="403" y="159" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1615281423345" />
-    <state x="484" y="192" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1619588530853" />
+    <state x="484" y="192" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1619589350366" />
     <state x="241" y="361" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615204519722">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="241" y="361" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1600.860@0.0.1600.860" timestamp="1615204519722" />
-    <state x="510" y="-23" width="1055" height="947" key="find.popup" timestamp="1619499962127">
+    <state x="510" y="-23" width="1055" height="947" key="find.popup" timestamp="1619698119056">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="425" y="-19" width="879" height="783" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1615279027567" />
-    <state x="510" y="-23" width="1055" height="947" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619499962127" />
-    <state x="463" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1615279545929">
-      <screen x="0" y="0" width="1600" height="860" />
+    <state x="510" y="-23" width="1055" height="947" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619698119056" />
+    <state x="556" y="219" width="840" height="820" key="search.everywhere.popup" timestamp="1619673484904">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="463" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1615279545929" />
+    <state x="556" y="219" width="840" height="820" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1619673484904" />
   </component>
 </project>

@@ -11,10 +11,13 @@ import 'package:pictiknew/Components/PortfolioImagesComponent.dart';
 import 'package:pictiknew/Screen/ImageView.dart';
 import 'package:pictiknew/Screen/PortfolioImageView.dart';
 
+import 'PortfolioZoom.dart';
+
 class PortfolioImages extends StatefulWidget {
   String galleryId, galleryName;
+      var galleryData;
 
-  PortfolioImages(this.galleryId, this.galleryName);
+  PortfolioImages(this.galleryId, this.galleryName,this.galleryData);
 
   @override
   _PortfolioImagesState createState() => _PortfolioImagesState();
@@ -119,26 +122,36 @@ class _PortfolioImagesState extends State<PortfolioImages> {
                 color: Colors.white))),
 
       ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Container(
+      body:
+           Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: albumData.length != 0 && albumData != null
+              child: widget.galleryData.length > 0
                   ? StaggeredGridView.countBuilder(
                       padding: const EdgeInsets.only(left: 3, right: 3, top: 5),
                       crossAxisCount: 4,
-                      itemCount: albumData.length,
+                      itemCount: widget.galleryData.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return PortfolioImagesComponent(albumData[index], index,
+                        return PortfolioImagesComponent(widget.galleryData[index], index,
                             (action, Id) {
-                          if (action.toString() == "Show") {
+                        //   if (action.toString() == "Show") {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => PortfolioImageView(
+                        //                 albumData: albumData,
+                        //                 albumIndex: index,
+                        //             gallerydata: widget.galleryData,)));
+                        //   }
+                        // });
+                        if (action.toString() == "Show") {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PortfolioImageView(
+                                    builder: (context) => PortfolioZoom(
                                         albumData: albumData,
-                                        albumIndex: index)));
+                                        albumIndex: index,
+                                    gallerydata: widget.galleryData,)));
                           }
                         });
                       },
@@ -148,6 +161,36 @@ class _PortfolioImagesState extends State<PortfolioImages> {
                     )
                   : NoDataComponent(),
             ),
+      // isLoading
+      //     ? Center(child: CircularProgressIndicator())
+      //     :
+      // Container(
+      //         height: MediaQuery.of(context).size.height,
+      //         width: MediaQuery.of(context).size.width,
+      //         child: albumData.length != 0 && albumData != null
+      //             ? StaggeredGridView.countBuilder(
+      //                 padding: const EdgeInsets.only(left: 3, right: 3, top: 5),
+      //                 crossAxisCount: 4,
+      //                 itemCount: albumData.length,
+      //                 itemBuilder: (BuildContext context, int index) {
+      //                   return PortfolioImagesComponent(albumData[index], index,
+      //                       (action, Id) {
+      //                     if (action.toString() == "Show") {
+      //                       Navigator.push(
+      //                           context,
+      //                           MaterialPageRoute(
+      //                               builder: (context) => PortfolioImageView(
+      //                                   albumData: albumData,
+      //                                   albumIndex: index)));
+      //                     }
+      //                   });
+      //                 },
+      //                 staggeredTileBuilder: (_) => StaggeredTile.fit(2),
+      //                 mainAxisSpacing: 3,
+      //                 crossAxisSpacing: 3,
+      //               )
+      //             : NoDataComponent(),
+      //       ),
     );
   }
 }

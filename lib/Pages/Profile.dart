@@ -14,10 +14,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:pictiknew/Common/AppService.dart';
 import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
 import 'package:pictiknew/Screen/CardShareComponent.dart';
 import 'package:pictiknew/Screen/FullScreenImage.dart';
+import 'package:pictiknew/Screen/SocialLink.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
@@ -27,7 +29,9 @@ import 'package:pictiknew/Screen/EditProfile.dart';
 class Profile extends StatefulWidget {
   String mobile, id, name;
   List data = [];
+
   Profile({this.mobile, this.id, this.name});
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -51,28 +55,104 @@ class _ProfileState extends State<Profile> {
   TextEditingController EditMobile = new TextEditingController();
   TextEditingController EditEmail = new TextEditingController();
   String name, mobile, email;
+  var aboutUs, _data;
 
   @override
   void initState() {
     print("image data");
     print(Session.Image);
-    _profileData();
+   // _profileData();
+    accessToken();
     //_getData();
     pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
-    pr.style(
-        message: "Please Wait..",
-        borderRadius: 10.0,
-        progressWidget: Container(
-          padding: EdgeInsets.all(15),
-          child: CircularProgressIndicator(
-              //backgroundColor: cnst.appPrimaryMaterialColor,
-              ),
-        ),
-        elevation: 10.0,
-        insetAnimCurve: Curves.easeInOut,
-        messageTextStyle: TextStyle(
-            color: Colors.black, fontSize: 17.0, fontWeight: FontWeight.w600));
-    _getLocalData();
+    // pr.style(
+    //     message: "Please Wait..",
+    //     borderRadius: 10.0,
+    //     progressWidget: Container(
+    //       padding: EdgeInsets.all(15),
+    //       child: CircularProgressIndicator(
+    //           //backgroundColor: cnst.appPrimaryMaterialColor,
+    //           ),
+    //     ),
+    //     elevation: 10.0,
+    //     insetAnimCurve: Curves.easeInOut,
+    //     messageTextStyle: TextStyle(
+    //         color: Colors.black, fontSize: 17.0, fontWeight: FontWeight.w600));
+    // _getLocalData();
+  }
+
+  accessToken() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        AppServices.AccessToken(prefs.getString(Session.opicxoUserId),
+                prefs.getString(Session.opicxoUserPass))
+            .then((data) async {
+          print("done1");
+          setState(() {
+            isLoading = false;
+          });
+          //  if (data.value == "true") {
+          print("Message : " + data.access_token);
+          getOpicxoAbout(data.access_token);
+          // Navigator.of(context).pushReplacementNamed('/LoginForm');
+          // } else {
+          //   showMsg("Invalid login Detail");
+          //   print("Invalid Cridintional");
+          // }
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          print("Something Went Wrong");
+          print("error is " + e.toString());
+        });
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+      print("No Internet Connection");
+    }
+  }
+
+  getOpicxoAbout(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        AppServices.StudioDetail(token).then((data) async {
+          setState(() {
+            isLoading = false;
+          });
+          print("Message : " + data.message);
+          setState(() {
+            _data = data.studioDetail;
+            aboutUs = data.studioDetail[0]["studio_detail"];
+          });
+          print("prodile data : ..." + aboutUs.toString());
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          print("error on call -> ${e.message}");
+          Fluttertoast.showToast(msg: "Something Went Wrong");
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        isLoading = false;
+      });
+      Fluttertoast.showToast(msg: "No Internet Connection.");
+    }
   }
 
   _getLocalData() async {
@@ -85,6 +165,7 @@ class _ProfileState extends State<Profile> {
       CustMobile = preferences.getString(Session.Mobile);
     });
   }
+
   //
   // _getData() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -675,7 +756,7 @@ class _ProfileState extends State<Profile> {
         //     // ),
         //   ],
         // ),
-        body: SingleChildScrollView(
+        body:isLoading?  Center(child: CircularProgressIndicator()):SingleChildScrollView(
           child: WillPopScope(
             onWillPop: onWillPop,
             child: SingleChildScrollView(
@@ -723,16 +804,16 @@ class _ProfileState extends State<Profile> {
                           SizedBox(
                             height: 5,
                           ),
-                          name != null
+                          aboutUs["studio_name"] != null
                               ? Text(
-                                  "${name}",
+                                  "${aboutUs["studio_name"]}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white,
                                       fontSize: 23),
                                 )
                               : Text(
-                                  "${cnst.Session.Name}",
+                                  "-",
                                   style: TextStyle(
                                       //fontWeight: FontWeight.w700,
                                       color: Colors.white,
@@ -741,16 +822,16 @@ class _ProfileState extends State<Profile> {
                           SizedBox(
                             height: 3,
                           ),
-                          mobile != null
+                          aboutUs["contact_number"] != null
                               ? Text(
-                                  "${mobile}",
+                                  "${aboutUs["contact_number"]}",
                                   style: TextStyle(
                                       //fontWeight: FontWeight.w700,
                                       color: Colors.white,
                                       fontSize: 20),
                                 )
                               : Text(
-                                  "${cnst.Session.Mobile}",
+                                  "-",
                                   style: TextStyle(
                                       //fontWeight: FontWeight.w700,
                                       color: Colors.white,
@@ -759,16 +840,16 @@ class _ProfileState extends State<Profile> {
                           SizedBox(
                             height: 3,
                           ),
-                          email != null
+                          aboutUs["email"] != null
                               ? Text(
-                                  "${email}",
+                                  "${aboutUs["email"]}",
                                   style: TextStyle(
                                       //fontWeight: FontWeight.w700,
                                       color: Colors.white,
                                       fontSize: 20),
                                 )
                               : Text(
-                                  "${cnst.Session.Email}",
+                                  "-",
                                   style: TextStyle(
                                     //fontWeight: FontWeight.w700,
                                     color: Colors.white,
@@ -839,21 +920,32 @@ class _ProfileState extends State<Profile> {
                               //changed n 17 april by rinki
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/SocialLink');
+                                  // Navigator.pushNamed(context, '/SocialLink');
+                                  Navigator.of(context).push(PageRouteBuilder(
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        SocialLink(
+                                      socialData: aboutUs,
+                                    ),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return child;
+                                    },
+                                  ));
                                 },
                                 child: Container(
                                   height: 120,
                                   width:
-                                  MediaQuery.of(context).size.width / 2.1,
+                                      MediaQuery.of(context).size.width / 2.1,
                                   child: Card(
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(30),
+                                                BorderRadius.circular(30),
                                             color: Colors.green,
                                           ),
                                           //color: Colors.pink,

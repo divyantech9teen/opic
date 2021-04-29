@@ -11,6 +11,9 @@ class DataClass {
   String available;
   List login_response;
   List studio;
+  List studioDetail;
+  List studioBanner;
+  List studioPortfolio;
 
   List data;
 
@@ -27,6 +30,9 @@ class DataClass {
         this.available,
         this.login_response,
         this.studio,
+        this.studioBanner,
+        this.studioDetail,
+        this.studioPortfolio,
         this.email});
 
   factory DataClass.fromJson(Map<String, dynamic> json) {
@@ -41,6 +47,8 @@ class DataClass {
       phone: json['phone'] as String,
       email: json['email'] as String,
       login_response: json['login_response'] as List,
+      studioBanner: json['studio_slider_banner'] as List,
+      studioPortfolio: json['studio_portfolios'] as List,
       available: json['available'] as String,
       data: json['data'] as List,
     );

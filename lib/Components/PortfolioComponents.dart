@@ -69,8 +69,11 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
             context,
             MaterialPageRoute(
                 builder: (context) => PortfolioImages(
+
                     widget.GalleryData["Id"].toString(),
-                    widget.GalleryData["Title"].toString())));
+                    widget.GalleryData["category_name"].toString(),
+                    widget.GalleryData["picture_urls"]
+                )));
       },
       child: Card(
         color: Colors.green,
@@ -84,10 +87,10 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
               width: MediaQuery.of(context).size.width,
               child: ClipRRect(
                 borderRadius: new BorderRadius.circular(6.0),
-                child: widget.GalleryData["Image"] != null
+                child: widget.GalleryData["picture_urls"].length > 0
                     ? FadeInImage.assetNetwork(
                         placeholder: 'images/opicxologo.png',
-                        image: "${widget.GalleryData["Image"]}",
+                        image: "${widget.GalleryData["picture_urls"][0]}",
                         fit: BoxFit.cover,
                       )
                     /*Image(
@@ -95,9 +98,14 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
                             url: "${cnst.ImgUrl}${widget.GalleryData["Image"]}",
                             debug: true,
                             file: compressedFile))*/
-                    : Container(
-                        color: Colors.grey[100],
-                      ),
+                    :Container(
+                    height: 160,
+                    color: Colors.grey[100],
+                    child: Image.asset("images/opicxologo.png"))
+
+                // Container(
+                //         color: Colors.grey[100],
+                //       ),
               ),
             ),
             Container(
@@ -121,7 +129,7 @@ class _PortfolioComponentsState extends State<PortfolioComponents> {
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, bottom: 5, top: 5),
-                child: Text('${widget.GalleryData["Title"]}',
+                child: Text('${widget.GalleryData["category_name"]}',
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style: GoogleFonts.aBeeZee(
