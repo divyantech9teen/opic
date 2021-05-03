@@ -826,7 +826,7 @@ class _ImageViewState extends State<ImageView> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // _settingModalBottomSheet(context);
+                          _settingModalBottomSheet(context);
                           final snackBar = SnackBar(
                             content: Text('Yay! A SnackBar!'),
                             action: SnackBarAction(
@@ -896,11 +896,13 @@ class _ImageViewState extends State<ImageView> {
                           //           .toString());
                           // }
                         },
-                        child:isFav? CircularProgressIndicator(): Icon(
-                          Icons.download_rounded,
-                          size: 25,
-                          color: Colors.white,
-                        ),
+                        child: isFav
+                            ? CircularProgressIndicator()
+                            : Icon(
+                                Icons.download_rounded,
+                                size: 25,
+                                color: Colors.white,
+                              ),
                       ),
                     ],
                   ),
@@ -1167,6 +1169,8 @@ class _BottomSheetState extends State<BottomSheet> {
     print("widget.data");
     print(widget.Data);
     return SafeArea(
+
+
       child: Container(
         //height: 500,
         padding: EdgeInsets.only(
@@ -1189,23 +1193,23 @@ class _BottomSheetState extends State<BottomSheet> {
                 ),
               ),
             ),
-            // Expanded(
-            //     child: IsLoading
-            //         ? LoadinComponent()
-            //         : CommentList.length > 0
-            //         ? ListView.builder(
-            //       padding: EdgeInsets.all(0),
-            //       itemCount: CommentList.length,
-            //       itemBuilder: (BuildContext context, int index) {
-            //         return PhotoCommentConponent(
-            //             CommentList[index], CustomerId, (action, id) {
-            //           if (action == "delete") {
-            //             deleteComment(id, index);
-            //           }
-            //         });
-            //       },
-            //     )
-            //         : NoDataComponent()),
+            Expanded(
+                child: IsLoading
+                    ? LoadinComponent()
+                    : CommentList.length > 0
+                    ? ListView.builder(
+                  padding: EdgeInsets.all(0),
+                  itemCount: CommentList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return PhotoCommentConponent(
+                        CommentList[index], CustomerId, (action, id) {
+                      if (action == "delete") {
+                        deleteComment(id, index);
+                      }
+                    });
+                  },
+                )
+                    : NoDataComponent()),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

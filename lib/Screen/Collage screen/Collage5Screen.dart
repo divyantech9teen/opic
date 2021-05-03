@@ -93,7 +93,7 @@ class _Collage5ScreenState extends State<Collage5Screen> {
         child: RepaintBoundary(
           key: _globalKey,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
@@ -144,6 +144,7 @@ class _Collage5ScreenState extends State<Collage5Screen> {
               Padding(
                 padding: const EdgeInsets.only(left: 3.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () async {

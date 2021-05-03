@@ -214,17 +214,24 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
               await prefs.setString(cnst.Session.UserName, data[0]["UserName"]);
               await prefs.setString(
                   cnst.Session.IsVerified, data[0]["IsVerified"].toString());
-
+              await prefs.setString(
+                  cnst.Session.opicxoCustomerId, data[0]["Opicxo_CustomerId"].toString());
+              await prefs.setString(
+                  cnst.Session.opicxoCustomerGuid, data[0]["Opicxo_CustomerGuid"].toString());
+              _studioId();
               // if (data[0]["IsVerified"].toString() == "true" &&
               //     data[0]["IsVerified"] != null) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Dashboard(
-                            name: "Opicxo",
-                            index: 2,
-                            loginWithMobile: false,
-                          )));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => Dashboard(
+              //               name: "Opicxo",
+              //               index: 2,
+              //               loginWithMobile: false,
+              //             )));
+              //
+              //
+              //
               // }
               // else {
               //   //Navigator.pushNamedAndRemoveUntil(context, "/OTPVerification",
@@ -256,7 +263,49 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
       }
 
   }
+  _studioId() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 
+        print("add contact");
+        AppServices.CurrentStudio().then((data) async {
+
+          if (data.Data != ""||data.Data !=null||data.Data != 0) {
+            print("dedede ${data.Data}");
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString(cnst.Session.opicxoStudioId, data.Data);
+            Fluttertoast.showToast(
+                msg: "Login Successfully",
+                backgroundColor: cnst.appPrimaryMaterialColorYellow,
+                textColor: Colors.white,
+                gravity: ToastGravity.TOP,
+                toastLength: Toast.LENGTH_SHORT);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/Dashboard', (Route<dynamic> route) => false);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => Dashboard(
+            //           name: "Opicxo",
+            //           index: 2,
+            //           loginWithMobile: false,
+            //         )));
+         //   Navigator.pushReplacementNamed(context, "/AddCustomer");
+          } else {
+            showMsg1(data.Message);
+          }
+        }, onError: (e) {
+
+          showMsg1("Try Again.");
+        });
+      } else {
+        showMsg1("No Internet Connection.");
+      }
+    } on SocketException catch (_) {
+      showMsg1("No Internet Connection.");
+    }
+  }
   _photographerLogin() async {
     if (txtUsername != "" && txtPassword != "") {
       try {
@@ -309,14 +358,17 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
 
               // if (data[0]["IsVerified"].toString() == "true" &&
               //     data[0]["IsVerified"] != null) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Dashboard(
-                            name: data[0]["studio"]["Name"],
-                            index: 2,
-                            loginWithMobile: false,
-                          )));
+
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/Dashboard', (Route<dynamic> route) => false);
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => Dashboard(
+              //               name: data[0]["studio"]["Name"],
+              //               index: 2,
+              //               loginWithMobile: false,
+              //             )));
               // }
               // else {
               //   //Navigator.pushNamedAndRemoveUntil(context, "/OTPVerification",

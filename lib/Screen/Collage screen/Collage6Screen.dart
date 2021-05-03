@@ -95,6 +95,7 @@ class _Collage6ScreenState extends State<Collage6Screen> {
         child: RepaintBoundary(
           key: _globalKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () async {

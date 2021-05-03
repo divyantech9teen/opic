@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Common/Constants.dart' as cnst;
+import 'Screen/ChangeStudio.dart';
 import 'Screen/ContactList.dart';
 import 'Screen/GuestDashboard.dart';
 import 'Screen/GuestAboutUs.dart';
@@ -43,6 +45,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    secureScreen();
   }
 
   @override
@@ -55,7 +58,9 @@ class _MyAppState extends State<MyApp> {
     ]);
     super.dispose();
   }
-
+  Future<void> secureScreen() async {
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -82,6 +87,7 @@ class _MyAppState extends State<MyApp> {
           '/GuestDashboard': (context) => GuestDashboard(),
           '/StudioLocation': (context) => StudioLocation(),
           '/CustomerAboutUs': (context) => CustomerAboutUs(),
+          '/ChangeStudio': (context) => ChangeStudio(),
         },
         theme: ThemeData(
           textTheme: GoogleFonts.aBeeZeeTextTheme(

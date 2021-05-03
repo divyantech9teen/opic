@@ -597,7 +597,7 @@ class _SelectedListState extends State<SelectedList> {
           ),
           child: Center(
               child: Text(
-            "Collage Photos",
+            "Create Collage Image",
             style: TextStyle(
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),
           )),
@@ -920,7 +920,7 @@ class _SelectedListState extends State<SelectedList> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25),
                       child: Text(
-                        "Collage Images",
+                        "Create Collage Image",
                         style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,

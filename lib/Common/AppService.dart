@@ -5,6 +5,7 @@ import 'package:pictiknew/Common/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AppClass.dart';
+import 'ClassList.dart';
 
 Dio dio = new Dio();
 
@@ -81,10 +82,40 @@ class AppServices {
     }
   }
 
+  static Future<List> getStudioList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int custId = int.parse(prefs.getString(Session.opicxoCustomerId));
+    String url = 'http://pictick.itfuturz.com/api/homeapi/' +
+        'GetStudioList?Opicxo_CustomerId=$custId';
+    print("GetStudioList URL: " + url);
+    try {
+      Response response = await dio.get(url);
+      if (response.statusCode == 200) {
+        List list = [];
+        print("GetStudioList Response: " + response.data.toString());
+        var memberDataClass = response.data;
+        if (memberDataClass["IsSuccess"] == true &&
+            memberDataClass["Data"].length > 0) {
+          print(memberDataClass["Data"]);
+          list = memberDataClass["Data"];
+        } else {
+          list = [];
+        }
+        return list;
+      } else {
+        throw Exception("something went wrong");
+      }
+    } catch (e) {
+      print("GetStudioList Erorr : " + e.toString());
+      throw Exception("something went wrong");
+    }
+  }
+
   static Future<DataClass> AboutUs(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int studioId =int.parse(prefs.getString(Session.StudioId));
-    String url = "https://origin.opicxo.com/api/v1/studios/${studioId}/description";
+    int studioId = int.parse(prefs.getString(Session.opicxoStudioId));
+    String url =
+        "https://origin.opicxo.com/api/v1/studios/${studioId}/description";
     print("Get about opicxo   URL: " + url);
     try {
       print("11");
@@ -119,9 +150,10 @@ class AppServices {
       throw Exception("Something went wrong");
     }
   }
- static Future<DataClass> StudioDetail(String token) async {
+
+  static Future<DataClass> StudioDetail(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int studioId =int.parse(prefs.getString(Session.StudioId));
+    int studioId = int.parse(prefs.getString(Session.opicxoStudioId));
     String url = "https://origin.opicxo.com/api/v1/studios/${studioId}/detail";
     print("Get about opicxo   URL: " + url);
     try {
@@ -179,11 +211,12 @@ class AppServices {
         dataClass.message = jsonResponse['message'];
         print("${jsonResponse.toString()}");
         print("list Responce: ${jsonResponse}");
-       // List list = [];
-       // list = jsonResponse['studio_slider_banner'][0]["picture_urls"];
+        // List list = [];
+        // list = jsonResponse['studio_slider_banner'][0]["picture_urls"];
 
         dataClass.studioBanner = jsonResponse['studio_slider_banner'];
-        print("opicxo studio banners Responce: ${jsonResponse['studio_slider_banner']}");
+        print(
+            "opicxo studio banners Responce: ${jsonResponse['studio_slider_banner']}");
         return dataClass;
       } else {
         throw Exception("Something went Wrong");
@@ -191,6 +224,66 @@ class AppServices {
     } catch (e) {
       print("studio banners Error : " + e.toString());
       throw Exception("Something went wrong");
+    }
+  }
+
+  static Future<SaveDataClass> CurrentStudio() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int opicxoCustId = int.parse(prefs.getString(Session.opicxoCustomerId));
+
+    String url =
+        "http://pictick.itfuturz.com/api/homeapi/GetCurrentStudio?Opicxo_CustomerId=${opicxoCustId}";
+    print("AddCustomer url : " + url);
+    try {
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        SaveDataClass saveData =
+            new SaveDataClass(Message: 'No Data', IsSuccess: false, Data: "0");
+        print("AddCustomer Response: " + response.data.toString());
+        var memberDataClass = response.data;
+        saveData.Message = memberDataClass["Message"];
+        saveData.IsSuccess = memberDataClass["IsSuccess"];
+        saveData.Data = memberDataClass["Data"].toString();
+
+        return saveData;
+      } else {
+        print("Error AddGuestList");
+        throw Exception(response.data.toString());
+      }
+    } catch (e) {
+      print("Error AddCustomer ${e.toString()}");
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<SaveDataClass> updateStudio(
+      String oCusId, String oStudId) async {
+    int opicxoCustId = int.parse(oCusId);
+    int opicxoStudId = int.parse(oStudId);
+
+    String url =
+        "http://pictick.itfuturz.com/api/homeapi/UpdateCurrentStudio?Opicxo_CustomerId=${opicxoCustId}&Opicxo_StudioBLId=$opicxoStudId";
+
+    print("UpdateCurrentStudio url : " + url);
+    try {
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        SaveDataClass saveData =
+            new SaveDataClass(Message: 'No Data', IsSuccess: false, Data: "0");
+        print("UpdateCurrentStudio Response: " + response.data.toString());
+        var memberDataClass = response.data;
+        saveData.Message = memberDataClass["Message"];
+        saveData.IsSuccess = memberDataClass["IsSuccess"];
+        saveData.Data = memberDataClass["Data"].toString();
+
+        return saveData;
+      } else {
+        print("Error UpdateCurrentStudio");
+        throw Exception(response.data.toString());
+      }
+    } catch (e) {
+      print("Error UpdateCurrentStudio ${e.toString()}");
+      throw Exception(e.toString());
     }
   }
 
@@ -214,11 +307,12 @@ class AppServices {
         dataClass.message = jsonResponse['message'];
         print("${jsonResponse.toString()}");
         print("list Responce: ${jsonResponse}");
-       // List list = [];
-       // list = jsonResponse['studio_slider_banner'][0]["picture_urls"];
+        // List list = [];
+        // list = jsonResponse['studio_slider_banner'][0]["picture_urls"];
 
         dataClass.studioPortfolio = jsonResponse['studio_portfolios'];
-        print("opicxo studio portfolio Responce: ${jsonResponse['studio_portfolios']}");
+        print(
+            "opicxo studio portfolio Responce: ${jsonResponse['studio_portfolios']}");
         return dataClass;
       } else {
         throw Exception("Something went Wrong");

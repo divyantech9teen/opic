@@ -239,10 +239,10 @@ class _SettingsState extends State<Settings> {
                           ],
                         ),
                       ),*/
-                      /*   Divider(thickness: 1.5),
+                         Divider(thickness: 1.5),
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/ReferAndEarn');
+                          Navigator.pushNamed(context, '/ChangeStudio');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,7 +250,7 @@ class _SettingsState extends State<Settings> {
                             Padding(
                               padding: const EdgeInsets.all(13.0),
                               child: Text(
-                                "Refer & Earn",
+                                "Change Studio",
                                 style: TextStyle(
                                     fontSize: 17, fontWeight: FontWeight.w600),
                               ),
@@ -261,7 +261,7 @@ class _SettingsState extends State<Settings> {
                             ),
                           ],
                         ),
-                      ),*/
+                      ),
                       Divider(thickness: 1.5),
                       InkWell(
                         onTap: () {

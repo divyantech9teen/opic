@@ -95,6 +95,7 @@ class _Collage4ScreenState extends State<Collage4Screen> {
         child: RepaintBoundary(
           key: _globalKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

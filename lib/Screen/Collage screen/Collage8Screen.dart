@@ -94,6 +94,7 @@ class _Collage8ScreenState extends State<Collage8Screen> {
         child: RepaintBoundary(
           key: _globalKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

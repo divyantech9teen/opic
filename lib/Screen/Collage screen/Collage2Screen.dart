@@ -94,6 +94,7 @@ class _Collage2ScreenState extends State<Collage2Screen> {
         child: RepaintBoundary(
           key: _globalKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () async {

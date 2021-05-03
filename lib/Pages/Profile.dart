@@ -94,9 +94,9 @@ class _ProfileState extends State<Profile> {
                 prefs.getString(Session.opicxoUserPass))
             .then((data) async {
           print("done1");
-          setState(() {
-            isLoading = false;
-          });
+          // setState(() {
+          //   isLoading = false;
+          // });
           //  if (data.value == "true") {
           print("Message : " + data.access_token);
           getOpicxoAbout(data.access_token);
@@ -488,54 +488,54 @@ class _ProfileState extends State<Profile> {
   List Updatedata = [];
   var cardid = "";
 
-  getCardId() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        setState(() {
-          isLoading = true;
-        });
-
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        var mobile = prefs.getString(cnst.Session.Mobile);
-        Future res = Services.GetCardIdLogin("login", mobile);
-        res.then((data) async {
-          print(data);
-          if (data != null && data.length > 0) {
-            setState(() {
-              CardIddata = data;
-              cardid = CardIddata[0]["cardid"];
-              isLoading = false;
-            });
-            print("Session card id");
-            print(cardid);
-            if (cardid == "" || cardid == null) {
-              print("if part");
-              SaveOffer();
-              checkLogin();
-            } else {
-              print("else part");
-              checkLogin();
-            }
-          } else {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        }, onError: (e) {
-          showMsg("Something went wrong.Please try agian.");
-          setState(() {
-            isLoading = false;
-          });
-        });
-      }
-    } on SocketException catch (_) {
-      setState(() {
-        isLoading = false;
-      });
-      showMsg("No Internet Connection.");
-    }
-  }
+  // getCardId() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('google.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       setState(() {
+  //         isLoading = true;
+  //       });
+  //
+  //       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //       var mobile = prefs.getString(cnst.Session.Mobile);
+  //       Future res = Services.GetCardIdLogin("login", mobile);
+  //       res.then((data) async {
+  //         print(data);
+  //         if (data != null && data.length > 0) {
+  //           setState(() {
+  //             CardIddata = data;
+  //             cardid = CardIddata[0]["cardid"];
+  //             isLoading = false;
+  //           });
+  //           print("Session card id");
+  //           print(cardid);
+  //           if (cardid == "" || cardid == null) {
+  //             print("if part");
+  //             SaveOffer();
+  //             checkLogin();
+  //           } else {
+  //             print("else part");
+  //             checkLogin();
+  //           }
+  //         } else {
+  //           setState(() {
+  //             isLoading = false;
+  //           });
+  //         }
+  //       }, onError: (e) {
+  //         showMsg("Something went wrong.Please try agian.");
+  //         setState(() {
+  //           isLoading = false;
+  //         });
+  //       });
+  //     }
+  //   } on SocketException catch (_) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     showMsg("No Internet Connection.");
+  //   }
+  // }
 
   UpdateCardId(String cardid) async {
     try {

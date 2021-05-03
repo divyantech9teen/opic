@@ -145,4 +145,7 @@ class Session {
   //opicxo
   static const String opicxoUserId = "opicxoUserId";
   static const String opicxoUserPass = "opicxoUserPass";
+  static const String opicxoCustomerId = "opicxoCustomerId";
+  static const String opicxoCustomerGuid = "opicxoCustomerGuid";
+  static const String opicxoStudioId = "opicxoStudioId";
 }

@@ -22,6 +22,7 @@ public final class GeneratedPluginRegistrant {
       de.esys.esysfluttershare.EsysFlutterSharePlugin.registerWith(shimPluginRegistry.registrarFor("de.esys.esysfluttershare.EsysFlutterSharePlugin"));
     flutterEngine.getPlugins().add(new com.example.flutternativeimage.FlutterNativeImagePlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
+      io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin.registerWith(shimPluginRegistry.registrarFor("io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin"));
       io.github.ponnamkarthik.toast.fluttertoast.FluttertoastPlugin.registerWith(shimPluginRegistry.registrarFor("io.github.ponnamkarthik.toast.fluttertoast.FluttertoastPlugin"));
       carnegietechnologies.gallery_saver.GallerySaverPlugin.registerWith(shimPluginRegistry.registrarFor("carnegietechnologies.gallery_saver.GallerySaverPlugin"));
       com.example.imagegallerysaver.ImageGallerySaverPlugin.registerWith(shimPluginRegistry.registrarFor("com.example.imagegallerysaver.ImageGallerySaverPlugin"));

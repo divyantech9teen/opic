@@ -99,6 +99,7 @@ class _Collage10ScreenState extends State<Collage10Screen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
                     onTap: () async {
@@ -246,6 +247,7 @@ class _Collage10ScreenState extends State<Collage10Screen> {
               Padding(
                 padding: const EdgeInsets.only(left: 3.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () async {

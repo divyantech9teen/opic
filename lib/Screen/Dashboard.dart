@@ -5,9 +5,12 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pictiknew/Common/AppService.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
+import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
 import 'package:pictiknew/Pages/Profile.dart';
 import 'package:pictiknew/Pages/Settings.dart';
@@ -22,6 +25,7 @@ class Dashboard extends StatefulWidget {
   String mobile, id, name;
   bool loginWithMobile = false;
   int index = 2;
+
   Dashboard(
       {this.mobile, this.id, this.name, this.index, this.loginWithMobile});
 
@@ -119,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
     print("dataaddedd");
     print(cnst.Session.dataaddedd);
     if (data == null && cnst.Session.dataaddedd == "false") {
-     // adddata();
+      // adddata();
     } else {
       return;
     }
@@ -371,6 +375,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   String studioname = "", Username = "", Password = "";
+
   //send fcm token
   sendFCMTokan(var FcmToken) async {
     try {
@@ -429,11 +434,86 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  accessToken() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        AppServices.AccessToken(prefs.getString(Session.opicxoUserId),
+                prefs.getString(Session.opicxoUserPass))
+            .then((data) async {
+          print("done1");
+          setState(() {
+            isLoading = false;
+          });
+          //  if (data.value == "true") {
+          print("Message : " + data.access_token);
+          getOpicxoPortfolio(data.access_token);
+          // Navigator.of(context).pushReplacementNamed('/LoginForm');
+          // } else {
+          //   showMsg("Invalid login Detail");
+          //   print("Invalid Cridintional");
+          // }
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          print("Something Went Wrong");
+          print("error is " + e.toString());
+        });
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+      print("No Internet Connection");
+    }
+  }
+
+  getOpicxoPortfolio(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        AppServices.OpicxoPortfolio(
+                token, int.parse(prefs.getString(Session.opicxoStudioId)))
+            .then((data) async {
+          setState(() {
+            isLoading = false;
+          });
+          //print("DAta :" +);
+
+          print("Message : " + data.message);
+          print("data data : " + data.studioPortfolio.toString());
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          print("error on call -> ${e.message}");
+          Fluttertoast.showToast(msg: "Something Went Wrong");
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        isLoading = false;
+      });
+      Fluttertoast.showToast(msg: "No Internet Connection.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _currentIndex != 3
-      //change date 17 april by rinki
+          //change date 17 april by rinki
           //&& _currentIndex != 2
           ? AppBar(
               centerTitle: true,
@@ -452,8 +532,9 @@ class _DashboardState extends State<Dashboard> {
               automaticallyImplyLeading: false,
               title: Text(
                 _currentIndex != 0
-                    ? titleList[_currentIndex].toString()
-                   // : "Opicxo ${"- " + studioname}",
+                    //? titleList[_currentIndex].toString()
+                    ? "Opicxo"
+                    // : "Opicxo ${"- " + studioname}",
                     : "Opicxo",
                 style: GoogleFonts.aBeeZee(
                   textStyle: TextStyle(
@@ -479,11 +560,11 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       )
                     : Container(),
-               //change on 17 april by rinki
-               _currentIndex == 1
+                //change on 17 april by rinki
+                _currentIndex == 1
                     ? GestureDetector(
                         onTap: () {
-                          Services.GetportfolioGalleryList();
+                          accessToken();
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 11),

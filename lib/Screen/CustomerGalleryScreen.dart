@@ -53,8 +53,8 @@ class _CustomerGalleryState extends State<CustomerGallery> {
   @override
   void initState() {
     accessToken();
-    GetPhotogrpaherOffers();
-    GetPortfolioData();
+   // GetPhotogrpaherOffers();
+ //   GetPortfolioData();
     // dataaddedd();
     super.initState();
   }
@@ -365,9 +365,9 @@ class _CustomerGalleryState extends State<CustomerGallery> {
                 prefs.getString(Session.opicxoUserPass))
             .then((data) async {
           print("done1");
-          setState(() {
-            isLoading = false;
-          });
+          // setState(() {
+          //   isLoading = false;
+          // });
           //  if (data.value == "true") {
           print("Message : " + data.access_token);
           getOpicxoBanner(data.access_token);
@@ -403,7 +403,7 @@ class _CustomerGalleryState extends State<CustomerGallery> {
         });
         SharedPreferences prefs = await SharedPreferences.getInstance();
         AppServices.SliderBanner(
-                token, int.parse(prefs.getString(Session.StudioId)))
+                token, int.parse(prefs.getString(Session.opicxoStudioId)))
             .then((data) async {
           setState(() {
             isLoading = false;
@@ -568,7 +568,7 @@ class _CustomerGalleryState extends State<CustomerGallery> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
+        body:isLoading?LoadinComponent(): SingleChildScrollView(
           child: Stack(
             children: <Widget>[
               Container(

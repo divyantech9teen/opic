@@ -585,20 +585,23 @@ class _PendingListState extends State<PendingList> {
               children: <Widget>[
                 Card(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                     children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(15),
-                          width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            "${"Selected Images : "}${selectedCount} / ${widget.totalImg}",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: Container(
+                      //     padding: EdgeInsets.all(15),
+                      //     width: MediaQuery.of(context).size.width,
+                      //     child: Text(
+                      //       "${"Selected Images : "}${selectedCount} / ${widget.totalImg}",
+                      //       style: TextStyle(
+                      //           fontSize: 16,
+                      //           color: Colors.black,
+                      //           fontWeight: FontWeight.w600),
+                      //     ),
+                      //   ),
+                      // ),
+                      SizedBox(width: 10,),
                       Row(
                         children: <Widget>[
                           GestureDetector(

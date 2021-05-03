@@ -26,7 +26,7 @@ class _MychildCustomerListState extends State<MychildCustomerList> {
 
   _getLocaldata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    CustomerId = prefs.getString(constant.Session.StudioId);
+    CustomerId = prefs.getString(constant.Session.CustomerId);
 
   }
 

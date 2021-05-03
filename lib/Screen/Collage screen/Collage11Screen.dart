@@ -99,6 +99,7 @@ class _Collage11ScreenState extends State<Collage11Screen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
                     onTap: () async {
@@ -243,57 +244,60 @@ class _Collage11ScreenState extends State<Collage11Screen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 3.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    var image = await Navigator.of(context).push(
-                      FadeRouteTransition(
-                          //  page: CollageSample(CollageType.VSplit)),
-                          page: CollageGallaryScreen(
-                        albumId: widget.albumId,
-                        albumName: widget.albumName,
-                        totalImg: widget.totalImg,
-                      )),
-                    );
-                    setState(() {
-                      Image3 = image;
-                    });
-                  },
-                  child: Image3 == null
-                      ? Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          height: MediaQuery.of(context).size.height / 2.2,
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          child: Icon(
-                            Icons.add,
-                            size: 20,
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          height: MediaQuery.of(context).size.height / 2.2,
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          child: ClipRRect(
-                            borderRadius: new BorderRadius.circular(5.0),
-                            child: FadeInImage.assetNetwork(
-                              placeholder: 'images/opicxologo.png',
-                              image: "${ImgUrl}${Image3}",
-                              fit: BoxFit.fill,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 3.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      var image = await Navigator.of(context).push(
+                        FadeRouteTransition(
+                            //  page: CollageSample(CollageType.VSplit)),
+                            page: CollageGallaryScreen(
+                          albumId: widget.albumId,
+                          albumName: widget.albumName,
+                          totalImg: widget.totalImg,
+                        )),
+                      );
+                      setState(() {
+                        Image3 = image;
+                      });
+                    },
+                    child: Image3 == null
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            height: MediaQuery.of(context).size.height / 2.2,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                            ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            height: MediaQuery.of(context).size.height / 2.2,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: ClipRRect(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              child: FadeInImage.assetNetwork(
+                                placeholder: 'images/opicxologo.png',
+                                image: "${ImgUrl}${Image3}",
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        ),
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 3.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () async {

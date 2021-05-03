@@ -90,7 +90,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         });
         SharedPreferences prefs = await SharedPreferences.getInstance();
         AppServices.OpicxoPortfolio(
-                token, int.parse(prefs.getString(Session.StudioId)))
+                token, int.parse(prefs.getString(Session.opicxoStudioId)))
             .then((data) async {
           setState(() {
             isLoading = false;
