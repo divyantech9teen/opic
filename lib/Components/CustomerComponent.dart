@@ -28,7 +28,7 @@ class ChildCustomerComponent extends StatefulWidget {
 class _ChildCustomerComponentState extends State<ChildCustomerComponent> {
   List VehicleData = new List();
   bool isLoading = false;
-  String StudioId,Username,Password;
+  String StudioId, Username, Password;
   static String Applink = "";
 
   _getLocaldata() async {
@@ -187,7 +187,6 @@ class _ChildCustomerComponentState extends State<ChildCustomerComponent> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -233,38 +232,38 @@ class _ChildCustomerComponentState extends State<ChildCustomerComponent> {
                                   fontWeight: FontWeight.w500,
                                   color: Colors.grey[700]))),
                     ),
-                    widget.ChildGuestData["InviteStatus"] == "Pending"
-                        ? Padding(
-                            padding: const EdgeInsets.only(
-                                left: 1.0, top: 3.0, bottom: 4.0),
-                            child: Text('Pending',
-                                style: GoogleFonts.aBeeZee(
-                                    textStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.red))),
-                          )
-                        : widget.ChildGuestData["IsVerified"] == null
-                            ? Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 1.0, top: 3.0, bottom: 4.0),
-                                child: Text('Invited',
-                                    style: GoogleFonts.aBeeZee(
-                                        textStyle: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.green))),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 1.0, top: 3.0, bottom: 4.0),
-                                child: Text('App Downloaded',
-                                    style: GoogleFonts.aBeeZee(
-                                        textStyle: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.amber))),
-                              ),
+                    // widget.ChildGuestData["InviteStatus"] == "Pending"
+                    //     ? Padding(
+                    //         padding: const EdgeInsets.only(
+                    //             left: 1.0, top: 3.0, bottom: 4.0),
+                    //         child: Text('Pending',
+                    //             style: GoogleFonts.aBeeZee(
+                    //                 textStyle: TextStyle(
+                    //                     fontSize: 14,
+                    //                     fontWeight: FontWeight.w600,
+                    //                     color: Colors.red))),
+                    //       )
+                    //     : widget.ChildGuestData["IsVerified"] == null
+                    //         ? Padding(
+                    //             padding: const EdgeInsets.only(
+                    //                 left: 1.0, top: 3.0, bottom: 4.0),
+                    //             child: Text('Invited',
+                    //                 style: GoogleFonts.aBeeZee(
+                    //                     textStyle: TextStyle(
+                    //                         fontSize: 14,
+                    //                         fontWeight: FontWeight.w600,
+                    //                         color: Colors.green))),
+                    //           )
+                    //         : Padding(
+                    //             padding: const EdgeInsets.only(
+                    //                 left: 1.0, top: 3.0, bottom: 4.0),
+                    //             child: Text('App Downloaded',
+                    //                 style: GoogleFonts.aBeeZee(
+                    //                     textStyle: TextStyle(
+                    //                         fontSize: 14,
+                    //                         fontWeight: FontWeight.w600,
+                    //                         color: Colors.amber))),
+                    //           ),
                   ],
                 ),
               ),
@@ -278,20 +277,30 @@ class _ChildCustomerComponentState extends State<ChildCustomerComponent> {
             SizedBox(
               width: 6,
             ),
-            GestureDetector(
-              onTap: () {
-                print(widget.ChildGuestData["Mobile"]);
-                _GetAppLink(true);
-                launch("https://wa.me/+91${widget.ChildGuestData["Mobile"]}");
-              },
-              child: Image.asset(
-                "images/whatsapp.png",
-                height: 40,
-                width: 40,
-                fit: BoxFit.contain,
-              ),
-            ),
-           /* IconButton(
+            // GestureDetector(
+            //   onTap: () {
+            //     print(widget.ChildGuestData["Mobile"]);
+            //     Share.share(
+            //         "${Username} has shared their memory through Opicxo App.You can access their photo album through the following credentials.\n\n http://tinyurl.com/y2vnvfnb \n Login with the below given details \n Username : ${Username} \n Password : ${Username} for the access. \n\n Team Opicxo");
+            //     //    _GetAppLink(true);
+            //     //   launch("https://wa.me/+91${widget.ChildGuestData["Mobile"]}");
+            //   },
+            //   child: Image.asset(
+            //     "images/whatsapp.png",
+            //     height: 40,
+            //     width: 40,
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
+            IconButton(
+                icon: Icon(Icons.share, color: Colors.black),
+                onPressed: () {
+                  Share.share(
+                      "${Username} has shared their memory through Opicxo App.You can access their photo album through the following credentials.\n\n http://tinyurl.com/y2vnvfnb \n Login with the below given details \n Username : ${Username} \n Password : ${Username} for the access. \n\n Team Opicxo");
+                  //    _GetAppLink(true);
+                  //
+                }),
+            /* IconButton(
                 icon: Icon(
                   Icons.share,
                   color: Colors.grey,

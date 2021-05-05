@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pictiknew/Common/AppService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
@@ -38,7 +39,7 @@ class _ContactListState extends State<ContactList> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String MemberId = prefs.getString(Session.CustomerId).toString();
     String ParentId = prefs.getString(Session.ParentId).toString();
-     StudioId = prefs.getString(Session.StudioId).toString();
+    StudioId = prefs.getString(Session.StudioId).toString();
     print("ParentId Init = ${ParentId}");
     setState(() {
       memberId = MemberId;
@@ -46,8 +47,8 @@ class _ContactListState extends State<ContactList> {
       _isLoading = true;
     });
     var contacts = await ContactsService.getContacts(
-        withThumbnails: false,
-        photoHighResolution: false,
+      withThumbnails: false,
+      photoHighResolution: false,
       orderByGivenName: false,
       iOSLocalizedLabels: false,
     );
@@ -55,7 +56,6 @@ class _ContactListState extends State<ContactList> {
   }
 
   void _populateContacts(Iterable<Contact> contacts) {
-
     _contacts = contacts.where((item) => item.displayName != null).toList();
     _contacts.sort((a, b) => a.displayName.compareTo(b.displayName));
     setState(() {
@@ -72,11 +72,11 @@ class _ContactListState extends State<ContactList> {
       leading: (c.contact.avatar != null && c.contact.avatar.length > 0)
           ? CircleAvatar(backgroundImage: MemoryImage(c.contact.avatar))
           : CircleAvatar(
-              child: Text(
-                c.contact.displayName.toUpperCase().substring(0, 1) ?? "",
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
-              ),
-            ),
+        child: Text(
+          c.contact.displayName.toUpperCase().substring(0, 1) ?? "",
+          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+        ),
+      ),
       title: Text(c.contact.displayName ?? ""),
       subtitle: list.length >= 1 && list[0]?.value != null
           ? Text(list[0].value)
@@ -89,6 +89,8 @@ class _ContactListState extends State<ContactList> {
           }),
     );
   }
+
+  var mobile1;
 
   _onChange(value, CustomContact c, List<Item> list) {
     if (list.length >= 1 &&
@@ -104,6 +106,9 @@ class _ContactListState extends State<ContactList> {
       mobile = mobile.replaceAll(RegExp("^0"), "");
       mobile = mobile.replaceAll(RegExp("^0261"), "");
       print("mobile" + mobile);
+      setState(() {
+        mobile1 = mobile;
+      });
       if (value) {
         if (mobile.length == 10) {
           setState(() {
@@ -113,7 +118,7 @@ class _ContactListState extends State<ContactList> {
           print("memberId = ${memberId}");
           _selectedContact.add({
             "Id": 0,
-            "StudioId":StudioId,
+            "StudioId": StudioId,
             "ParentId": parentId.toString() == "null" || parentId == "0"
                 ? memberId
                 : parentId,
@@ -232,132 +237,212 @@ class _ContactListState extends State<ContactList> {
     }
   }
 
+  accessToken() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        AppServices.AccessToken(prefs.getString(Session.opicxoUserId),
+            prefs.getString(Session.opicxoUserPass))
+            .then((data) async {
+          print("done1");
+          // setState(() {
+          //   isLoading = false;
+          // });
+          //  if (data.value == "true") {
+          print("Message : " + data.access_token);
+          Sms(data.access_token);
+          // Navigator.of(context).pushReplacementNamed('/LoginForm');
+          // } else {
+          //   showMsg("Invalid login Detail");
+          //   print("Invalid Cridintional");
+          // }
+        }, onError: (e) {
+          print("Something Went Wrong");
+          print("error is " + e.toString());
+        });
+      }
+    } catch (e) {
+      print(e);
+
+      print("No Internet Connection");
+    }
+  }
+
+  Sms(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String customeruserName = prefs.getString(Session.UserName);
+        String customerName = prefs.getString(Session.Name);
+        String customerFName = prefs.getString(Session.Name);
+        var body = {
+          "country_id": "101",
+          "mobile_number": "${mobile1}",
+          "type": "170",
+          "token": [
+            {"Customer.FullName": "${customeruserName}"},
+            {"Customer.UserName": "${customerName}"},
+            {"Customer.Password": "${customerFName}"}
+          ]
+        };
+        print(body);
+        AppServices.sendSms(body, token).then((data) async {
+          if (data.Data == "1") {
+            // setState(() {
+            //   prefs.setString(Session.opicxoStudioId, val);
+            // });
+            //_addCustomer();
+            print("data1111");
+
+            Fluttertoast.showToast(
+                msg: "Sms send Successfully",
+                backgroundColor: appPrimaryMaterialColorYellow,
+                textColor: Colors.white,
+                gravity: ToastGravity.TOP,
+                toastLength: Toast.LENGTH_SHORT);
+            Navigator.of(context).pop();
+          }
+        }, onError: (e) {
+          Fluttertoast.showToast(msg: "Try Again");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Internet Connection.");
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(msg: "No Internet Connection.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print("search contact");
     print(_searchContact.length);
     return
       WillPopScope(
-      onWillPop: () {
-        Navigator.pushReplacementNamed(context, "/AddCustomer");
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: <Color>[
-                  cnst.appPrimaryMaterialColorYellow,
-                  cnst.appPrimaryMaterialColorPink
-                ],
+        onWillPop: () {
+          Navigator.pushReplacementNamed(context, "/AddCustomer");
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[
+                    cnst.appPrimaryMaterialColorYellow,
+                    cnst.appPrimaryMaterialColorPink
+                  ],
+                ),
               ),
             ),
-          ),
-          title: Text(
-            "Choose Contacts",
-            style: TextStyle(fontSize: 15),
-          ),
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, "/AddCustomer");
-              }),
-          actions: <Widget>[
-            _isLoading
-                ? Container()
-                : _selectedContact.length > 0
-                    ? GestureDetector(
-                        onTap: () {
-                          _addCustomer();
-                        },
+            title: Text(
+              "Choose Contacts",
+              style: TextStyle(fontSize: 15),
+            ),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, "/AddCustomer");
+                }),
+            actions: <Widget>[
+              _isLoading
+                  ? Container()
+                  : _selectedContact.length > 0
+                  ? GestureDetector(
+                onTap: () {
+                  _addCustomer();
+                  accessToken();
+                },
+                child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                        width: 90,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(5))),
                         child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 90,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.white),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 3, right: 3, top: 2, bottom: 2),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(
-                                        "Add",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
-                                ))),
-                      )
-                    : Container(),
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
-              child: TextFormField(
-                onChanged: searchOperation,
-                controller: txtSearch,
-                scrollPadding: EdgeInsets.all(0),
-                decoration: InputDecoration(
-                    counter: Text(""),
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: cnst.appPrimaryMaterialColorPink,
-                    ),
-                    hintText: "Search Contact"),
-                maxLength: 10,
-                keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.black),
+                          padding: const EdgeInsets.only(
+                              left: 3, right: 3, top: 2, bottom: 2),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(
+                                "Add",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Icon(
+                                Icons.send,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ))),
+              )
+                  : Container(),
+            ],
+          ),
+          body: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
+                child: TextFormField(
+                  onChanged: searchOperation,
+                  controller: txtSearch,
+                  scrollPadding: EdgeInsets.all(0),
+                  decoration: InputDecoration(
+                      counter: Text(""),
+                      border: new OutlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      suffixIcon: Icon(
+                        Icons.search,
+                        color: cnst.appPrimaryMaterialColorPink,
+                      ),
+                      hintText: "Search Contact"),
+                  maxLength: 10,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
-            ),
-            Expanded(
-              child: _isLoading
-                  ? LoadinComponent()
-                  : _uiCustomContacts.length > 0
-                      ?
-              isSearching
-                          ? ListView.builder(
-                              itemCount: _searchContact.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                CustomContact _contact = _searchContact[index];
-                                var _phonesList =
-                                    _contact.contact.phones.toList();
-                                return _buildListTile(_contact, _phonesList);
-                              },
-                            )
-                          : ListView.builder(
-                              itemCount: _uiCustomContacts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                CustomContact _contact =
-                                    _uiCustomContacts[index];
-                                var _phonesList =
-                                    _contact.contact.phones.toList();
-                                return _buildListTile(_contact, _phonesList);
-                              },
-                            )
-                      : NoDataComponent(),
-            ),
-          ],
+              Expanded(
+                child: _isLoading
+                    ? LoadinComponent()
+                    : _uiCustomContacts.length > 0
+                    ?
+                isSearching
+                    ? ListView.builder(
+                  itemCount: _searchContact.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    CustomContact _contact = _searchContact[index];
+                    var _phonesList =
+                    _contact.contact.phones.toList();
+                    return _buildListTile(_contact, _phonesList);
+                  },
+                )
+                    : ListView.builder(
+                  itemCount: _uiCustomContacts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    CustomContact _contact =
+                    _uiCustomContacts[index];
+                    var _phonesList =
+                    _contact.contact.phones.toList();
+                    return _buildListTile(_contact, _phonesList);
+                  },
+                )
+                    : NoDataComponent(),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }
 

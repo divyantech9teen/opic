@@ -256,6 +256,36 @@ class AppServices {
     }
   }
 
+  static Future<SaveDataClass> sendSms(body, String token) async {
+    print(body.toString());
+    String url = "https://origin.opicxo.com/api/v1/sms";
+    print("sendSms url : " + url);
+    try {
+      final response = await dio.post(url,
+          data: body,
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ));
+      if (response.statusCode == 200) {
+        SaveDataClass saveData =
+            new SaveDataClass(Message: 'No Data', IsSuccess: false, Data: "0");
+        print("sendSms Response: " + response.data.toString());
+        var memberDataClass = response.data;
+        saveData.Message = memberDataClass["Message"];
+        saveData.IsSuccess = memberDataClass["IsSuccess"];
+        saveData.Data = memberDataClass["Data"].toString();
+
+        return saveData;
+      } else {
+        print("Error sendSms");
+        throw Exception(response.data.toString());
+      }
+    } catch (e) {
+      print("Error sendSms ${e.toString()}");
+      throw Exception(e.toString());
+    }
+  }
+
   static Future<SaveDataClass> updateStudio(
       String oCusId, String oStudId) async {
     int opicxoCustId = int.parse(oCusId);
@@ -283,6 +313,35 @@ class AppServices {
       }
     } catch (e) {
       print("Error UpdateCurrentStudio ${e.toString()}");
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<SaveDataClass> finalizeSelection(String galleryIdd) async {
+    int galleryId = int.parse(galleryIdd);
+
+    String url =
+        "http://pictick.itfuturz.com/api/HomeAPI/UpdateSelectionComplete?galleryId=$galleryId";
+
+    print("UpdateSelectionComplete url : " + url);
+    try {
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        SaveDataClass saveData =
+            new SaveDataClass(Message: 'No Data', IsSuccess: false, Data: "0");
+        print("UpdateSelectionComplete Response: " + response.data.toString());
+        var memberDataClass = response.data;
+        saveData.Message = memberDataClass["Message"];
+        saveData.IsSuccess = memberDataClass["IsSuccess"];
+        saveData.Data = memberDataClass["Data"].toString();
+
+        return saveData;
+      } else {
+        print("Error UpdateSelectionComplete");
+        throw Exception(response.data.toString());
+      }
+    } catch (e) {
+      print("Error UpdateSelectionComplete ${e.toString()}");
       throw Exception(e.toString());
     }
   }

@@ -62,6 +62,17 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
     // TODO: implement initState
     super.initState();
     getAlbumAllData();
+    getAllowdownload();
+  }
+
+  String allowDownload;
+
+  getAllowdownload() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      allowDownload = prefs.getString(cnst.Session.AllowDownload);
+    });
+    print("AllowDownload  ${prefs.getString(cnst.Session.AllowDownload)}");
   }
 
   showMsg(String msg) {
@@ -571,57 +582,61 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
                         ),
                         Row(
                           children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                if (int.parse(selectedCount) > 0) {
-                                  if (SelectedPin != "" &&
-                                      (PinSelection == "false" ||
-                                          PinSelection == "" ||
-                                          PinSelection.toString() == "null")) {
-                                    downloadAll();
-                                  } else {
-                                    pr1 = new ProgressDialog(context,
-                                        type: ProgressDialogType.Normal);
-                                    pr1.style(
-                                        message: "Please Wait",
-                                        borderRadius: 10.0,
-                                        progressWidget: Container(
-                                          padding: EdgeInsets.all(15),
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                        elevation: 10.0,
-                                        insetAnimCurve: Curves.easeInOut,
-                                        messageTextStyle: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w600));
-                                    downloadAll();
-                                  }
-                                } else {
-                                  Fluttertoast.showToast(
-                                      backgroundColor:
-                                          cnst.appPrimaryMaterialColorYellow,
-                                      msg: "No Image Selected.",
-                                      textColor: Colors.white,
-                                      gravity: ToastGravity.BOTTOM,
-                                      toastLength: Toast.LENGTH_SHORT);
-                                }
-                              },
-                              child: Container(
-                                margin: EdgeInsets.all(5),
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: cnst.appPrimaryMaterialColorPink,
-                                ),
-                                child: Icon(
-                                  Icons.file_download,
-                                  size: 17,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                            allowDownload == "false"
+                                ? Container()
+                                : GestureDetector(
+                                    onTap: () {
+                                      if (int.parse(selectedCount) > 0) {
+                                        if (SelectedPin != "" &&
+                                            (PinSelection == "false" ||
+                                                PinSelection == "" ||
+                                                PinSelection.toString() ==
+                                                    "null")) {
+                                          downloadAll();
+                                        } else {
+                                          pr1 = new ProgressDialog(context,
+                                              type: ProgressDialogType.Normal);
+                                          pr1.style(
+                                              message: "Please Wait",
+                                              borderRadius: 10.0,
+                                              progressWidget: Container(
+                                                padding: EdgeInsets.all(15),
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                              elevation: 10.0,
+                                              insetAnimCurve: Curves.easeInOut,
+                                              messageTextStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.w600));
+                                          downloadAll();
+                                        }
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            backgroundColor: cnst
+                                                .appPrimaryMaterialColorYellow,
+                                            msg: "No Image Selected.",
+                                            textColor: Colors.white,
+                                            gravity: ToastGravity.BOTTOM,
+                                            toastLength: Toast.LENGTH_SHORT);
+                                      }
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(5),
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: cnst.appPrimaryMaterialColorPink,
+                                      ),
+                                      child: Icon(
+                                        Icons.file_download,
+                                        size: 17,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                             GestureDetector(
                               onTap: () {
                                 if (selectedPhoto.length > 0) {
@@ -727,114 +742,134 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
                             itemCount: albumData.length,
                             addRepaintBoundaries: false,
                             itemBuilder: (BuildContext context, int index) {
-                              return AllAlbumComponent(albumData[index], index,
-                                  (action, Id, ImageUrl) {
-                                if (action.toString() == "Show") {
-                                  Navigator.push(
+                              return AllAlbumComponent(
+                                albumData[index],
+                                index,
+                                (action, Id, ImageUrl) {
+                                  if (action.toString() == "Show") {
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ImageView(
-                                              albumData: albumData,
-                                              albumIndex: index,
-                                                  onChange:(action, Id, ImageUrl) {
-                                                  if (action.toString() == "Remove") {
-                                                  pr1 = new ProgressDialog(context,
-                                                      type: ProgressDialogType.Normal);
-                                                  pr1.style(
-                                                      message: "Please Wait",
-                                                      borderRadius: 10.0,
-                                                      progressWidget: Container(
-                                                        padding: EdgeInsets.all(15),
-                                                        child: CircularProgressIndicator(),
-                                                      ),
-                                                      elevation: 10.0,
-                                                      insetAnimCurve: Curves.easeInOut,
-                                                      messageTextStyle: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 17.0,
-                                                          fontWeight: FontWeight.w600));
-                                                  int count = int.parse(selectedCount);
-                                                  count = count - 1;
-                                                  setState(() {
-                                                    selectedCount = count.toString();
-                                                  });
-                                                  setNewArrayList(Id, "false", ImageUrl);
-                                                } else {
-                                                  pr1 = new ProgressDialog(context,
-                                                      type: ProgressDialogType.Normal);
-                                                  pr1.style(
-                                                      message: "Please Wait",
-                                                      borderRadius: 10.0,
-                                                      progressWidget: Container(
-                                                        padding: EdgeInsets.all(15),
-                                                        child: CircularProgressIndicator(),
-                                                      ),
-                                                      elevation: 10.0,
-                                                      insetAnimCurve: Curves.easeInOut,
-                                                      messageTextStyle: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 17.0,
-                                                          fontWeight: FontWeight.w600));
-                                                  int count = int.parse(selectedCount);
-                                                  count = count + 1;
-                                                  setState(() {
-                                                    selectedCount = count.toString();
-                                                  });
-                                                  setNewArrayList(Id, "true", ImageUrl);
-                                                }
+                                        builder: (context) => ImageView(
+                                            albumData: albumData,
+                                            albumIndex: index,
+                                            onChange: (action, Id, ImageUrl) {
+                                              if (action.toString() ==
+                                                  "Remove") {
+                                                pr1 = new ProgressDialog(
+                                                    context,
+                                                    type: ProgressDialogType
+                                                        .Normal);
+                                                pr1.style(
+                                                    message: "Please Wait",
+                                                    borderRadius: 10.0,
+                                                    progressWidget: Container(
+                                                      padding:
+                                                          EdgeInsets.all(15),
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
+                                                    elevation: 10.0,
+                                                    insetAnimCurve:
+                                                        Curves.easeInOut,
+                                                    messageTextStyle: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 17.0,
+                                                        fontWeight:
+                                                            FontWeight.w600));
+                                                int count =
+                                                    int.parse(selectedCount);
+                                                count = count - 1;
+                                                setState(() {
+                                                  selectedCount =
+                                                      count.toString();
+                                                });
+                                                setNewArrayList(
+                                                    Id, "false", ImageUrl);
+                                              } else {
+                                                pr1 = new ProgressDialog(
+                                                    context,
+                                                    type: ProgressDialogType
+                                                        .Normal);
+                                                pr1.style(
+                                                    message: "Please Wait",
+                                                    borderRadius: 10.0,
+                                                    progressWidget: Container(
+                                                      padding:
+                                                          EdgeInsets.all(15),
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
+                                                    elevation: 10.0,
+                                                    insetAnimCurve:
+                                                        Curves.easeInOut,
+                                                    messageTextStyle: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 17.0,
+                                                        fontWeight:
+                                                            FontWeight.w600));
+                                                int count =
+                                                    int.parse(selectedCount);
+                                                count = count + 1;
+                                                setState(() {
+                                                  selectedCount =
+                                                      count.toString();
+                                                });
+                                                setNewArrayList(
+                                                    Id, "true", ImageUrl);
                                               }
-                                          ),
+                                            }),
                                       ),
-                                  );
-                                }
-                                else if (action.toString() == "Remove") {
-                                  pr1 = new ProgressDialog(context,
-                                      type: ProgressDialogType.Normal);
-                                  pr1.style(
-                                      message: "Please Wait",
-                                      borderRadius: 10.0,
-                                      progressWidget: Container(
-                                        padding: EdgeInsets.all(15),
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      elevation: 10.0,
-                                      insetAnimCurve: Curves.easeInOut,
-                                      messageTextStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w600));
-                                  int count = int.parse(selectedCount);
-                                  count = count - 1;
-                                  setState(() {
-                                    selectedCount = count.toString();
-                                  });
-                                  setNewArrayList(Id, "false", ImageUrl);
-                                  //setImageArray("","");
-                                }
-                                else {
-                                  pr1 = new ProgressDialog(context,
-                                      type: ProgressDialogType.Normal);
-                                  pr1.style(
-                                      message: "Please Wait",
-                                      borderRadius: 10.0,
-                                      progressWidget: Container(
-                                        padding: EdgeInsets.all(15),
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      elevation: 10.0,
-                                      insetAnimCurve: Curves.easeInOut,
-                                      messageTextStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w600));
-                                  int count = int.parse(selectedCount);
-                                  count = count + 1;
-                                  setState(() {
-                                    selectedCount = count.toString();
-                                  });
-                                  setNewArrayList(Id, "true", ImageUrl);
-                                }
-                              },selectedCount:selectedCount,);
+                                    );
+                                  } else if (action.toString() == "Remove") {
+                                    pr1 = new ProgressDialog(context,
+                                        type: ProgressDialogType.Normal);
+                                    pr1.style(
+                                        message: "Please Wait",
+                                        borderRadius: 10.0,
+                                        progressWidget: Container(
+                                          padding: EdgeInsets.all(15),
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        elevation: 10.0,
+                                        insetAnimCurve: Curves.easeInOut,
+                                        messageTextStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w600));
+                                    int count = int.parse(selectedCount);
+                                    count = count - 1;
+                                    setState(() {
+                                      selectedCount = count.toString();
+                                    });
+                                    setNewArrayList(Id, "false", ImageUrl);
+                                    //setImageArray("","");
+                                  } else {
+                                    pr1 = new ProgressDialog(context,
+                                        type: ProgressDialogType.Normal);
+                                    pr1.style(
+                                        message: "Please Wait",
+                                        borderRadius: 10.0,
+                                        progressWidget: Container(
+                                          padding: EdgeInsets.all(15),
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        elevation: 10.0,
+                                        insetAnimCurve: Curves.easeInOut,
+                                        messageTextStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w600));
+                                    int count = int.parse(selectedCount);
+                                    count = count + 1;
+                                    setState(() {
+                                      selectedCount = count.toString();
+                                    });
+                                    setNewArrayList(Id, "true", ImageUrl);
+                                  }
+                                },
+                                selectedCount: selectedCount,
+                              );
                             },
                             staggeredTileBuilder: (_) => StaggeredTile.fit(2),
                             mainAxisSpacing: 3,

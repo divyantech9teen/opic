@@ -132,6 +132,8 @@ class Session {
   static const String CardNo = "CardNo";
   static const String IssueDate = "IssueDate";
   static const String ValidTill = "ValidTill";
+  static const String AllowDownload = "AllowDownload";
+  static const String galleryId = "galleryId";
 
   //temp store
   //static const String ChapterId = "ChapterId";
@@ -148,4 +150,5 @@ class Session {
   static const String opicxoCustomerId = "opicxoCustomerId";
   static const String opicxoCustomerGuid = "opicxoCustomerGuid";
   static const String opicxoStudioId = "opicxoStudioId";
+  static const String opicxoStudiophone = "opicxoStudiophone";
 }

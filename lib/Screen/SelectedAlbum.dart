@@ -1,11 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pictiknew/Common/AppService.dart';
+import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
+import 'package:pictiknew/Components/LoadinComponent.dart';
 import 'package:pictiknew/Components/NoDataComponent.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AlbumAllImages.dart';
 import 'PendingList.dart';
@@ -26,6 +31,7 @@ class _SelectedAlbumState extends State<SelectedAlbum> {
   ProgressDialog pr;
   String allCount = "", selectedCount = "", pendingCount = "";
   bool isLoading = true;
+  bool isULoading = false;
 
   void initState() {
     pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
@@ -201,6 +207,148 @@ class _SelectedAlbumState extends State<SelectedAlbum> {
     );
   }
 
+  accessToken() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        AppServices.AccessToken(prefs.getString(Session.opicxoUserId),
+                prefs.getString(Session.opicxoUserPass))
+            .then((data) async {
+          print("done1");
+          // setState(() {
+          //   isLoading = false;
+          // });
+          //  if (data.value == "true") {
+          print("Message : " + data.access_token);
+          Sms(data.access_token);
+          // Navigator.of(context).pushReplacementNamed('/LoginForm');
+          // } else {
+          //   showMsg("Invalid login Detail");
+          //   print("Invalid Cridintional");
+          // }
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          print("Something Went Wrong");
+          print("error is " + e.toString());
+        });
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+      print("No Internet Connection");
+    }
+  }
+
+  Sms(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isULoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String customerName = prefs.getString(Session.Name);
+        String studioPhone = prefs.getString(Session.opicxoStudiophone);
+        var body = {
+          "country_id": "101",
+          "mobile_number": "${studioPhone}",
+          "type": "160",
+          "token": [
+            {"Customer.FullName": "${customerName}"}
+          ]
+        };
+        print(body);
+        AppServices.sendSms(body, token).then((data) async {
+          setState(() {
+            isULoading = false;
+          });
+          if (data.Data == "1") {
+            // setState(() {
+            //   prefs.setString(Session.opicxoStudioId, val);
+            // });
+            print("data1111");
+
+            Fluttertoast.showToast(
+                msg: "Sms send Successfully",
+                backgroundColor: appPrimaryMaterialColorYellow,
+                textColor: Colors.white,
+                gravity: ToastGravity.TOP,
+                toastLength: Toast.LENGTH_SHORT);
+            Navigator.of(context).pop();
+          } else {
+            setState(() {
+              isULoading = false;
+            });
+          }
+        }, onError: (e) {
+          setState(() {
+            isULoading = false;
+          });
+          Fluttertoast.showToast(msg: "Try Again");
+        });
+      } else {
+        setState(() {
+          isULoading = false;
+        });
+        Fluttertoast.showToast(msg: "No Internet Connection.");
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(msg: "No Internet Connection.");
+    }
+  }
+
+  finalizeSelection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String galleryId = prefs.getString(Session.galleryId);
+        AppServices.finalizeSelection(galleryId).then((data) async {
+          setState(() {
+            isLoading = false;
+          });
+          if (data.Data == "1") {
+            Fluttertoast.showToast(
+                msg: "Selection Finalized Successfully",
+                backgroundColor: appPrimaryMaterialColorYellow,
+                textColor: Colors.white,
+                gravity: ToastGravity.TOP,
+                toastLength: Toast.LENGTH_SHORT);
+            // Navigator.of(context).pop();
+          } else {
+            setState(() {
+              isLoading = false;
+            });
+          }
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          Fluttertoast.showToast(msg: "Try Again");
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        Fluttertoast.showToast(msg: "No Internet Connection.");
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(msg: "No Internet Connection.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -235,105 +383,130 @@ class _SelectedAlbumState extends State<SelectedAlbum> {
                     color: Colors.white))),
         centerTitle: true,
       ),
-      body: WillPopScope(
-        onWillPop: () {
-          Navigator.pop(context);
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          finalizeSelection();
+          accessToken();
         },
-        child: Card(
-          elevation: 10,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                child: Opacity(
-                  opacity: 0.2,
-                  child: Image.asset(
-                    "images/back12.png",
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                child: albumData.length > 0
-                    ? SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AlbumAllImages(
-                                            albumId: widget.albumId,
-                                            albumName: widget.albumName,
-                                            totalImg: widget.totalImg)));
-                              },
-                              child: Stack(
+        child: Container(
+          height: 60,
+          color: cnst.appPrimaryMaterialColorYellow,
+          child: Center(
+              child: Text(
+            "Finalize Selection",
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          )),
+        ),
+      ),
+      body: isLoading
+          ? LoadinComponent()
+          : WillPopScope(
+              onWillPop: () {
+                Navigator.pop(context);
+              },
+              child: Card(
+                elevation: 10,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Opacity(
+                        opacity: 0.2,
+                        child: Image.asset(
+                          "images/back12.png",
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: albumData.length > 0
+                          ? SingleChildScrollView(
+                              child: Column(
                                 children: <Widget>[
-                                  Container(
-                                    height: 220,
-                                    width: MediaQuery.of(context).size.width,
-                                    /*child: Image.network(
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AlbumAllImages(
+                                                      albumId: widget.albumId,
+                                                      albumName:
+                                                          widget.albumName,
+                                                      totalImg:
+                                                          widget.totalImg)));
+                                    },
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Container(
+                                          height: 220,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          /*child: Image.network(
                                     'https://upload.wikimedia.org/wikipedia/commons/9/9c/Hrithik_at_Rado_launch.jpg',
                                     //height: 150,
                                     fit: BoxFit.fill,
                                   ),*/
-                                    child: albumData[0]["Photo"] != null
-                                        ? FadeInImage.assetNetwork(
-                                            placeholder: 'images/No_photo.png',
-                                            image:
-                                                "${cnst.ImgUrl}${albumData[0]["Photo"]}",
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Container(
-                                            color: Colors.grey[100],
+                                          child: albumData[0]["Photo"] != null
+                                              ? FadeInImage.assetNetwork(
+                                                  placeholder:
+                                                      'images/No_photo.png',
+                                                  image:
+                                                      "${cnst.ImgUrl}${albumData[0]["Photo"]}",
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Container(
+                                                  color: Colors.grey[100],
+                                                ),
+                                        ),
+                                        Container(
+                                          height: 220,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Color.fromRGBO(0, 0, 0, 0.5),
+                                                Color.fromRGBO(0, 0, 0, 0.5),
+                                                Color.fromRGBO(0, 0, 0, 0.5),
+                                                Color.fromRGBO(0, 0, 0, 0.5)
+                                              ],
+                                            ),
+                                            borderRadius: new BorderRadius.all(
+                                                Radius.circular(0)),
                                           ),
-                                  ),
-                                  Container(
-                                    height: 220,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color.fromRGBO(0, 0, 0, 0.5),
-                                          Color.fromRGBO(0, 0, 0, 0.5),
-                                          Color.fromRGBO(0, 0, 0, 0.5),
-                                          Color.fromRGBO(0, 0, 0, 0.5)
-                                        ],
-                                      ),
-                                      borderRadius: new BorderRadius.all(
-                                          Radius.circular(0)),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 220,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 5,
-                                              top: 5),
+                                        ),
+                                        Container(
+                                          height: 220,
+                                          width:
+                                              MediaQuery.of(context).size.width,
                                           child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text(
-                                                '${albumData[0]["Name"]}',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 19,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              /*Padding(
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10,
+                                                    right: 10,
+                                                    bottom: 5,
+                                                    top: 5),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${albumData[0]["Name"]}',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 19,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    /*Padding(
                                               padding: const EdgeInsets.only(top: 5),
                                               child: Text(
                                                 '${albumData[0]["SelectedPhotoCount"]}/${albumData[0]["NoOfPhoto"]}',
@@ -343,13 +516,13 @@ class _SelectedAlbumState extends State<SelectedAlbum> {
                                                     fontWeight: FontWeight.w600),
                                               ),
                                             ),*/
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  /*Container(
+                                        /*Container(
                                   height: 220,
                                   width: MediaQuery.of(context).size.width,
                                   child: Column(
@@ -370,37 +543,43 @@ class _SelectedAlbumState extends State<SelectedAlbum> {
                                     ],
                                   ),
                                 )*/
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 6.0,
+                                        left: 6.0,
+                                        right: 6.0,
+                                        bottom: 10),
+                                    child: GridView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: _allServices.length,
+                                        itemBuilder: _getServiceMenu,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          childAspectRatio:
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  //(370),
+                                                  (MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      1.5),
+                                        )),
+                                  ),
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 6.0, left: 6.0, right: 6.0, bottom: 10),
-                              child: GridView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: _allServices.length,
-                                  itemBuilder: _getServiceMenu,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    childAspectRatio: MediaQuery.of(context)
-                                            .size
-                                            .width /
-                                        //(370),
-                                        (MediaQuery.of(context).size.height /
-                                            1.5),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      )
-                    : NoDataComponent(),
+                            )
+                          : NoDataComponent(),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

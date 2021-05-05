@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     print("image data");
     print(Session.Image);
-   // _profileData();
+    // _profileData();
     accessToken();
     //_getData();
     pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
@@ -129,6 +129,8 @@ class _ProfileState extends State<Profile> {
         setState(() {
           isLoading = true;
         });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
         AppServices.StudioDetail(token).then((data) async {
           setState(() {
             isLoading = false;
@@ -137,6 +139,8 @@ class _ProfileState extends State<Profile> {
           setState(() {
             _data = data.studioDetail;
             aboutUs = data.studioDetail[0]["studio_detail"];
+            prefs.setString(
+                Session.opicxoStudiophone, aboutUs["contact_number"]);
           });
           print("prodile data : ..." + aboutUs.toString());
         }, onError: (e) {
@@ -756,1948 +760,1958 @@ class _ProfileState extends State<Profile> {
         //     // ),
         //   ],
         // ),
-        body:isLoading?  Center(child: CircularProgressIndicator()):SingleChildScrollView(
-          child: WillPopScope(
-            onWillPop: onWillPop,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: <Color>[
-                            cnst.appPrimaryMaterialColorYellow,
-                            cnst.appPrimaryMaterialColorPink
-                          ],
-                        ),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            height: 100,
-                            width: 100,
+        body: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: WillPopScope(
+                  onWillPop: onWillPop,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("images/person.png"),
-                                fit: BoxFit.cover,
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: <Color>[
+                                  cnst.appPrimaryMaterialColorYellow,
+                                  cnst.appPrimaryMaterialColorPink
+                                ],
                               ),
                               border: Border.all(
                                 color: Colors.white,
                                 width: 1,
                               ),
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("images/person.png"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                aboutUs["studio_name"] != null
+                                    ? Text(
+                                        "${aboutUs["studio_name"]}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            fontSize: 23),
+                                      )
+                                    : Text(
+                                        "-",
+                                        style: TextStyle(
+                                            //fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            fontSize: 23),
+                                      ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                aboutUs["contact_number"] != null
+                                    ? Text(
+                                        "${aboutUs["contact_number"]}",
+                                        style: TextStyle(
+                                            //fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            fontSize: 20),
+                                      )
+                                    : Text(
+                                        "-",
+                                        style: TextStyle(
+                                            //fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            fontSize: 20),
+                                      ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                aboutUs["email"] != null
+                                    ? Text(
+                                        "${aboutUs["email"]}",
+                                        style: TextStyle(
+                                            //fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            fontSize: 20),
+                                      )
+                                    : Text(
+                                        "-",
+                                        style: TextStyle(
+                                          //fontWeight: FontWeight.w700,
+                                          color: Colors.white,
+
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                SizedBox(
+                                  height: 10,
+                                )
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          aboutUs["studio_name"] != null
-                              ? Text(
-                                  "${aboutUs["studio_name"]}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      fontSize: 23),
-                                )
-                              : Text(
-                                  "-",
-                                  style: TextStyle(
-                                      //fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      fontSize: 23),
-                                ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          aboutUs["contact_number"] != null
-                              ? Text(
-                                  "${aboutUs["contact_number"]}",
-                                  style: TextStyle(
-                                      //fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                )
-                              : Text(
-                                  "-",
-                                  style: TextStyle(
-                                      //fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          aboutUs["email"] != null
-                              ? Text(
-                                  "${aboutUs["email"]}",
-                                  style: TextStyle(
-                                      //fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                )
-                              : Text(
-                                  "-",
-                                  style: TextStyle(
-                                    //fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                        ),
 
-                                    fontSize: 20,
-                                  ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/MyCustomer');
+                                      },
+                                      child: Container(
+                                        height: 120,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.1,
+                                        child: Card(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                  color: Colors.pink,
+                                                ),
+                                                //color: Colors.pink,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(2.0),
+                                                  child: Icon(
+                                                    Icons.accessibility,
+                                                    size: 30,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "Share App",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    //changed n 17 april by rinki
+                                    GestureDetector(
+                                      onTap: () {
+                                        // Navigator.pushNamed(context, '/SocialLink');
+                                        Navigator.of(context)
+                                            .push(PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              SocialLink(
+                                            socialData: aboutUs,
+                                          ),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return child;
+                                          },
+                                        ));
+                                      },
+                                      child: Container(
+                                        height: 120,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.1,
+                                        child: Card(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                  color: Colors.green,
+                                                ),
+                                                //color: Colors.pink,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(2.0),
+                                                  child: Icon(
+                                                    Icons.link,
+                                                    size: 30,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "Social Link",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // GestureDetector(
+                                    //   onTap: () {
+                                    //     Navigator.pushNamed(
+                                    //         context, '/PortfolioScreen');
+                                    //   },
+                                    //   child: Container(
+                                    //     height: 120,
+                                    //     width:
+                                    //         MediaQuery.of(context).size.width / 2.1,
+                                    //     child: Card(
+                                    //       child: Column(
+                                    //         mainAxisAlignment:
+                                    //             MainAxisAlignment.center,
+                                    //         children: [
+                                    //           Container(
+                                    //             decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.circular(30),
+                                    //               color: Colors.blue,
+                                    //             ),
+                                    //             //color: Colors.pink,
+                                    //             child: Padding(
+                                    //               padding: const EdgeInsets.all(2.0),
+                                    //               child: Icon(
+                                    //                 Icons.brush,
+                                    //                 size: 30,
+                                    //                 color: Colors.white,
+                                    //               ),
+                                    //             ),
+                                    //           ),
+                                    //           SizedBox(
+                                    //             height: 5,
+                                    //           ),
+                                    //           Text(
+                                    //             "View Portfolio",
+                                    //             style: TextStyle(
+                                    //               fontWeight: FontWeight.w500,
+                                    //               color: Colors.black,
+                                    //               fontSize: 15,
+                                    //             ),
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ],
                                 ),
-                          SizedBox(
-                            height: 10,
-                          )
-                        ],
-                      ),
+                                //changed n 17 april by rinki
+                                // Row(
+                                //   children: [
+                                //     GestureDetector(
+                                //       onTap: () {
+                                //         Navigator.pushNamed(context, '/SocialLink');
+                                //       },
+                                //       child: Container(
+                                //         height: 120,
+                                //         width:
+                                //             MediaQuery.of(context).size.width / 2.1,
+                                //         child: Card(
+                                //           child: Column(
+                                //             mainAxisAlignment:
+                                //                 MainAxisAlignment.center,
+                                //             children: [
+                                //               Container(
+                                //                 decoration: BoxDecoration(
+                                //                   borderRadius:
+                                //                       BorderRadius.circular(30),
+                                //                   color: Colors.green,
+                                //                 ),
+                                //                 //color: Colors.pink,
+                                //                 child: Padding(
+                                //                   padding: const EdgeInsets.all(2.0),
+                                //                   child: Icon(
+                                //                     Icons.link,
+                                //                     size: 30,
+                                //                     color: Colors.white,
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //               SizedBox(
+                                //                 height: 5,
+                                //               ),
+                                //               Text(
+                                //                 "Social Link",
+                                //                 style: TextStyle(
+                                //                   fontWeight: FontWeight.w500,
+                                //                   color: Colors.black,
+                                //                   fontSize: 15,
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     GestureDetector(
+                                //       onTap: () {
+                                //         Navigator.pushNamed(
+                                //             context, '/StudioLocation');
+                                //       },
+                                //       child: Container(
+                                //         height: 120,
+                                //         width:
+                                //             MediaQuery.of(context).size.width / 2.12,
+                                //         child: Card(
+                                //           child: Column(
+                                //             mainAxisAlignment:
+                                //                 MainAxisAlignment.center,
+                                //             children: [
+                                //               Container(
+                                //                 decoration: BoxDecoration(
+                                //                   borderRadius:
+                                //                       BorderRadius.circular(30),
+                                //                   color: Colors.teal,
+                                //                 ),
+                                //                 //color: Colors.pink,
+                                //                 child: GestureDetector(
+                                //                   onTap: () {
+                                //                     Navigator.pushNamed(
+                                //                         context, '/StudioLocation');
+                                //                   },
+                                //                   child: Padding(
+                                //                     padding:
+                                //                         const EdgeInsets.all(2.0),
+                                //                     child: Icon(
+                                //                       Icons.add_location,
+                                //                       size: 30,
+                                //                       color: Colors.white,
+                                //                     ),
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //               SizedBox(
+                                //                 height: 10,
+                                //               ),
+                                //               GestureDetector(
+                                //                 onTap: () {
+                                //                   Navigator.pushNamed(
+                                //                       context, '/StudioLocation');
+                                //                 },
+                                //                 child: Text(
+                                //                   "Branches",
+                                //                   style: TextStyle(
+                                //                     fontWeight: FontWeight.w500,
+                                //                     color: Colors.black,
+                                //                     fontSize: 15,
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     SizedBox(
+                                //       width: 10,
+                                //     ),
+                                //   ],
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Container(
+                        //   child: Stack(
+                        //     fit: StackFit.loose,
+                        //     children: <Widget>[
+                        //       Container(
+                        //         child: Opacity(
+                        //           opacity: 1,
+                        //           child: StudioLogo == null
+                        //               ? Image.asset(
+                        //                   "images/opicxologo.png",
+                        //                   height: 50,
+                        //                   width: 50,
+                        //                   fit: BoxFit.fill,
+                        //                 )
+                        //               : Image.asset("images/opicxologo.png"),
+                        //         ),
+                        //       ),
+                        //       Padding(
+                        //         padding: const EdgeInsets.all(4.0),
+                        //         child: ClayContainer(
+                        //           color: Colors.white,
+                        //           width: MediaQuery.of(context).size.width,
+                        //           height: MediaQuery.of(context).size.height * 0.3,
+                        //           child: ClayContainer(
+                        //             color: Colors.white,
+                        //             curveType: CurveType.convex,
+                        //             child: SingleChildScrollView(
+                        //               scrollDirection: Axis.horizontal,
+                        //               child: Row(
+                        //                 children: [
+                        //                   Padding(
+                        //                       padding: const EdgeInsets.only(
+                        //                           left: 8.0, top: 15),
+                        //                       child: Column(
+                        //                         children: [
+                        //                           Container(
+                        //                             width: 140,
+                        //                             height: 140,
+                        //                             child: Opacity(
+                        //                               opacity: 1,
+                        //                               child: StudioLogo == null
+                        //                                   ? Image.asset(
+                        //                                       "images/opicxologo.png",
+                        //                                     )
+                        //                                   : Image.asset(
+                        //                                       "images/onlylogo.jpeg"),
+                        //                             ),
+                        //                           ),
+                        //                         ],
+                        //                       )),
+                        //                   Padding(
+                        //                     padding: const EdgeInsets.only(top: 50.0),
+                        //                     child: !editpressed || updatepressed
+                        //                         ? Column(
+                        //                             mainAxisAlignment:
+                        //                                 MainAxisAlignment.start,
+                        //                             children: [
+                        //                               Row(
+                        //                                 crossAxisAlignment:
+                        //                                     CrossAxisAlignment.start,
+                        //                                 children: [
+                        //                                   // Text("Name: ",
+                        //                                   // style: TextStyle(
+                        //                                   //   fontWeight: FontWeight.bold,
+                        //                                   //   fontSize: 20
+                        //                                   // ),
+                        //                                   // ),
+                        //                                   name != null
+                        //                                       ? Text(
+                        //                                           "${name}",
+                        //                                           style: TextStyle(
+                        //                                               //fontWeight: FontWeight.w700,
+                        //                                               fontSize: 23),
+                        //                                         )
+                        //                                       : Text(
+                        //                                           "${cnst.Session.Name}",
+                        //                                           style: TextStyle(
+                        //                                               //fontWeight: FontWeight.w700,
+                        //                                               fontSize: 23),
+                        //                                         ),
+                        //                                 ],
+                        //                               ),
+                        //                               SizedBox(
+                        //                                 height: 10,
+                        //                               ),
+                        //                               Row(
+                        //                                 children: [
+                        //                                   // Text("Mobile: ",
+                        //                                   //   style: TextStyle(
+                        //                                   //       fontWeight: FontWeight.bold,
+                        //                                   //       fontSize: 20
+                        //                                   //   ),
+                        //                                   // ),
+                        //                                   mobile != null
+                        //                                       ? Text(
+                        //                                           "${mobile}",
+                        //                                           style: TextStyle(
+                        //                                               //fontWeight: FontWeight.w700,
+                        //                                               fontSize: 23),
+                        //                                         )
+                        //                                       : Text(
+                        //                                           "${cnst.Session.Mobile}",
+                        //                                           style: TextStyle(
+                        //                                               //fontWeight: FontWeight.w700,
+                        //                                               fontSize: 23),
+                        //                                         ),
+                        //                                 ],
+                        //                               ),
+                        //                               SizedBox(
+                        //                                 height: 10,
+                        //                               ),
+                        //                               Column(
+                        //                                 children: [
+                        //                                   // Text("Email: ",
+                        //                                   //   style: TextStyle(
+                        //                                   //       fontWeight: FontWeight.bold,
+                        //                                   //       fontSize: 20
+                        //                                   //   ),
+                        //                                   // ),
+                        //
+                        //                                   email != null
+                        //                                       ? Text(
+                        //                                           "${email}",
+                        //                                           style: TextStyle(
+                        //                                               //fontWeight: FontWeight.w700,
+                        //                                               fontSize: 23),
+                        //                                         )
+                        //                                       : Text(
+                        //                                           "${cnst.Session.Email}",
+                        //                                           style: TextStyle(
+                        //                                             //fontWeight: FontWeight.w700,
+                        //                                             fontSize: 23,
+                        //                                           ),
+                        //                                         ),
+                        //                                 ],
+                        //                               ),
+                        //                             ],
+                        //                           )
+                        //                         : Column(
+                        //                             children: [
+                        //                               Container(
+                        //                                 width: MediaQuery.of(context)
+                        //                                         .size
+                        //                                         .width *
+                        //                                     0.6,
+                        //                                 height: 24,
+                        //                                 child: new TextFormField(
+                        //                                   controller: EditName,
+                        //                                   decoration:
+                        //                                       const InputDecoration(),
+                        //                                   keyboardType:
+                        //                                       TextInputType.text,
+                        //                                 ),
+                        //                               ),
+                        //                               SizedBox(
+                        //                                 height: 20,
+                        //                               ),
+                        //                               Container(
+                        //                                 height: 24,
+                        //                                 width: MediaQuery.of(context)
+                        //                                         .size
+                        //                                         .width *
+                        //                                     0.6,
+                        //                                 child: new TextFormField(
+                        //                                   controller: EditMobile,
+                        //                                   decoration:
+                        //                                       const InputDecoration(),
+                        //                                   keyboardType:
+                        //                                       TextInputType.phone,
+                        //                                 ),
+                        //                               ),
+                        //                               SizedBox(
+                        //                                 height: 20,
+                        //                               ),
+                        //                               Container(
+                        //                                 height: 24,
+                        //                                 width: MediaQuery.of(context)
+                        //                                         .size
+                        //                                         .width *
+                        //                                     0.6,
+                        //                                 child: new TextFormField(
+                        //                                   controller: EditEmail,
+                        //                                   decoration:
+                        //                                       const InputDecoration(),
+                        //                                   keyboardType: TextInputType
+                        //                                       .emailAddress,
+                        //                                 ),
+                        //                               ),
+                        //                             ],
+                        //                           ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       Padding(
+                        //         padding: const EdgeInsets.only(top: 200, left: 20),
+                        //         child: Stack(
+                        //           children: [
+                        //             ClayContainer(
+                        //               width: MediaQuery.of(context).size.width * 0.90,
+                        //               height:
+                        //                   MediaQuery.of(context).size.height * 0.5,
+                        //               //color: Colors.white,
+                        //               child: ClayContainer(
+                        //                 curveType: CurveType.convex,
+                        //                 color: Colors.white,
+                        //                 width:
+                        //                     MediaQuery.of(context).size.width * 0.90,
+                        //                 height:
+                        //                     MediaQuery.of(context).size.height * 0.5,
+                        //               ),
+                        //             ),
+                        //             Padding(
+                        //               padding:
+                        //                   const EdgeInsets.only(top: 35.0, left: 20),
+                        //               child: Row(
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.spaceAround,
+                        //                 children: [
+                        //                   Column(
+                        //                     children: [
+                        //                       Container(
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius:
+                        //                               BorderRadius.circular(30),
+                        //                           color: Colors.pink,
+                        //                         ),
+                        //                         //color: Colors.pink,
+                        //                         child: GestureDetector(
+                        //                           onTap: () {
+                        //                             Navigator.pushReplacementNamed(
+                        //                                 context, '/MyCustomer');
+                        //                           },
+                        //                           child: Padding(
+                        //                             padding:
+                        //                                 const EdgeInsets.all(2.0),
+                        //                             child: Icon(
+                        //                               Icons.accessibility,
+                        //                               size: 40,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                       SizedBox(
+                        //                         height: 5,
+                        //                       ),
+                        //                       GestureDetector(
+                        //                         onTap: () {
+                        //                           Navigator.pushReplacementNamed(
+                        //                               context, '/MyCustomer');
+                        //                         },
+                        //                         child: Text(
+                        //                           "Share App",
+                        //                           style: TextStyle(
+                        //                             fontWeight: FontWeight.bold,
+                        //                             color: Colors.black,
+                        //                             fontSize: 18,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                   Column(
+                        //                     children: [
+                        //                       Container(
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius:
+                        //                               BorderRadius.circular(30),
+                        //                           color: Colors.blue,
+                        //                         ),
+                        //                         //color: Colors.pink,
+                        //                         child: GestureDetector(
+                        //                           onTap: () {
+                        //                             Navigator.pushNamed(
+                        //                                 context, '/PortfolioScreen');
+                        //                           },
+                        //                           child: Padding(
+                        //                             padding:
+                        //                                 const EdgeInsets.all(2.0),
+                        //                             child: Icon(
+                        //                               Icons.brush,
+                        //                               size: 40,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                       SizedBox(
+                        //                         height: 5,
+                        //                       ),
+                        //                       GestureDetector(
+                        //                         onTap: () {
+                        //                           Navigator.pushNamed(
+                        //                               context, '/PortfolioScreen');
+                        //                         },
+                        //                         child: Text(
+                        //                           "View Portfolio",
+                        //                           style: TextStyle(
+                        //                             fontWeight: FontWeight.bold,
+                        //                             color: Colors.black,
+                        //                             fontSize: 18,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //             Padding(
+                        //               padding:
+                        //                   const EdgeInsets.only(top: 140.0, left: 40),
+                        //               child: Row(
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.spaceAround,
+                        //                 children: [
+                        //                   Column(
+                        //                     children: [
+                        //                       Container(
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius:
+                        //                               BorderRadius.circular(30),
+                        //                           color: Colors.green,
+                        //                         ),
+                        //                         //color: Colors.pink,
+                        //                         child: GestureDetector(
+                        //                           onTap: () {
+                        //                             Navigator.pushNamed(
+                        //                                 context, '/SocialLink');
+                        //                           },
+                        //                           child: Padding(
+                        //                             padding:
+                        //                                 const EdgeInsets.all(2.0),
+                        //                             child: Icon(
+                        //                               Icons.link,
+                        //                               size: 40,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                       SizedBox(
+                        //                         height: 5,
+                        //                       ),
+                        //                       GestureDetector(
+                        //                         onTap: () {
+                        //                           Navigator.pushNamed(
+                        //                               context, '/SocialLink');
+                        //                         },
+                        //                         child: Text(
+                        //                           "Social Link",
+                        //                           style: TextStyle(
+                        //                             fontWeight: FontWeight.bold,
+                        //                             color: Colors.black,
+                        //                             fontSize: 18,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                   SizedBox(
+                        //                     width: 10,
+                        //                   ),
+                        //                   Column(
+                        //                     children: [
+                        //                       Container(
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius:
+                        //                               BorderRadius.circular(30),
+                        //                           color: Colors.teal,
+                        //                         ),
+                        //                         //color: Colors.pink,
+                        //                         child: GestureDetector(
+                        //                           onTap: () {
+                        //                             Navigator.pushNamed(
+                        //                                 context, '/StudioLocation');
+                        //                           },
+                        //                           child: Padding(
+                        //                             padding:
+                        //                                 const EdgeInsets.all(2.0),
+                        //                             child: Icon(
+                        //                               Icons.add_location,
+                        //                               size: 40,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                       SizedBox(
+                        //                         height: 5,
+                        //                       ),
+                        //                       GestureDetector(
+                        //                         onTap: () {
+                        //                           Navigator.pushNamed(
+                        //                               context, '/StudioLocation');
+                        //                         },
+                        //                         child: Text(
+                        //                           "Branches",
+                        //                           style: TextStyle(
+                        //                             fontWeight: FontWeight.bold,
+                        //                             color: Colors.black,
+                        //                             fontSize: 18,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                   SizedBox(
+                        //                     width: 10,
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //             Padding(
+                        //               padding:
+                        //                   const EdgeInsets.only(top: 265.0, left: 15),
+                        //               // child:
+                        //               // Container(
+                        //               //   decoration: BoxDecoration(
+                        //               //     borderRadius: BorderRadius.circular(40),
+                        //               //   ),
+                        //               //   width: MediaQuery.of(context).size.width*0.85,
+                        //               //   child: RaisedButton(
+                        //               //     child: Text("Preview Card",
+                        //               //     style: TextStyle(
+                        //               //       color: Colors.white,
+                        //               //       fontWeight: FontWeight.bold,
+                        //               //       fontSize: 20
+                        //               //     ),
+                        //               //     ),
+                        //               //     onPressed: () async {
+                        //               //       _StudioDigitalCardId();
+                        //               //       String profileUrl = cnst.profileUrl
+                        //               //           .replaceAll("#id",studioid);
+                        //               //       if (await canLaunch(profileUrl)) {
+                        //               //         await launch(profileUrl);
+                        //               //       } else {
+                        //               //         throw 'Could not launch $profileUrl';
+                        //               //       }
+                        //               //     },
+                        //               //     color: Colors.black,
+                        //               //   ),
+                        //               // ),
+                        //               // Column(
+                        //               //   children: [
+                        //               //     Container(
+                        //               //       decoration: BoxDecoration(
+                        //               //         borderRadius: BorderRadius.circular(30),
+                        //               //         color: Colors.deepOrange,
+                        //               //       ),
+                        //               //       //color: Colors.pink,
+                        //               //       child: GestureDetector(
+                        //               //         onTap: (){
+                        //               //           getCardId();
+                        //               //           bool val = checkValidity();
+                        //               //           Navigator.of(context).push(
+                        //               //             PageRouteBuilder(
+                        //               //               opaque: false,
+                        //               //               pageBuilder:
+                        //               //                   (BuildContext context, _, __) =>
+                        //               //                   CardShareComponent(
+                        //               //                     memberId: cardid,
+                        //               //                     memberName: Name,
+                        //               //                     isRegular: val,
+                        //               //                     memberType: MemberType,
+                        //               //                     shareMsg: ShareMsg,
+                        //               //                     IsActivePayment: IsActivePayment,
+                        //               //                   ),
+                        //               //             ),
+                        //               //           );
+                        //               //         },
+                        //               //         child: Padding(
+                        //               //           padding: const EdgeInsets.all(2.0),
+                        //               //           child: Icon(Icons.share,
+                        //               //             size: 37,
+                        //               //             color: Colors.white,
+                        //               //           ),
+                        //               //         ),
+                        //               //       ),
+                        //               //     ),
+                        //               //     SizedBox(
+                        //               //       height: 5,
+                        //               //     ),
+                        //               //     GestureDetector(
+                        //               //               onTap: (){
+                        //               //                 getCardId();
+                        //               //                 bool val = checkValidity();
+                        //               //                 Navigator.of(context).push(
+                        //               //                   PageRouteBuilder(
+                        //               //                     opaque: false,
+                        //               //                     pageBuilder:
+                        //               //                         (BuildContext context, _, __) =>
+                        //               //                         CardShareComponent(
+                        //               //                           memberId: cardid,
+                        //               //                           memberName: Name,
+                        //               //                           isRegular: val,
+                        //               //                           memberType: MemberType,
+                        //               //                           shareMsg: ShareMsg,
+                        //               //                           IsActivePayment: IsActivePayment,
+                        //               //                         ),
+                        //               //                   ),
+                        //               //                 );
+                        //               //               },
+                        //               //       child: Text(
+                        //               //         "Share Card",
+                        //               //         style: TextStyle(
+                        //               //           fontWeight: FontWeight.bold,
+                        //               //           color: Colors.black,
+                        //               //           fontSize: 18,
+                        //               //         ),
+                        //               //       ),
+                        //               //     ),
+                        //               //   ],
+                        //               // ),
+                        //               // SizedBox(
+                        //               //   width: 10,
+                        //               // ),
+                        //               // Column(
+                        //               //   children: [
+                        //               //     Container(
+                        //               //       decoration: BoxDecoration(
+                        //               //         borderRadius: BorderRadius.circular(30),
+                        //               //         color: Colors.purple,
+                        //               //       ),
+                        //               //       //color: Colors.pink,
+                        //               //       child: GestureDetector(
+                        //               //         onTap: () async {
+                        //               //           _StudioDigitalCardId();
+                        //               //           String profileUrl = cnst.profileUrl
+                        //               //               .replaceAll("#id",studioid);
+                        //               //           if (await canLaunch(profileUrl)) {
+                        //               //             await launch(profileUrl);
+                        //               //           } else {
+                        //               //             throw 'Could not launch $profileUrl';
+                        //               //           }
+                        //               //         },
+                        //               //         child: Padding(
+                        //               //           padding: const EdgeInsets.all(2.0),
+                        //               //           child: Icon(Icons.preview,
+                        //               //             size: 40,
+                        //               //             color: Colors.white,
+                        //               //           ),
+                        //               //         ),
+                        //               //       ),
+                        //               //     ),
+                        //               //     SizedBox(
+                        //               //       height: 5,
+                        //               //     ),
+                        //               //     GestureDetector(
+                        //               //       onTap: () async {
+                        //               //         _StudioDigitalCardId();
+                        //               //         String profileUrl = cnst.profileUrl
+                        //               //             .replaceAll("#id", studioid);
+                        //               //         if (await canLaunch(profileUrl)) {
+                        //               //           await launch(profileUrl);
+                        //               //         } else {
+                        //               //           throw 'Could not launch $profileUrl';
+                        //               //         }
+                        //               //       },
+                        //               //       child: Text(
+                        //               //         "Preview Card",
+                        //               //         style: TextStyle(
+                        //               //           fontWeight: FontWeight.bold,
+                        //               //           color: Colors.black,
+                        //               //           fontSize: 18,
+                        //               //         ),
+                        //               //       ),
+                        //               //     ),
+                        //               //   ],
+                        //               // ),
+                        //               // SizedBox(
+                        //               //   width: 10,
+                        //               // ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // )
+                      ],
                     ),
                   ),
 
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/MyCustomer');
-                                },
-                                child: Container(
-                                  height: 120,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.1,
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: Colors.pink,
-                                          ),
-                                          //color: Colors.pink,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Icon(
-                                              Icons.accessibility,
-                                              size: 30,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          "Share App",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              //changed n 17 april by rinki
-                              GestureDetector(
-                                onTap: () {
-                                  // Navigator.pushNamed(context, '/SocialLink');
-                                  Navigator.of(context).push(PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        SocialLink(
-                                      socialData: aboutUs,
-                                    ),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      return child;
-                                    },
-                                  ));
-                                },
-                                child: Container(
-                                  height: 120,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.1,
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: Colors.green,
-                                          ),
-                                          //color: Colors.pink,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Icon(
-                                              Icons.link,
-                                              size: 30,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          "Social Link",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     Navigator.pushNamed(
-                              //         context, '/PortfolioScreen');
-                              //   },
-                              //   child: Container(
-                              //     height: 120,
-                              //     width:
-                              //         MediaQuery.of(context).size.width / 2.1,
-                              //     child: Card(
-                              //       child: Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [
-                              //           Container(
-                              //             decoration: BoxDecoration(
-                              //               borderRadius:
-                              //                   BorderRadius.circular(30),
-                              //               color: Colors.blue,
-                              //             ),
-                              //             //color: Colors.pink,
-                              //             child: Padding(
-                              //               padding: const EdgeInsets.all(2.0),
-                              //               child: Icon(
-                              //                 Icons.brush,
-                              //                 size: 30,
-                              //                 color: Colors.white,
-                              //               ),
-                              //             ),
-                              //           ),
-                              //           SizedBox(
-                              //             height: 5,
-                              //           ),
-                              //           Text(
-                              //             "View Portfolio",
-                              //             style: TextStyle(
-                              //               fontWeight: FontWeight.w500,
-                              //               color: Colors.black,
-                              //               fontSize: 15,
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                          //changed n 17 april by rinki
-                          // Row(
-                          //   children: [
-                          //     GestureDetector(
-                          //       onTap: () {
-                          //         Navigator.pushNamed(context, '/SocialLink');
-                          //       },
-                          //       child: Container(
-                          //         height: 120,
-                          //         width:
-                          //             MediaQuery.of(context).size.width / 2.1,
-                          //         child: Card(
-                          //           child: Column(
-                          //             mainAxisAlignment:
-                          //                 MainAxisAlignment.center,
-                          //             children: [
-                          //               Container(
-                          //                 decoration: BoxDecoration(
-                          //                   borderRadius:
-                          //                       BorderRadius.circular(30),
-                          //                   color: Colors.green,
-                          //                 ),
-                          //                 //color: Colors.pink,
-                          //                 child: Padding(
-                          //                   padding: const EdgeInsets.all(2.0),
-                          //                   child: Icon(
-                          //                     Icons.link,
-                          //                     size: 30,
-                          //                     color: Colors.white,
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //               SizedBox(
-                          //                 height: 5,
-                          //               ),
-                          //               Text(
-                          //                 "Social Link",
-                          //                 style: TextStyle(
-                          //                   fontWeight: FontWeight.w500,
-                          //                   color: Colors.black,
-                          //                   fontSize: 15,
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     GestureDetector(
-                          //       onTap: () {
-                          //         Navigator.pushNamed(
-                          //             context, '/StudioLocation');
-                          //       },
-                          //       child: Container(
-                          //         height: 120,
-                          //         width:
-                          //             MediaQuery.of(context).size.width / 2.12,
-                          //         child: Card(
-                          //           child: Column(
-                          //             mainAxisAlignment:
-                          //                 MainAxisAlignment.center,
-                          //             children: [
-                          //               Container(
-                          //                 decoration: BoxDecoration(
-                          //                   borderRadius:
-                          //                       BorderRadius.circular(30),
-                          //                   color: Colors.teal,
-                          //                 ),
-                          //                 //color: Colors.pink,
-                          //                 child: GestureDetector(
-                          //                   onTap: () {
-                          //                     Navigator.pushNamed(
-                          //                         context, '/StudioLocation');
-                          //                   },
-                          //                   child: Padding(
-                          //                     padding:
-                          //                         const EdgeInsets.all(2.0),
-                          //                     child: Icon(
-                          //                       Icons.add_location,
-                          //                       size: 30,
-                          //                       color: Colors.white,
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //               SizedBox(
-                          //                 height: 10,
-                          //               ),
-                          //               GestureDetector(
-                          //                 onTap: () {
-                          //                   Navigator.pushNamed(
-                          //                       context, '/StudioLocation');
-                          //                 },
-                          //                 child: Text(
-                          //                   "Branches",
-                          //                   style: TextStyle(
-                          //                     fontWeight: FontWeight.w500,
-                          //                     color: Colors.black,
-                          //                     fontSize: 15,
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     SizedBox(
-                          //       width: 10,
-                          //     ),
-                          //   ],
-                          // ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // Container(
-                  //   child: Stack(
-                  //     fit: StackFit.loose,
-                  //     children: <Widget>[
-                  //       Container(
-                  //         child: Opacity(
-                  //           opacity: 1,
-                  //           child: StudioLogo == null
-                  //               ? Image.asset(
-                  //                   "images/opicxologo.png",
-                  //                   height: 50,
-                  //                   width: 50,
-                  //                   fit: BoxFit.fill,
-                  //                 )
-                  //               : Image.asset("images/opicxologo.png"),
-                  //         ),
+                  // Stack(
+                  //   fit: StackFit.loose,
+                  //   children: <Widget>[
+                  //     Container(
+                  //       child: Opacity(
+                  //         opacity: 1,
+                  //         child: StudioLogo == null
+                  //             ? Image.asset(
+                  //                 "images/opicxologo.png",
+                  //                 height: 50,
+                  //                 width: 50,
+                  //                 fit: BoxFit.fill,
+                  //               )
+                  //             : Image.asset("images/opicxologo.png"),
                   //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(4.0),
+                  //     ),
+                  //     Padding(
+                  //       padding: const EdgeInsets.all(4.0),
+                  //       child: ClayContainer(
+                  //         color: Colors.white,
+                  //         width: MediaQuery.of(context).size.width,
+                  //         height: MediaQuery.of(context).size.height * 0.3,
                   //         child: ClayContainer(
                   //           color: Colors.white,
-                  //           width: MediaQuery.of(context).size.width,
-                  //           height: MediaQuery.of(context).size.height * 0.3,
-                  //           child: ClayContainer(
-                  //             color: Colors.white,
-                  //             curveType: CurveType.convex,
-                  //             child: SingleChildScrollView(
-                  //               scrollDirection: Axis.horizontal,
-                  //               child: Row(
-                  //                 children: [
-                  //                   Padding(
-                  //                       padding: const EdgeInsets.only(
-                  //                           left: 8.0, top: 15),
-                  //                       child: Column(
-                  //                         children: [
-                  //                           Container(
-                  //                             width: 140,
-                  //                             height: 140,
-                  //                             child: Opacity(
-                  //                               opacity: 1,
-                  //                               child: StudioLogo == null
-                  //                                   ? Image.asset(
-                  //                                       "images/opicxologo.png",
-                  //                                     )
-                  //                                   : Image.asset(
-                  //                                       "images/onlylogo.jpeg"),
-                  //                             ),
+                  //           curveType: CurveType.convex,
+                  //           child: SingleChildScrollView(
+                  //             scrollDirection: Axis.horizontal,
+                  //             child: Row(
+                  //               children: [
+                  //                 Padding(
+                  //                     padding:
+                  //                         const EdgeInsets.only(left: 8.0, top: 15),
+                  //                     child: Column(
+                  //                       children: [
+                  //                         Container(
+                  //                           width: 140,
+                  //                           height: 140,
+                  //                           child: Opacity(
+                  //                             opacity: 1,
+                  //                             child: StudioLogo == null
+                  //                                 ? Image.asset(
+                  //                                     "images/opicxologo.png",
+                  //                                   )
+                  //                                 : Image.asset(
+                  //                                     "images/onlylogo.jpeg"),
                   //                           ),
-                  //                         ],
-                  //                       )),
-                  //                   Padding(
-                  //                     padding: const EdgeInsets.only(top: 50.0),
-                  //                     child: !editpressed || updatepressed
-                  //                         ? Column(
-                  //                             mainAxisAlignment:
-                  //                                 MainAxisAlignment.start,
-                  //                             children: [
-                  //                               Row(
-                  //                                 crossAxisAlignment:
-                  //                                     CrossAxisAlignment.start,
-                  //                                 children: [
-                  //                                   // Text("Name: ",
-                  //                                   // style: TextStyle(
-                  //                                   //   fontWeight: FontWeight.bold,
-                  //                                   //   fontSize: 20
-                  //                                   // ),
-                  //                                   // ),
-                  //                                   name != null
-                  //                                       ? Text(
-                  //                                           "${name}",
-                  //                                           style: TextStyle(
-                  //                                               //fontWeight: FontWeight.w700,
-                  //                                               fontSize: 23),
-                  //                                         )
-                  //                                       : Text(
-                  //                                           "${cnst.Session.Name}",
-                  //                                           style: TextStyle(
-                  //                                               //fontWeight: FontWeight.w700,
-                  //                                               fontSize: 23),
-                  //                                         ),
-                  //                                 ],
-                  //                               ),
-                  //                               SizedBox(
-                  //                                 height: 10,
-                  //                               ),
-                  //                               Row(
-                  //                                 children: [
-                  //                                   // Text("Mobile: ",
-                  //                                   //   style: TextStyle(
-                  //                                   //       fontWeight: FontWeight.bold,
-                  //                                   //       fontSize: 20
-                  //                                   //   ),
-                  //                                   // ),
-                  //                                   mobile != null
-                  //                                       ? Text(
-                  //                                           "${mobile}",
-                  //                                           style: TextStyle(
-                  //                                               //fontWeight: FontWeight.w700,
-                  //                                               fontSize: 23),
-                  //                                         )
-                  //                                       : Text(
-                  //                                           "${cnst.Session.Mobile}",
-                  //                                           style: TextStyle(
-                  //                                               //fontWeight: FontWeight.w700,
-                  //                                               fontSize: 23),
-                  //                                         ),
-                  //                                 ],
-                  //                               ),
-                  //                               SizedBox(
-                  //                                 height: 10,
-                  //                               ),
-                  //                               Column(
-                  //                                 children: [
-                  //                                   // Text("Email: ",
-                  //                                   //   style: TextStyle(
-                  //                                   //       fontWeight: FontWeight.bold,
-                  //                                   //       fontSize: 20
-                  //                                   //   ),
-                  //                                   // ),
-                  //
-                  //                                   email != null
-                  //                                       ? Text(
-                  //                                           "${email}",
-                  //                                           style: TextStyle(
-                  //                                               //fontWeight: FontWeight.w700,
-                  //                                               fontSize: 23),
-                  //                                         )
-                  //                                       : Text(
-                  //                                           "${cnst.Session.Email}",
-                  //                                           style: TextStyle(
+                  //                         ),
+                  //                       ],
+                  //                     )),
+                  //                 Padding(
+                  //                   padding: const EdgeInsets.only(top: 50.0),
+                  //                   child: !editpressed || updatepressed
+                  //                       ? Column(
+                  //                           mainAxisAlignment:
+                  //                               MainAxisAlignment.start,
+                  //                           children: [
+                  //                             Row(
+                  //                               crossAxisAlignment:
+                  //                                   CrossAxisAlignment.start,
+                  //                               children: [
+                  //                                 // Text("Name: ",
+                  //                                 // style: TextStyle(
+                  //                                 //   fontWeight: FontWeight.bold,
+                  //                                 //   fontSize: 20
+                  //                                 // ),
+                  //                                 // ),
+                  //                                 name != null
+                  //                                     ? Text(
+                  //                                         "${name}",
+                  //                                         style: TextStyle(
                   //                                             //fontWeight: FontWeight.w700,
-                  //                                             fontSize: 23,
-                  //                                           ),
+                  //                                             fontSize: 23),
+                  //                                       )
+                  //                                     : Text(
+                  //                                         "${cnst.Session.Name}",
+                  //                                         style: TextStyle(
+                  //                                             //fontWeight: FontWeight.w700,
+                  //                                             fontSize: 23),
+                  //                                       ),
+                  //                               ],
+                  //                             ),
+                  //                             SizedBox(
+                  //                               height: 10,
+                  //                             ),
+                  //                             Row(
+                  //                               children: [
+                  //                                 // Text("Mobile: ",
+                  //                                 //   style: TextStyle(
+                  //                                 //       fontWeight: FontWeight.bold,
+                  //                                 //       fontSize: 20
+                  //                                 //   ),
+                  //                                 // ),
+                  //                                 mobile != null
+                  //                                     ? Text(
+                  //                                         "${mobile}",
+                  //                                         style: TextStyle(
+                  //                                             //fontWeight: FontWeight.w700,
+                  //                                             fontSize: 23),
+                  //                                       )
+                  //                                     : Text(
+                  //                                         "${cnst.Session.Mobile}",
+                  //                                         style: TextStyle(
+                  //                                             //fontWeight: FontWeight.w700,
+                  //                                             fontSize: 23),
+                  //                                       ),
+                  //                               ],
+                  //                             ),
+                  //                             SizedBox(
+                  //                               height: 10,
+                  //                             ),
+                  //                             Column(
+                  //                               children: [
+                  //                                 // Text("Email: ",
+                  //                                 //   style: TextStyle(
+                  //                                 //       fontWeight: FontWeight.bold,
+                  //                                 //       fontSize: 20
+                  //                                 //   ),
+                  //                                 // ),
+                  //
+                  //                                 email != null
+                  //                                     ? Text(
+                  //                                         "${email}",
+                  //                                         style: TextStyle(
+                  //                                             //fontWeight: FontWeight.w700,
+                  //                                             fontSize: 23),
+                  //                                       )
+                  //                                     : Text(
+                  //                                         "${cnst.Session.Email}",
+                  //                                         style: TextStyle(
+                  //                                           //fontWeight: FontWeight.w700,
+                  //                                           fontSize: 23,
                   //                                         ),
-                  //                                 ],
+                  //                                       ),
+                  //                               ],
+                  //                             ),
+                  //                           ],
+                  //                         )
+                  //                       : Column(
+                  //                           children: [
+                  //                             Container(
+                  //                               width: MediaQuery.of(context)
+                  //                                       .size
+                  //                                       .width *
+                  //                                   0.6,
+                  //                               height: 24,
+                  //                               child: new TextFormField(
+                  //                                 controller: EditName,
+                  //                                 decoration: const InputDecoration(),
+                  //                                 keyboardType: TextInputType.text,
                   //                               ),
-                  //                             ],
-                  //                           )
-                  //                         : Column(
-                  //                             children: [
-                  //                               Container(
-                  //                                 width: MediaQuery.of(context)
-                  //                                         .size
-                  //                                         .width *
-                  //                                     0.6,
-                  //                                 height: 24,
-                  //                                 child: new TextFormField(
-                  //                                   controller: EditName,
-                  //                                   decoration:
-                  //                                       const InputDecoration(),
-                  //                                   keyboardType:
-                  //                                       TextInputType.text,
-                  //                                 ),
+                  //                             ),
+                  //                             SizedBox(
+                  //                               height: 20,
+                  //                             ),
+                  //                             Container(
+                  //                               height: 24,
+                  //                               width: MediaQuery.of(context)
+                  //                                       .size
+                  //                                       .width *
+                  //                                   0.6,
+                  //                               child: new TextFormField(
+                  //                                 controller: EditMobile,
+                  //                                 decoration: const InputDecoration(),
+                  //                                 keyboardType: TextInputType.phone,
                   //                               ),
-                  //                               SizedBox(
-                  //                                 height: 20,
+                  //                             ),
+                  //                             SizedBox(
+                  //                               height: 20,
+                  //                             ),
+                  //                             Container(
+                  //                               height: 24,
+                  //                               width: MediaQuery.of(context)
+                  //                                       .size
+                  //                                       .width *
+                  //                                   0.6,
+                  //                               child: new TextFormField(
+                  //                                 controller: EditEmail,
+                  //                                 decoration: const InputDecoration(),
+                  //                                 keyboardType:
+                  //                                     TextInputType.emailAddress,
                   //                               ),
-                  //                               Container(
-                  //                                 height: 24,
-                  //                                 width: MediaQuery.of(context)
-                  //                                         .size
-                  //                                         .width *
-                  //                                     0.6,
-                  //                                 child: new TextFormField(
-                  //                                   controller: EditMobile,
-                  //                                   decoration:
-                  //                                       const InputDecoration(),
-                  //                                   keyboardType:
-                  //                                       TextInputType.phone,
-                  //                                 ),
-                  //                               ),
-                  //                               SizedBox(
-                  //                                 height: 20,
-                  //                               ),
-                  //                               Container(
-                  //                                 height: 24,
-                  //                                 width: MediaQuery.of(context)
-                  //                                         .size
-                  //                                         .width *
-                  //                                     0.6,
-                  //                                 child: new TextFormField(
-                  //                                   controller: EditEmail,
-                  //                                   decoration:
-                  //                                       const InputDecoration(),
-                  //                                   keyboardType: TextInputType
-                  //                                       .emailAddress,
-                  //                                 ),
-                  //                               ),
-                  //                             ],
-                  //                           ),
-                  //                   ),
-                  //                 ],
-                  //               ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                 ),
+                  //               ],
                   //             ),
                   //           ),
                   //         ),
                   //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.only(top: 200, left: 20),
-                  //         child: Stack(
-                  //           children: [
-                  //             ClayContainer(
+                  //     ),
+                  //     Padding(
+                  //       padding: const EdgeInsets.only(top: 200, left: 20),
+                  //       child: Stack(
+                  //         children: [
+                  //           ClayContainer(
+                  //             width: MediaQuery.of(context).size.width * 0.90,
+                  //             height: MediaQuery.of(context).size.height * 0.5,
+                  //             //color: Colors.white,
+                  //             child: ClayContainer(
+                  //               curveType: CurveType.convex,
+                  //               color: Colors.white,
                   //               width: MediaQuery.of(context).size.width * 0.90,
-                  //               height:
-                  //                   MediaQuery.of(context).size.height * 0.5,
-                  //               //color: Colors.white,
-                  //               child: ClayContainer(
-                  //                 curveType: CurveType.convex,
-                  //                 color: Colors.white,
-                  //                 width:
-                  //                     MediaQuery.of(context).size.width * 0.90,
-                  //                 height:
-                  //                     MediaQuery.of(context).size.height * 0.5,
-                  //               ),
+                  //               height: MediaQuery.of(context).size.height * 0.5,
                   //             ),
-                  //             Padding(
-                  //               padding:
-                  //                   const EdgeInsets.only(top: 35.0, left: 20),
-                  //               child: Row(
-                  //                 mainAxisAlignment:
-                  //                     MainAxisAlignment.spaceAround,
-                  //                 children: [
-                  //                   Column(
-                  //                     children: [
-                  //                       Container(
-                  //                         decoration: BoxDecoration(
-                  //                           borderRadius:
-                  //                               BorderRadius.circular(30),
-                  //                           color: Colors.pink,
-                  //                         ),
-                  //                         //color: Colors.pink,
-                  //                         child: GestureDetector(
-                  //                           onTap: () {
-                  //                             Navigator.pushReplacementNamed(
-                  //                                 context, '/MyCustomer');
-                  //                           },
-                  //                           child: Padding(
-                  //                             padding:
-                  //                                 const EdgeInsets.all(2.0),
-                  //                             child: Icon(
-                  //                               Icons.accessibility,
-                  //                               size: 40,
-                  //                               color: Colors.white,
-                  //                             ),
-                  //                           ),
-                  //                         ),
+                  //           ),
+                  //           Padding(
+                  //             padding: const EdgeInsets.only(top: 35.0, left: 20),
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //               children: [
+                  //                 Column(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         borderRadius: BorderRadius.circular(30),
+                  //                         color: Colors.pink,
                   //                       ),
-                  //                       SizedBox(
-                  //                         height: 5,
-                  //                       ),
-                  //                       GestureDetector(
+                  //                       //color: Colors.pink,
+                  //                       child: GestureDetector(
                   //                         onTap: () {
                   //                           Navigator.pushReplacementNamed(
                   //                               context, '/MyCustomer');
                   //                         },
-                  //                         child: Text(
-                  //                           "Share App",
-                  //                           style: TextStyle(
-                  //                             fontWeight: FontWeight.bold,
-                  //                             color: Colors.black,
-                  //                             fontSize: 18,
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.all(2.0),
+                  //                           child: Icon(
+                  //                             Icons.accessibility,
+                  //                             size: 40,
+                  //                             color: Colors.white,
                   //                           ),
                   //                         ),
                   //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   Column(
-                  //                     children: [
-                  //                       Container(
-                  //                         decoration: BoxDecoration(
-                  //                           borderRadius:
-                  //                               BorderRadius.circular(30),
-                  //                           color: Colors.blue,
-                  //                         ),
-                  //                         //color: Colors.pink,
-                  //                         child: GestureDetector(
-                  //                           onTap: () {
-                  //                             Navigator.pushNamed(
-                  //                                 context, '/PortfolioScreen');
-                  //                           },
-                  //                           child: Padding(
-                  //                             padding:
-                  //                                 const EdgeInsets.all(2.0),
-                  //                             child: Icon(
-                  //                               Icons.brush,
-                  //                               size: 40,
-                  //                               color: Colors.white,
-                  //                             ),
-                  //                           ),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     GestureDetector(
+                  //                       onTap: () {
+                  //                         Navigator.pushReplacementNamed(
+                  //                             context, '/MyCustomer');
+                  //                       },
+                  //                       child: Text(
+                  //                         "Share App",
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                           color: Colors.black,
+                  //                           fontSize: 18,
                   //                         ),
                   //                       ),
-                  //                       SizedBox(
-                  //                         height: 5,
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //                 Column(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         borderRadius: BorderRadius.circular(30),
+                  //                         color: Colors.blue,
                   //                       ),
-                  //                       GestureDetector(
+                  //                       //color: Colors.pink,
+                  //                       child: GestureDetector(
                   //                         onTap: () {
                   //                           Navigator.pushNamed(
                   //                               context, '/PortfolioScreen');
                   //                         },
-                  //                         child: Text(
-                  //                           "View Portfolio",
-                  //                           style: TextStyle(
-                  //                             fontWeight: FontWeight.bold,
-                  //                             color: Colors.black,
-                  //                             fontSize: 18,
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.all(2.0),
+                  //                           child: Icon(
+                  //                             Icons.brush,
+                  //                             size: 40,
+                  //                             color: Colors.white,
                   //                           ),
                   //                         ),
                   //                       ),
-                  //                     ],
-                  //                   ),
-                  //                 ],
-                  //               ),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     GestureDetector(
+                  //                       onTap: () {
+                  //                         Navigator.pushNamed(
+                  //                             context, '/PortfolioScreen');
+                  //                       },
+                  //                       child: Text(
+                  //                         "View Portfolio",
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                           color: Colors.black,
+                  //                           fontSize: 18,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ],
                   //             ),
-                  //             Padding(
-                  //               padding:
-                  //                   const EdgeInsets.only(top: 140.0, left: 40),
-                  //               child: Row(
-                  //                 mainAxisAlignment:
-                  //                     MainAxisAlignment.spaceAround,
-                  //                 children: [
-                  //                   Column(
-                  //                     children: [
-                  //                       Container(
-                  //                         decoration: BoxDecoration(
-                  //                           borderRadius:
-                  //                               BorderRadius.circular(30),
-                  //                           color: Colors.green,
-                  //                         ),
-                  //                         //color: Colors.pink,
-                  //                         child: GestureDetector(
-                  //                           onTap: () {
-                  //                             Navigator.pushNamed(
-                  //                                 context, '/SocialLink');
-                  //                           },
-                  //                           child: Padding(
-                  //                             padding:
-                  //                                 const EdgeInsets.all(2.0),
-                  //                             child: Icon(
-                  //                               Icons.link,
-                  //                               size: 40,
-                  //                               color: Colors.white,
-                  //                             ),
-                  //                           ),
-                  //                         ),
+                  //           ),
+                  //           Padding(
+                  //             padding: const EdgeInsets.only(top: 140.0, left: 40),
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //               children: [
+                  //                 Column(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         borderRadius: BorderRadius.circular(30),
+                  //                         color: Colors.green,
                   //                       ),
-                  //                       SizedBox(
-                  //                         height: 5,
-                  //                       ),
-                  //                       GestureDetector(
+                  //                       //color: Colors.pink,
+                  //                       child: GestureDetector(
                   //                         onTap: () {
                   //                           Navigator.pushNamed(
                   //                               context, '/SocialLink');
                   //                         },
-                  //                         child: Text(
-                  //                           "Social Link",
-                  //                           style: TextStyle(
-                  //                             fontWeight: FontWeight.bold,
-                  //                             color: Colors.black,
-                  //                             fontSize: 18,
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.all(2.0),
+                  //                           child: Icon(
+                  //                             Icons.link,
+                  //                             size: 40,
+                  //                             color: Colors.white,
                   //                           ),
                   //                         ),
                   //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                   Column(
-                  //                     children: [
-                  //                       Container(
-                  //                         decoration: BoxDecoration(
-                  //                           borderRadius:
-                  //                               BorderRadius.circular(30),
-                  //                           color: Colors.teal,
-                  //                         ),
-                  //                         //color: Colors.pink,
-                  //                         child: GestureDetector(
-                  //                           onTap: () {
-                  //                             Navigator.pushNamed(
-                  //                                 context, '/StudioLocation');
-                  //                           },
-                  //                           child: Padding(
-                  //                             padding:
-                  //                                 const EdgeInsets.all(2.0),
-                  //                             child: Icon(
-                  //                               Icons.add_location,
-                  //                               size: 40,
-                  //                               color: Colors.white,
-                  //                             ),
-                  //                           ),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     GestureDetector(
+                  //                       onTap: () {
+                  //                         Navigator.pushNamed(context, '/SocialLink');
+                  //                       },
+                  //                       child: Text(
+                  //                         "Social Link",
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                           color: Colors.black,
+                  //                           fontSize: 18,
                   //                         ),
                   //                       ),
-                  //                       SizedBox(
-                  //                         height: 5,
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //                 SizedBox(
+                  //                   width: 10,
+                  //                 ),
+                  //                 Column(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         borderRadius: BorderRadius.circular(30),
+                  //                         color: Colors.teal,
                   //                       ),
-                  //                       GestureDetector(
+                  //                       //color: Colors.pink,
+                  //                       child: GestureDetector(
                   //                         onTap: () {
                   //                           Navigator.pushNamed(
                   //                               context, '/StudioLocation');
                   //                         },
-                  //                         child: Text(
-                  //                           "Branches",
-                  //                           style: TextStyle(
-                  //                             fontWeight: FontWeight.bold,
-                  //                             color: Colors.black,
-                  //                             fontSize: 18,
+                  //                         child: Padding(
+                  //                           padding: const EdgeInsets.all(2.0),
+                  //                           child: Icon(
+                  //                             Icons.add_location,
+                  //                             size: 40,
+                  //                             color: Colors.white,
                   //                           ),
                   //                         ),
                   //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                 ],
-                  //               ),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     GestureDetector(
+                  //                       onTap: () {
+                  //                         Navigator.pushNamed(
+                  //                             context, '/StudioLocation');
+                  //                       },
+                  //                       child: Text(
+                  //                         "Branches",
+                  //                         style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                           color: Colors.black,
+                  //                           fontSize: 18,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //                 SizedBox(
+                  //                   width: 10,
+                  //                 ),
+                  //               ],
                   //             ),
-                  //             Padding(
-                  //               padding:
-                  //                   const EdgeInsets.only(top: 265.0, left: 15),
-                  //               // child:
-                  //               // Container(
-                  //               //   decoration: BoxDecoration(
-                  //               //     borderRadius: BorderRadius.circular(40),
-                  //               //   ),
-                  //               //   width: MediaQuery.of(context).size.width*0.85,
-                  //               //   child: RaisedButton(
-                  //               //     child: Text("Preview Card",
-                  //               //     style: TextStyle(
-                  //               //       color: Colors.white,
-                  //               //       fontWeight: FontWeight.bold,
-                  //               //       fontSize: 20
-                  //               //     ),
-                  //               //     ),
-                  //               //     onPressed: () async {
-                  //               //       _StudioDigitalCardId();
-                  //               //       String profileUrl = cnst.profileUrl
-                  //               //           .replaceAll("#id",studioid);
-                  //               //       if (await canLaunch(profileUrl)) {
-                  //               //         await launch(profileUrl);
-                  //               //       } else {
-                  //               //         throw 'Could not launch $profileUrl';
-                  //               //       }
-                  //               //     },
-                  //               //     color: Colors.black,
-                  //               //   ),
-                  //               // ),
-                  //               // Column(
-                  //               //   children: [
-                  //               //     Container(
-                  //               //       decoration: BoxDecoration(
-                  //               //         borderRadius: BorderRadius.circular(30),
-                  //               //         color: Colors.deepOrange,
-                  //               //       ),
-                  //               //       //color: Colors.pink,
-                  //               //       child: GestureDetector(
-                  //               //         onTap: (){
-                  //               //           getCardId();
-                  //               //           bool val = checkValidity();
-                  //               //           Navigator.of(context).push(
-                  //               //             PageRouteBuilder(
-                  //               //               opaque: false,
-                  //               //               pageBuilder:
-                  //               //                   (BuildContext context, _, __) =>
-                  //               //                   CardShareComponent(
-                  //               //                     memberId: cardid,
-                  //               //                     memberName: Name,
-                  //               //                     isRegular: val,
-                  //               //                     memberType: MemberType,
-                  //               //                     shareMsg: ShareMsg,
-                  //               //                     IsActivePayment: IsActivePayment,
-                  //               //                   ),
-                  //               //             ),
-                  //               //           );
-                  //               //         },
-                  //               //         child: Padding(
-                  //               //           padding: const EdgeInsets.all(2.0),
-                  //               //           child: Icon(Icons.share,
-                  //               //             size: 37,
-                  //               //             color: Colors.white,
-                  //               //           ),
-                  //               //         ),
-                  //               //       ),
-                  //               //     ),
-                  //               //     SizedBox(
-                  //               //       height: 5,
-                  //               //     ),
-                  //               //     GestureDetector(
-                  //               //               onTap: (){
-                  //               //                 getCardId();
-                  //               //                 bool val = checkValidity();
-                  //               //                 Navigator.of(context).push(
-                  //               //                   PageRouteBuilder(
-                  //               //                     opaque: false,
-                  //               //                     pageBuilder:
-                  //               //                         (BuildContext context, _, __) =>
-                  //               //                         CardShareComponent(
-                  //               //                           memberId: cardid,
-                  //               //                           memberName: Name,
-                  //               //                           isRegular: val,
-                  //               //                           memberType: MemberType,
-                  //               //                           shareMsg: ShareMsg,
-                  //               //                           IsActivePayment: IsActivePayment,
-                  //               //                         ),
-                  //               //                   ),
-                  //               //                 );
-                  //               //               },
-                  //               //       child: Text(
-                  //               //         "Share Card",
-                  //               //         style: TextStyle(
-                  //               //           fontWeight: FontWeight.bold,
-                  //               //           color: Colors.black,
-                  //               //           fontSize: 18,
-                  //               //         ),
-                  //               //       ),
-                  //               //     ),
-                  //               //   ],
-                  //               // ),
-                  //               // SizedBox(
-                  //               //   width: 10,
-                  //               // ),
-                  //               // Column(
-                  //               //   children: [
-                  //               //     Container(
-                  //               //       decoration: BoxDecoration(
-                  //               //         borderRadius: BorderRadius.circular(30),
-                  //               //         color: Colors.purple,
-                  //               //       ),
-                  //               //       //color: Colors.pink,
-                  //               //       child: GestureDetector(
-                  //               //         onTap: () async {
-                  //               //           _StudioDigitalCardId();
-                  //               //           String profileUrl = cnst.profileUrl
-                  //               //               .replaceAll("#id",studioid);
-                  //               //           if (await canLaunch(profileUrl)) {
-                  //               //             await launch(profileUrl);
-                  //               //           } else {
-                  //               //             throw 'Could not launch $profileUrl';
-                  //               //           }
-                  //               //         },
-                  //               //         child: Padding(
-                  //               //           padding: const EdgeInsets.all(2.0),
-                  //               //           child: Icon(Icons.preview,
-                  //               //             size: 40,
-                  //               //             color: Colors.white,
-                  //               //           ),
-                  //               //         ),
-                  //               //       ),
-                  //               //     ),
-                  //               //     SizedBox(
-                  //               //       height: 5,
-                  //               //     ),
-                  //               //     GestureDetector(
-                  //               //       onTap: () async {
-                  //               //         _StudioDigitalCardId();
-                  //               //         String profileUrl = cnst.profileUrl
-                  //               //             .replaceAll("#id", studioid);
-                  //               //         if (await canLaunch(profileUrl)) {
-                  //               //           await launch(profileUrl);
-                  //               //         } else {
-                  //               //           throw 'Could not launch $profileUrl';
-                  //               //         }
-                  //               //       },
-                  //               //       child: Text(
-                  //               //         "Preview Card",
-                  //               //         style: TextStyle(
-                  //               //           fontWeight: FontWeight.bold,
-                  //               //           color: Colors.black,
-                  //               //           fontSize: 18,
-                  //               //         ),
-                  //               //       ),
-                  //               //     ),
-                  //               //   ],
-                  //               // ),
-                  //               // SizedBox(
-                  //               //   width: 10,
-                  //               // ),
-                  //             ),
-                  //           ],
-                  //         ),
+                  //           ),
+                  //           Padding(
+                  //             padding: const EdgeInsets.only(top: 265.0, left: 15),
+                  //             // child:
+                  //             // Container(
+                  //             //   decoration: BoxDecoration(
+                  //             //     borderRadius: BorderRadius.circular(40),
+                  //             //   ),
+                  //             //   width: MediaQuery.of(context).size.width*0.85,
+                  //             //   child: RaisedButton(
+                  //             //     child: Text("Preview Card",
+                  //             //     style: TextStyle(
+                  //             //       color: Colors.white,
+                  //             //       fontWeight: FontWeight.bold,
+                  //             //       fontSize: 20
+                  //             //     ),
+                  //             //     ),
+                  //             //     onPressed: () async {
+                  //             //       _StudioDigitalCardId();
+                  //             //       String profileUrl = cnst.profileUrl
+                  //             //           .replaceAll("#id",studioid);
+                  //             //       if (await canLaunch(profileUrl)) {
+                  //             //         await launch(profileUrl);
+                  //             //       } else {
+                  //             //         throw 'Could not launch $profileUrl';
+                  //             //       }
+                  //             //     },
+                  //             //     color: Colors.black,
+                  //             //   ),
+                  //             // ),
+                  //             // Column(
+                  //             //   children: [
+                  //             //     Container(
+                  //             //       decoration: BoxDecoration(
+                  //             //         borderRadius: BorderRadius.circular(30),
+                  //             //         color: Colors.deepOrange,
+                  //             //       ),
+                  //             //       //color: Colors.pink,
+                  //             //       child: GestureDetector(
+                  //             //         onTap: (){
+                  //             //           getCardId();
+                  //             //           bool val = checkValidity();
+                  //             //           Navigator.of(context).push(
+                  //             //             PageRouteBuilder(
+                  //             //               opaque: false,
+                  //             //               pageBuilder:
+                  //             //                   (BuildContext context, _, __) =>
+                  //             //                   CardShareComponent(
+                  //             //                     memberId: cardid,
+                  //             //                     memberName: Name,
+                  //             //                     isRegular: val,
+                  //             //                     memberType: MemberType,
+                  //             //                     shareMsg: ShareMsg,
+                  //             //                     IsActivePayment: IsActivePayment,
+                  //             //                   ),
+                  //             //             ),
+                  //             //           );
+                  //             //         },
+                  //             //         child: Padding(
+                  //             //           padding: const EdgeInsets.all(2.0),
+                  //             //           child: Icon(Icons.share,
+                  //             //             size: 37,
+                  //             //             color: Colors.white,
+                  //             //           ),
+                  //             //         ),
+                  //             //       ),
+                  //             //     ),
+                  //             //     SizedBox(
+                  //             //       height: 5,
+                  //             //     ),
+                  //             //     GestureDetector(
+                  //             //               onTap: (){
+                  //             //                 getCardId();
+                  //             //                 bool val = checkValidity();
+                  //             //                 Navigator.of(context).push(
+                  //             //                   PageRouteBuilder(
+                  //             //                     opaque: false,
+                  //             //                     pageBuilder:
+                  //             //                         (BuildContext context, _, __) =>
+                  //             //                         CardShareComponent(
+                  //             //                           memberId: cardid,
+                  //             //                           memberName: Name,
+                  //             //                           isRegular: val,
+                  //             //                           memberType: MemberType,
+                  //             //                           shareMsg: ShareMsg,
+                  //             //                           IsActivePayment: IsActivePayment,
+                  //             //                         ),
+                  //             //                   ),
+                  //             //                 );
+                  //             //               },
+                  //             //       child: Text(
+                  //             //         "Share Card",
+                  //             //         style: TextStyle(
+                  //             //           fontWeight: FontWeight.bold,
+                  //             //           color: Colors.black,
+                  //             //           fontSize: 18,
+                  //             //         ),
+                  //             //       ),
+                  //             //     ),
+                  //             //   ],
+                  //             // ),
+                  //             // SizedBox(
+                  //             //   width: 10,
+                  //             // ),
+                  //             // Column(
+                  //             //   children: [
+                  //             //     Container(
+                  //             //       decoration: BoxDecoration(
+                  //             //         borderRadius: BorderRadius.circular(30),
+                  //             //         color: Colors.purple,
+                  //             //       ),
+                  //             //       //color: Colors.pink,
+                  //             //       child: GestureDetector(
+                  //             //         onTap: () async {
+                  //             //           _StudioDigitalCardId();
+                  //             //           String profileUrl = cnst.profileUrl
+                  //             //               .replaceAll("#id",studioid);
+                  //             //           if (await canLaunch(profileUrl)) {
+                  //             //             await launch(profileUrl);
+                  //             //           } else {
+                  //             //             throw 'Could not launch $profileUrl';
+                  //             //           }
+                  //             //         },
+                  //             //         child: Padding(
+                  //             //           padding: const EdgeInsets.all(2.0),
+                  //             //           child: Icon(Icons.preview,
+                  //             //             size: 40,
+                  //             //             color: Colors.white,
+                  //             //           ),
+                  //             //         ),
+                  //             //       ),
+                  //             //     ),
+                  //             //     SizedBox(
+                  //             //       height: 5,
+                  //             //     ),
+                  //             //     GestureDetector(
+                  //             //       onTap: () async {
+                  //             //         _StudioDigitalCardId();
+                  //             //         String profileUrl = cnst.profileUrl
+                  //             //             .replaceAll("#id", studioid);
+                  //             //         if (await canLaunch(profileUrl)) {
+                  //             //           await launch(profileUrl);
+                  //             //         } else {
+                  //             //           throw 'Could not launch $profileUrl';
+                  //             //         }
+                  //             //       },
+                  //             //       child: Text(
+                  //             //         "Preview Card",
+                  //             //         style: TextStyle(
+                  //             //           fontWeight: FontWeight.bold,
+                  //             //           color: Colors.black,
+                  //             //           fontSize: 18,
+                  //             //         ),
+                  //             //       ),
+                  //             //     ),
+                  //             //   ],
+                  //             // ),
+                  //             // SizedBox(
+                  //             //   width: 10,
+                  //             // ),
+                  //           ),
+                  //         ],
                   //       ),
-                  //     ],
-                  //   ),
-                  // )
-                ],
-              ),
-            ),
-
-            // Stack(
-            //   fit: StackFit.loose,
-            //   children: <Widget>[
-            //     Container(
-            //       child: Opacity(
-            //         opacity: 1,
-            //         child: StudioLogo == null
-            //             ? Image.asset(
-            //                 "images/opicxologo.png",
-            //                 height: 50,
-            //                 width: 50,
-            //                 fit: BoxFit.fill,
-            //               )
-            //             : Image.asset("images/opicxologo.png"),
-            //       ),
-            //     ),
-            //     Padding(
-            //       padding: const EdgeInsets.all(4.0),
-            //       child: ClayContainer(
-            //         color: Colors.white,
-            //         width: MediaQuery.of(context).size.width,
-            //         height: MediaQuery.of(context).size.height * 0.3,
-            //         child: ClayContainer(
-            //           color: Colors.white,
-            //           curveType: CurveType.convex,
-            //           child: SingleChildScrollView(
-            //             scrollDirection: Axis.horizontal,
-            //             child: Row(
-            //               children: [
-            //                 Padding(
-            //                     padding:
-            //                         const EdgeInsets.only(left: 8.0, top: 15),
-            //                     child: Column(
-            //                       children: [
-            //                         Container(
-            //                           width: 140,
-            //                           height: 140,
-            //                           child: Opacity(
-            //                             opacity: 1,
-            //                             child: StudioLogo == null
-            //                                 ? Image.asset(
-            //                                     "images/opicxologo.png",
-            //                                   )
-            //                                 : Image.asset(
-            //                                     "images/onlylogo.jpeg"),
-            //                           ),
-            //                         ),
-            //                       ],
-            //                     )),
-            //                 Padding(
-            //                   padding: const EdgeInsets.only(top: 50.0),
-            //                   child: !editpressed || updatepressed
-            //                       ? Column(
-            //                           mainAxisAlignment:
-            //                               MainAxisAlignment.start,
-            //                           children: [
-            //                             Row(
-            //                               crossAxisAlignment:
-            //                                   CrossAxisAlignment.start,
-            //                               children: [
-            //                                 // Text("Name: ",
-            //                                 // style: TextStyle(
-            //                                 //   fontWeight: FontWeight.bold,
-            //                                 //   fontSize: 20
-            //                                 // ),
-            //                                 // ),
-            //                                 name != null
-            //                                     ? Text(
-            //                                         "${name}",
-            //                                         style: TextStyle(
-            //                                             //fontWeight: FontWeight.w700,
-            //                                             fontSize: 23),
-            //                                       )
-            //                                     : Text(
-            //                                         "${cnst.Session.Name}",
-            //                                         style: TextStyle(
-            //                                             //fontWeight: FontWeight.w700,
-            //                                             fontSize: 23),
-            //                                       ),
-            //                               ],
-            //                             ),
-            //                             SizedBox(
-            //                               height: 10,
-            //                             ),
-            //                             Row(
-            //                               children: [
-            //                                 // Text("Mobile: ",
-            //                                 //   style: TextStyle(
-            //                                 //       fontWeight: FontWeight.bold,
-            //                                 //       fontSize: 20
-            //                                 //   ),
-            //                                 // ),
-            //                                 mobile != null
-            //                                     ? Text(
-            //                                         "${mobile}",
-            //                                         style: TextStyle(
-            //                                             //fontWeight: FontWeight.w700,
-            //                                             fontSize: 23),
-            //                                       )
-            //                                     : Text(
-            //                                         "${cnst.Session.Mobile}",
-            //                                         style: TextStyle(
-            //                                             //fontWeight: FontWeight.w700,
-            //                                             fontSize: 23),
-            //                                       ),
-            //                               ],
-            //                             ),
-            //                             SizedBox(
-            //                               height: 10,
-            //                             ),
-            //                             Column(
-            //                               children: [
-            //                                 // Text("Email: ",
-            //                                 //   style: TextStyle(
-            //                                 //       fontWeight: FontWeight.bold,
-            //                                 //       fontSize: 20
-            //                                 //   ),
-            //                                 // ),
-            //
-            //                                 email != null
-            //                                     ? Text(
-            //                                         "${email}",
-            //                                         style: TextStyle(
-            //                                             //fontWeight: FontWeight.w700,
-            //                                             fontSize: 23),
-            //                                       )
-            //                                     : Text(
-            //                                         "${cnst.Session.Email}",
-            //                                         style: TextStyle(
-            //                                           //fontWeight: FontWeight.w700,
-            //                                           fontSize: 23,
-            //                                         ),
-            //                                       ),
-            //                               ],
-            //                             ),
-            //                           ],
-            //                         )
-            //                       : Column(
-            //                           children: [
-            //                             Container(
-            //                               width: MediaQuery.of(context)
-            //                                       .size
-            //                                       .width *
-            //                                   0.6,
-            //                               height: 24,
-            //                               child: new TextFormField(
-            //                                 controller: EditName,
-            //                                 decoration: const InputDecoration(),
-            //                                 keyboardType: TextInputType.text,
-            //                               ),
-            //                             ),
-            //                             SizedBox(
-            //                               height: 20,
-            //                             ),
-            //                             Container(
-            //                               height: 24,
-            //                               width: MediaQuery.of(context)
-            //                                       .size
-            //                                       .width *
-            //                                   0.6,
-            //                               child: new TextFormField(
-            //                                 controller: EditMobile,
-            //                                 decoration: const InputDecoration(),
-            //                                 keyboardType: TextInputType.phone,
-            //                               ),
-            //                             ),
-            //                             SizedBox(
-            //                               height: 20,
-            //                             ),
-            //                             Container(
-            //                               height: 24,
-            //                               width: MediaQuery.of(context)
-            //                                       .size
-            //                                       .width *
-            //                                   0.6,
-            //                               child: new TextFormField(
-            //                                 controller: EditEmail,
-            //                                 decoration: const InputDecoration(),
-            //                                 keyboardType:
-            //                                     TextInputType.emailAddress,
-            //                               ),
-            //                             ),
-            //                           ],
-            //                         ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     Padding(
-            //       padding: const EdgeInsets.only(top: 200, left: 20),
-            //       child: Stack(
-            //         children: [
-            //           ClayContainer(
-            //             width: MediaQuery.of(context).size.width * 0.90,
-            //             height: MediaQuery.of(context).size.height * 0.5,
-            //             //color: Colors.white,
-            //             child: ClayContainer(
-            //               curveType: CurveType.convex,
-            //               color: Colors.white,
-            //               width: MediaQuery.of(context).size.width * 0.90,
-            //               height: MediaQuery.of(context).size.height * 0.5,
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(top: 35.0, left: 20),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //               children: [
-            //                 Column(
-            //                   children: [
-            //                     Container(
-            //                       decoration: BoxDecoration(
-            //                         borderRadius: BorderRadius.circular(30),
-            //                         color: Colors.pink,
-            //                       ),
-            //                       //color: Colors.pink,
-            //                       child: GestureDetector(
-            //                         onTap: () {
-            //                           Navigator.pushReplacementNamed(
-            //                               context, '/MyCustomer');
-            //                         },
-            //                         child: Padding(
-            //                           padding: const EdgeInsets.all(2.0),
-            //                           child: Icon(
-            //                             Icons.accessibility,
-            //                             size: 40,
-            //                             color: Colors.white,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     SizedBox(
-            //                       height: 5,
-            //                     ),
-            //                     GestureDetector(
-            //                       onTap: () {
-            //                         Navigator.pushReplacementNamed(
-            //                             context, '/MyCustomer');
-            //                       },
-            //                       child: Text(
-            //                         "Share App",
-            //                         style: TextStyle(
-            //                           fontWeight: FontWeight.bold,
-            //                           color: Colors.black,
-            //                           fontSize: 18,
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 Column(
-            //                   children: [
-            //                     Container(
-            //                       decoration: BoxDecoration(
-            //                         borderRadius: BorderRadius.circular(30),
-            //                         color: Colors.blue,
-            //                       ),
-            //                       //color: Colors.pink,
-            //                       child: GestureDetector(
-            //                         onTap: () {
-            //                           Navigator.pushNamed(
-            //                               context, '/PortfolioScreen');
-            //                         },
-            //                         child: Padding(
-            //                           padding: const EdgeInsets.all(2.0),
-            //                           child: Icon(
-            //                             Icons.brush,
-            //                             size: 40,
-            //                             color: Colors.white,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     SizedBox(
-            //                       height: 5,
-            //                     ),
-            //                     GestureDetector(
-            //                       onTap: () {
-            //                         Navigator.pushNamed(
-            //                             context, '/PortfolioScreen');
-            //                       },
-            //                       child: Text(
-            //                         "View Portfolio",
-            //                         style: TextStyle(
-            //                           fontWeight: FontWeight.bold,
-            //                           color: Colors.black,
-            //                           fontSize: 18,
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(top: 140.0, left: 40),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //               children: [
-            //                 Column(
-            //                   children: [
-            //                     Container(
-            //                       decoration: BoxDecoration(
-            //                         borderRadius: BorderRadius.circular(30),
-            //                         color: Colors.green,
-            //                       ),
-            //                       //color: Colors.pink,
-            //                       child: GestureDetector(
-            //                         onTap: () {
-            //                           Navigator.pushNamed(
-            //                               context, '/SocialLink');
-            //                         },
-            //                         child: Padding(
-            //                           padding: const EdgeInsets.all(2.0),
-            //                           child: Icon(
-            //                             Icons.link,
-            //                             size: 40,
-            //                             color: Colors.white,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     SizedBox(
-            //                       height: 5,
-            //                     ),
-            //                     GestureDetector(
-            //                       onTap: () {
-            //                         Navigator.pushNamed(context, '/SocialLink');
-            //                       },
-            //                       child: Text(
-            //                         "Social Link",
-            //                         style: TextStyle(
-            //                           fontWeight: FontWeight.bold,
-            //                           color: Colors.black,
-            //                           fontSize: 18,
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 SizedBox(
-            //                   width: 10,
-            //                 ),
-            //                 Column(
-            //                   children: [
-            //                     Container(
-            //                       decoration: BoxDecoration(
-            //                         borderRadius: BorderRadius.circular(30),
-            //                         color: Colors.teal,
-            //                       ),
-            //                       //color: Colors.pink,
-            //                       child: GestureDetector(
-            //                         onTap: () {
-            //                           Navigator.pushNamed(
-            //                               context, '/StudioLocation');
-            //                         },
-            //                         child: Padding(
-            //                           padding: const EdgeInsets.all(2.0),
-            //                           child: Icon(
-            //                             Icons.add_location,
-            //                             size: 40,
-            //                             color: Colors.white,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     SizedBox(
-            //                       height: 5,
-            //                     ),
-            //                     GestureDetector(
-            //                       onTap: () {
-            //                         Navigator.pushNamed(
-            //                             context, '/StudioLocation');
-            //                       },
-            //                       child: Text(
-            //                         "Branches",
-            //                         style: TextStyle(
-            //                           fontWeight: FontWeight.bold,
-            //                           color: Colors.black,
-            //                           fontSize: 18,
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 SizedBox(
-            //                   width: 10,
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(top: 265.0, left: 15),
-            //             // child:
-            //             // Container(
-            //             //   decoration: BoxDecoration(
-            //             //     borderRadius: BorderRadius.circular(40),
-            //             //   ),
-            //             //   width: MediaQuery.of(context).size.width*0.85,
-            //             //   child: RaisedButton(
-            //             //     child: Text("Preview Card",
-            //             //     style: TextStyle(
-            //             //       color: Colors.white,
-            //             //       fontWeight: FontWeight.bold,
-            //             //       fontSize: 20
-            //             //     ),
-            //             //     ),
-            //             //     onPressed: () async {
-            //             //       _StudioDigitalCardId();
-            //             //       String profileUrl = cnst.profileUrl
-            //             //           .replaceAll("#id",studioid);
-            //             //       if (await canLaunch(profileUrl)) {
-            //             //         await launch(profileUrl);
-            //             //       } else {
-            //             //         throw 'Could not launch $profileUrl';
-            //             //       }
-            //             //     },
-            //             //     color: Colors.black,
-            //             //   ),
-            //             // ),
-            //             // Column(
-            //             //   children: [
-            //             //     Container(
-            //             //       decoration: BoxDecoration(
-            //             //         borderRadius: BorderRadius.circular(30),
-            //             //         color: Colors.deepOrange,
-            //             //       ),
-            //             //       //color: Colors.pink,
-            //             //       child: GestureDetector(
-            //             //         onTap: (){
-            //             //           getCardId();
-            //             //           bool val = checkValidity();
-            //             //           Navigator.of(context).push(
-            //             //             PageRouteBuilder(
-            //             //               opaque: false,
-            //             //               pageBuilder:
-            //             //                   (BuildContext context, _, __) =>
-            //             //                   CardShareComponent(
-            //             //                     memberId: cardid,
-            //             //                     memberName: Name,
-            //             //                     isRegular: val,
-            //             //                     memberType: MemberType,
-            //             //                     shareMsg: ShareMsg,
-            //             //                     IsActivePayment: IsActivePayment,
-            //             //                   ),
-            //             //             ),
-            //             //           );
-            //             //         },
-            //             //         child: Padding(
-            //             //           padding: const EdgeInsets.all(2.0),
-            //             //           child: Icon(Icons.share,
-            //             //             size: 37,
-            //             //             color: Colors.white,
-            //             //           ),
-            //             //         ),
-            //             //       ),
-            //             //     ),
-            //             //     SizedBox(
-            //             //       height: 5,
-            //             //     ),
-            //             //     GestureDetector(
-            //             //               onTap: (){
-            //             //                 getCardId();
-            //             //                 bool val = checkValidity();
-            //             //                 Navigator.of(context).push(
-            //             //                   PageRouteBuilder(
-            //             //                     opaque: false,
-            //             //                     pageBuilder:
-            //             //                         (BuildContext context, _, __) =>
-            //             //                         CardShareComponent(
-            //             //                           memberId: cardid,
-            //             //                           memberName: Name,
-            //             //                           isRegular: val,
-            //             //                           memberType: MemberType,
-            //             //                           shareMsg: ShareMsg,
-            //             //                           IsActivePayment: IsActivePayment,
-            //             //                         ),
-            //             //                   ),
-            //             //                 );
-            //             //               },
-            //             //       child: Text(
-            //             //         "Share Card",
-            //             //         style: TextStyle(
-            //             //           fontWeight: FontWeight.bold,
-            //             //           color: Colors.black,
-            //             //           fontSize: 18,
-            //             //         ),
-            //             //       ),
-            //             //     ),
-            //             //   ],
-            //             // ),
-            //             // SizedBox(
-            //             //   width: 10,
-            //             // ),
-            //             // Column(
-            //             //   children: [
-            //             //     Container(
-            //             //       decoration: BoxDecoration(
-            //             //         borderRadius: BorderRadius.circular(30),
-            //             //         color: Colors.purple,
-            //             //       ),
-            //             //       //color: Colors.pink,
-            //             //       child: GestureDetector(
-            //             //         onTap: () async {
-            //             //           _StudioDigitalCardId();
-            //             //           String profileUrl = cnst.profileUrl
-            //             //               .replaceAll("#id",studioid);
-            //             //           if (await canLaunch(profileUrl)) {
-            //             //             await launch(profileUrl);
-            //             //           } else {
-            //             //             throw 'Could not launch $profileUrl';
-            //             //           }
-            //             //         },
-            //             //         child: Padding(
-            //             //           padding: const EdgeInsets.all(2.0),
-            //             //           child: Icon(Icons.preview,
-            //             //             size: 40,
-            //             //             color: Colors.white,
-            //             //           ),
-            //             //         ),
-            //             //       ),
-            //             //     ),
-            //             //     SizedBox(
-            //             //       height: 5,
-            //             //     ),
-            //             //     GestureDetector(
-            //             //       onTap: () async {
-            //             //         _StudioDigitalCardId();
-            //             //         String profileUrl = cnst.profileUrl
-            //             //             .replaceAll("#id", studioid);
-            //             //         if (await canLaunch(profileUrl)) {
-            //             //           await launch(profileUrl);
-            //             //         } else {
-            //             //           throw 'Could not launch $profileUrl';
-            //             //         }
-            //             //       },
-            //             //       child: Text(
-            //             //         "Preview Card",
-            //             //         style: TextStyle(
-            //             //           fontWeight: FontWeight.bold,
-            //             //           color: Colors.black,
-            //             //           fontSize: 18,
-            //             //         ),
-            //             //       ),
-            //             //     ),
-            //             //   ],
-            //             // ),
-            //             // SizedBox(
-            //             //   width: 10,
-            //             // ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     //       SingleChildScrollView(
-            //     //         child: Column(
-            //     //           children: <Widget>[
-            //     //             Padding(
-            //     //               padding: const EdgeInsets.only(top: 5.0),
-            //     //               child: Container(
-            //     //                 child: Column(
-            //     //                   children: <Widget>[
-            //     //                     Center(
-            //     //                       child: Padding(
-            //     //                         padding: const EdgeInsets.all(15.0),
-            //     //                         child: Stack(
-            //     //                           children: <Widget>[
-            //     //                             Container(
-            //     //                               child: ClipOval(
-            //     //                                   child: profileImage != null
-            //     //                                       ? Image.file(
-            //     //                                           profileImage,
-            //     //                                           width: 90,
-            //     //                                           height: 90,
-            //     //                                           fit: BoxFit.fill,
-            //     //                                         )
-            //     //                                       : _url != "" && _url != null
-            //     //                                           ? FadeInImage.assetNetwork(
-            //     //                                               placeholder: "images/man.png",
-            //     //                                               width: 110,
-            //     //                                               height: 110,
-            //     //                                               fit: BoxFit.fill,
-            //     //                                               image:
-            //     //                                                   "${cnst.ImgUrl}" + _url)
-            //     //                                           : Image.asset(
-            //     //                                               "images/man.png",
-            //     //                                               width: 90,
-            //     //                                               height: 90,
-            //     //                                               fit: BoxFit.fill,
-            //     //                                             )),
-            //     //                             ),
-            //     //                             /*Container(
-            //     //                               child: ClipOval(
-            //     //                                   child: Image.asset(
-            //     //                                 "images/person.png",
-            //     //                                 width: 100,
-            //     //                                 height: 100,
-            //     //                                 fit: BoxFit.fill,
-            //     //                               )),
-            //     //                             ),*/
-            //     //                             /*Positioned(
-            //     //                               top: MediaQuery.of(context).size.width / 6,
-            //     //                               left: MediaQuery.of(context).size.width / 5.3,
-            //     //                               child: Icon(
-            //     //                                 Icons.camera_alt,
-            //     //                                 size: 27,
-            //     //                               )),*/
-            //     //                           ],
-            //     //                         ),
-            //     //                       ),
-            //     //                     ),
-            //     //                     // Container(
-            //     //                     //   margin: EdgeInsets.only(top: 10, left: 1),
-            //     //                     //   height: MediaQuery.of(context).size.width / 10.5,
-            //     //                     //   width: MediaQuery.of(context).size.width / 2.2,
-            //     //                     //   decoration: BoxDecoration(
-            //     //                     //       borderRadius:
-            //     //                     //       BorderRadius.all(Radius.circular(15)),
-            //     //                     //       gradient: LinearGradient(
-            //     //                     //           begin: Alignment.topLeft,
-            //     //                     //           end: Alignment.bottomRight,
-            //     //                     //           colors: [
-            //     //                     //             cnst.appPrimaryMaterialColorYellow,
-            //     //                     //             cnst.appPrimaryMaterialColorPink
-            //     //                     //           ])),
-            //     //                     //   child: MaterialButton(
-            //     //                     //     shape: RoundedRectangleBorder(
-            //     //                     //         borderRadius: new BorderRadius.circular(9.0)),
-            //     //                     //     onPressed: () {
-            //     //                     //       if (!isLoading) _updateProfile();
-            //     //                     //     },
-            //     //                     //     child: isLoading
-            //     //                     //         ? CircularProgressIndicator(
-            //     //                     //       valueColor:
-            //     //                     //       new AlwaysStoppedAnimation<Color>(
-            //     //                     //           Colors.white),
-            //     //                     //     )
-            //     //                     //         : Text("Update Profile",
-            //     //                     //         style: GoogleFonts.aBeeZee(
-            //     //                     //             textStyle: TextStyle(
-            //     //                     //                 fontSize: 17,
-            //     //                     //                 fontWeight: FontWeight.w600,
-            //     //                     //                 color: Colors.white))),
-            //     //                     //   ),
-            //     //                     // ),
-            //     //                     // MaterialButton(
-            //     //                     //   shape: RoundedRectangleBorder(
-            //     //                     //       borderRadius: new BorderRadius.circular(9.0)),
-            //     //                     //   onPressed: () {
-            //     //                     //     _chooseprofilepic(context);
-            //     //                     //   },
-            //     //                     //   child: Text("Edit Photo",
-            //     //                     //       style: GoogleFonts.aBeeZee(
-            //     //                     //           textStyle: TextStyle(
-            //     //                     //               fontSize: 17,
-            //     //                     //               fontWeight: FontWeight.w600,
-            //     //                     //               color: Colors.black))),
-            //     //                     // ),
-            //     //                     // Text(
-            //     //                     //     "${EditName.text}",
-            //     //                     // style: TextStyle(
-            //     //                     //   fontWeight: FontWeight.bold,
-            //     //                     //   fontSize: 28,
-            //     //                     // ),
-            //     //                     // ),
-            //     //                     RaisedButton(
-            //     //                       shape: RoundedRectangleBorder(
-            //     //                           borderRadius: new BorderRadius.circular(9.0)),
-            //     //                       onPressed: () {
-            //     //                         Navigator.push(
-            //     //                           context,
-            //     //                           MaterialPageRoute(builder: (context) => EditProfile()),
-            //     //                         );
-            //     //                       },
-            //     //                       child: Text("Edit Profile",
-            //     //                           style: GoogleFonts.aBeeZee(
-            //     //                               textStyle: TextStyle(
-            //     //                                   fontSize: 15,
-            //     //                                   fontWeight: FontWeight.w600,
-            //     //                                   color: Colors.white))),
-            //     //                     ),
-            //     //                     Container(
-            //     //                       height: MediaQuery.of(context).size.width / 12,
-            //     //                       width: MediaQuery.of(context).size.width / 2.5,
-            //     //                       decoration: BoxDecoration(
-            //     //                           borderRadius:
-            //     //                               BorderRadius.all(Radius.circular(15)),
-            //     //                           gradient: LinearGradient(
-            //     //                               begin: Alignment.topLeft,
-            //     //                               end: Alignment.bottomRight,
-            //     //                               colors: [
-            //     //                                 cnst.appPrimaryMaterialColorYellow,
-            //     //                                 cnst.appPrimaryMaterialColorPink
-            //     //                               ])),
-            //     //                       child: MaterialButton(
-            //     //                         shape: RoundedRectangleBorder(
-            //     //                             borderRadius: new BorderRadius.circular(9.0)),
-            //     //                         onPressed: () {
-            //     //                           _chooseprofilepic(context);
-            //     //                         },
-            //     //                         child: Text("Edit Photo",
-            //     //                             style: GoogleFonts.aBeeZee(
-            //     //                                 textStyle: TextStyle(
-            //     //                                     fontSize: 17,
-            //     //                                     fontWeight: FontWeight.w600,
-            //     //                                     color: Colors.white))),
-            //     //                       ),
-            //     //                     ),
-            //     // Padding(
-            //     //   padding: const EdgeInsets.only(top: 15.0),
-            //     //   child: Row(
-            //     //     children: <Widget>[
-            //     //       Chip(
-            //     //           backgroundColor: Colors.pink,
-            //     //           padding: const EdgeInsets.symmetric(
-            //     //               vertical: 13, horizontal: 5),
-            //     //           shape: RoundedRectangleBorder(
-            //     //               borderRadius: BorderRadius.only(
-            //     //                   topRight: Radius.circular(25),
-            //     //                   bottomRight: Radius.circular(25))),
-            //     //           label: Icon(
-            //     //             Icons.person,
-            //     //             size: 19,
-            //     //             color: Colors.white,
-            //     //           )),
-            //     //       Expanded(
-            //     //         flex: 3,
-            //     //         child: Padding(
-            //     //           padding: const EdgeInsets.only(
-            //     //               top: 2.0, left: 8.0),
-            //     //           child: Text("Name",
-            //     //               style: GoogleFonts.aBeeZee(
-            //     //                   textStyle: TextStyle(
-            //     //                       fontSize: 15,
-            //     //                       fontWeight: FontWeight.w600,
-            //     //                       color: Colors.black))),
-            //     //         ),
-            //     //       ),
-            //     //       Expanded(
-            //     //         flex: 1,
-            //     //         child: Padding(
-            //     //           padding: const EdgeInsets.all(1.0),
-            //     //           child: Text(":",
-            //     //               style: GoogleFonts.aBeeZee(
-            //     //                   textStyle: TextStyle(
-            //     //                       fontSize: 15,
-            //     //                       fontWeight: FontWeight.w600,
-            //     //                       color: Colors.black))),
-            //     //         ),
-            //     //       ),
-            //     //       Expanded(
-            //     //         flex: 10,
-            //     //         child: Padding(
-            //     //           padding: const EdgeInsets.only(
-            //     //               top: 2.0, left: 30.0, right: 30),
-            //     //           child: Container(
-            //     //             height: 40,
-            //     //             width: 60,
-            //     //             child: TextFormField(
-            //     //               controller: EditName,
-            //     //               keyboardType: TextInputType.text,
-            //     //               decoration: InputDecoration(
-            //     //                   fillColor: Colors.black,
-            //     //                   contentPadding: EdgeInsets.only(
-            //     //                       top: 5, left: 10, bottom: 5),
-            //     //                   focusedBorder: OutlineInputBorder(
-            //     //                       borderRadius: BorderRadius.all(
-            //     //                           Radius.circular(25)),
-            //     //                       borderSide: BorderSide(
-            //     //                           width: 2,
-            //     //                           color: Colors.black)),
-            //     //                   enabledBorder: OutlineInputBorder(
-            //     //                       borderRadius: BorderRadius.all(
-            //     //                           Radius.circular(20)),
-            //     //                       borderSide: BorderSide(
-            //     //                           width: 1,
-            //     //                           color: Colors.black)),
-            //     //                   hintText: 'Enter Your Name',
-            //     //                   hintStyle: GoogleFonts.aBeeZee(
-            //     //                       textStyle: TextStyle(
-            //     //                           fontSize: 14,
-            //     //                           color: Colors.black))),
-            //     //             ),
-            //     //           ),
-            //     //         ),
-            //     //       ),
-            //     //
-            //     //     ],
-            //     //   ),
-            //     // ),
-            //     //                     Padding(
-            //     //                       padding: const EdgeInsets.only(top: 20.0),
-            //     //                       child: Row(
-            //     //                         children: <Widget>[
-            //     //                           // Chip(
-            //     //                           //     backgroundColor: Colors.pink,
-            //     //                           //     padding: const EdgeInsets.symmetric(
-            //     //                           //         vertical: 13, horizontal: 5),
-            //     //                           //     shape: RoundedRectangleBorder(
-            //     //                           //         borderRadius: BorderRadius.only(
-            //     //                           //             topRight: Radius.circular(25),
-            //     //                           //             bottomRight: Radius.circular(25))),
-            //     //                           //     label: Icon(
-            //     //                           //       Icons.phone_android,
-            //     //                           //       size: 19,
-            //     //                           //       color: Colors.white,
-            //     //                           //     )),
-            //     //                           // Container(
-            //     //                           //   decoration: BoxDecoration(
-            //     //                           //     borderRadius: BorderRadius.circular(15),
-            //     //                           //   ),
-            //     //                           //
-            //     //                           //   child: Padding(
-            //     //                           //     padding: const EdgeInsets.only(
-            //     //                           //         top: 2.0, left: 8.0),
-            //     //                           //     child: Text("MobileNo",
-            //     //                           //         style: GoogleFonts.aBeeZee(
-            //     //                           //             textStyle: TextStyle(
-            //     //                           //                 fontSize: 15,
-            //     //                           //                 fontWeight: FontWeight.w600,
-            //     //                           //                 color: Colors.black))),
-            //     //                           //   ),
-            //     //                           // ),
-            //     //                           // Expanded(
-            //     //                           //   flex: 1,
-            //     //                           //   child: Padding(
-            //     //                           //     padding: const EdgeInsets.all(1.0),
-            //     //                           //     child: Text(":",
-            //     //                           //         style: GoogleFonts.aBeeZee(
-            //     //                           //             textStyle: TextStyle(
-            //     //                           //                 fontSize: 15,
-            //     //                           //                 fontWeight: FontWeight.w600,
-            //     //                           //                 color: Colors.black))),
-            //     //                           //   ),
-            //     //                           // ),
-            //     //                           Expanded(
-            //     //                             flex: 10,
-            //     //                             child: Padding(
-            //     //                               padding: const EdgeInsets.only(
-            //     //                                   top: 1.0, left: 30.0, right: 30),
-            //     //                               child: Container(
-            //     //                                 height: 40,
-            //     //                                 width: 60,
-            //     //                                 child: TextFormField(
-            //     //                                   //readOnly: true,
-            //     //                                   controller: EditMobile,
-            //     //                                   keyboardType: TextInputType.phone,
-            //     //                                   decoration: InputDecoration(
-            //     //                                       fillColor: Colors.grey[500],
-            //     //                                       contentPadding: EdgeInsets.only(
-            //     //                                           top: 5, left: 10, bottom: 5),
-            //     //                                       focusedBorder: OutlineInputBorder(
-            //     //                                           borderRadius: BorderRadius.all(
-            //     //                                               Radius.circular(15)),
-            //     //                                           borderSide: BorderSide(
-            //     //                                               width: 1,
-            //     //                                               color: Colors.black)),
-            //     //                                       enabledBorder: OutlineInputBorder(
-            //     //                                           borderRadius: BorderRadius.all(
-            //     //                                               Radius.circular(20)),
-            //     //                                           borderSide: BorderSide(
-            //     //                                               width: 1,
-            //     //                                               color: Colors.black)),
-            //     //                                       hintText: 'Enter Mobile No',
-            //     //                                       hintStyle: GoogleFonts.aBeeZee(
-            //     //                                           textStyle: TextStyle(
-            //     //                                               fontSize: 15,
-            //     //                                               color: Colors.black))),
-            //     //                                 ),
-            //     //                               ),
-            //     //                             ),
-            //     //                           ),
-            //     //                         ],
-            //     //                       ),
-            //     //                     ),
-            //     //                     Padding(
-            //     //                       padding: const EdgeInsets.only(top: 20.0),
-            //     //                       child: Row(
-            //     //                         children: <Widget>[
-            //     // Chip(
-            //     //     backgroundColor: Colors.pink,
-            //     //     padding: const EdgeInsets.symmetric(
-            //     //         vertical: 13, horizontal: 5),
-            //     //     shape: RoundedRectangleBorder(
-            //     //         borderRadius: BorderRadius.only(
-            //     //             topRight: Radius.circular(25),
-            //     //             bottomRight: Radius.circular(25))),
-            //     //     label: Icon(
-            //     //       Icons.email,
-            //     //       size: 19,
-            //     //       color: Colors.white,
-            //     //     )),
-            //     // Expanded(
-            //     //   flex: 3,
-            //     //   child: Padding(
-            //     //     padding: const EdgeInsets.only(
-            //     //         top: 2.0, left: 8.0),
-            //     //     child: Text("Email",
-            //     //         style: GoogleFonts.aBeeZee(
-            //     //             textStyle: TextStyle(
-            //     //                 fontSize: 15,
-            //     //                 fontWeight: FontWeight.w600,
-            //     //                 color: Colors.black))),
-            //     //   ),
-            //     // ),
-            //     // Expanded(
-            //     //   flex: 1,
-            //     //   child: Padding(
-            //     //     padding: const EdgeInsets.all(1.0),
-            //     //     child: Text(":",
-            //     //         style: GoogleFonts.aBeeZee(
-            //     //             textStyle: TextStyle(
-            //     //                 fontSize: 15,
-            //     //                 fontWeight: FontWeight.w600,
-            //     //                 color: Colors.black))),
-            //     //   ),
-            //     // ),
-            //     //                           Expanded(
-            //     //                             flex: 8,
-            //     //                             child: Padding(
-            //     //                               padding: const EdgeInsets.only(
-            //     //                                   top: 1.0, left: 30.0, right: 30),
-            //     //                               child: Container(
-            //     //                                 height: 40,
-            //     //                                 width: 60,
-            //     //                                 child: TextFormField(
-            //     //                                   controller: EditEmail,
-            //     //                                   keyboardType: TextInputType.emailAddress,
-            //     //                                   decoration: InputDecoration(
-            //     //                                       fillColor: Colors.grey[200],
-            //     //                                       contentPadding: EdgeInsets.only(
-            //     //                                           top: 5, left: 10, bottom: 5),
-            //     //                                       focusedBorder: OutlineInputBorder(
-            //     //                                           borderRadius: BorderRadius.all(
-            //     //                                               Radius.circular(5)),
-            //     //                                           borderSide: BorderSide(
-            //     //                                               width: 0,
-            //     //                                               color: Colors.black)),
-            //     //                                       enabledBorder: OutlineInputBorder(
-            //     //                                           borderRadius: BorderRadius.all(
-            //     //                                               Radius.circular(20)),
-            //     //                                           borderSide: BorderSide(
-            //     //                                               width: 1,
-            //     //                                               color: Colors.black)),
-            //     //                                       hintText: 'Enter Email Address',
-            //     //                                       hintStyle: GoogleFonts.aBeeZee(
-            //     //                                           textStyle: TextStyle(
-            //     //                                               fontSize: 14,
-            //     //                                               color: Colors.black))),
-            //     //                                 ),
-            //     //                               ),
-            //     //                             ),
-            //     //                           ),
-            //     //                         ],
-            //     //                       ),
-            //     //                     ),
-            //     //
-            //
-            //     //                   ],
-            //     //                 ),
-            //     //               ),
-            //     //             ),
-            //     //           ],
-            //     //         ),
-            //     //       ),
-            //   ],
-            // ),
-            /*Container(
+                  //     ),
+                  //     //       SingleChildScrollView(
+                  //     //         child: Column(
+                  //     //           children: <Widget>[
+                  //     //             Padding(
+                  //     //               padding: const EdgeInsets.only(top: 5.0),
+                  //     //               child: Container(
+                  //     //                 child: Column(
+                  //     //                   children: <Widget>[
+                  //     //                     Center(
+                  //     //                       child: Padding(
+                  //     //                         padding: const EdgeInsets.all(15.0),
+                  //     //                         child: Stack(
+                  //     //                           children: <Widget>[
+                  //     //                             Container(
+                  //     //                               child: ClipOval(
+                  //     //                                   child: profileImage != null
+                  //     //                                       ? Image.file(
+                  //     //                                           profileImage,
+                  //     //                                           width: 90,
+                  //     //                                           height: 90,
+                  //     //                                           fit: BoxFit.fill,
+                  //     //                                         )
+                  //     //                                       : _url != "" && _url != null
+                  //     //                                           ? FadeInImage.assetNetwork(
+                  //     //                                               placeholder: "images/man.png",
+                  //     //                                               width: 110,
+                  //     //                                               height: 110,
+                  //     //                                               fit: BoxFit.fill,
+                  //     //                                               image:
+                  //     //                                                   "${cnst.ImgUrl}" + _url)
+                  //     //                                           : Image.asset(
+                  //     //                                               "images/man.png",
+                  //     //                                               width: 90,
+                  //     //                                               height: 90,
+                  //     //                                               fit: BoxFit.fill,
+                  //     //                                             )),
+                  //     //                             ),
+                  //     //                             /*Container(
+                  //     //                               child: ClipOval(
+                  //     //                                   child: Image.asset(
+                  //     //                                 "images/person.png",
+                  //     //                                 width: 100,
+                  //     //                                 height: 100,
+                  //     //                                 fit: BoxFit.fill,
+                  //     //                               )),
+                  //     //                             ),*/
+                  //     //                             /*Positioned(
+                  //     //                               top: MediaQuery.of(context).size.width / 6,
+                  //     //                               left: MediaQuery.of(context).size.width / 5.3,
+                  //     //                               child: Icon(
+                  //     //                                 Icons.camera_alt,
+                  //     //                                 size: 27,
+                  //     //                               )),*/
+                  //     //                           ],
+                  //     //                         ),
+                  //     //                       ),
+                  //     //                     ),
+                  //     //                     // Container(
+                  //     //                     //   margin: EdgeInsets.only(top: 10, left: 1),
+                  //     //                     //   height: MediaQuery.of(context).size.width / 10.5,
+                  //     //                     //   width: MediaQuery.of(context).size.width / 2.2,
+                  //     //                     //   decoration: BoxDecoration(
+                  //     //                     //       borderRadius:
+                  //     //                     //       BorderRadius.all(Radius.circular(15)),
+                  //     //                     //       gradient: LinearGradient(
+                  //     //                     //           begin: Alignment.topLeft,
+                  //     //                     //           end: Alignment.bottomRight,
+                  //     //                     //           colors: [
+                  //     //                     //             cnst.appPrimaryMaterialColorYellow,
+                  //     //                     //             cnst.appPrimaryMaterialColorPink
+                  //     //                     //           ])),
+                  //     //                     //   child: MaterialButton(
+                  //     //                     //     shape: RoundedRectangleBorder(
+                  //     //                     //         borderRadius: new BorderRadius.circular(9.0)),
+                  //     //                     //     onPressed: () {
+                  //     //                     //       if (!isLoading) _updateProfile();
+                  //     //                     //     },
+                  //     //                     //     child: isLoading
+                  //     //                     //         ? CircularProgressIndicator(
+                  //     //                     //       valueColor:
+                  //     //                     //       new AlwaysStoppedAnimation<Color>(
+                  //     //                     //           Colors.white),
+                  //     //                     //     )
+                  //     //                     //         : Text("Update Profile",
+                  //     //                     //         style: GoogleFonts.aBeeZee(
+                  //     //                     //             textStyle: TextStyle(
+                  //     //                     //                 fontSize: 17,
+                  //     //                     //                 fontWeight: FontWeight.w600,
+                  //     //                     //                 color: Colors.white))),
+                  //     //                     //   ),
+                  //     //                     // ),
+                  //     //                     // MaterialButton(
+                  //     //                     //   shape: RoundedRectangleBorder(
+                  //     //                     //       borderRadius: new BorderRadius.circular(9.0)),
+                  //     //                     //   onPressed: () {
+                  //     //                     //     _chooseprofilepic(context);
+                  //     //                     //   },
+                  //     //                     //   child: Text("Edit Photo",
+                  //     //                     //       style: GoogleFonts.aBeeZee(
+                  //     //                     //           textStyle: TextStyle(
+                  //     //                     //               fontSize: 17,
+                  //     //                     //               fontWeight: FontWeight.w600,
+                  //     //                     //               color: Colors.black))),
+                  //     //                     // ),
+                  //     //                     // Text(
+                  //     //                     //     "${EditName.text}",
+                  //     //                     // style: TextStyle(
+                  //     //                     //   fontWeight: FontWeight.bold,
+                  //     //                     //   fontSize: 28,
+                  //     //                     // ),
+                  //     //                     // ),
+                  //     //                     RaisedButton(
+                  //     //                       shape: RoundedRectangleBorder(
+                  //     //                           borderRadius: new BorderRadius.circular(9.0)),
+                  //     //                       onPressed: () {
+                  //     //                         Navigator.push(
+                  //     //                           context,
+                  //     //                           MaterialPageRoute(builder: (context) => EditProfile()),
+                  //     //                         );
+                  //     //                       },
+                  //     //                       child: Text("Edit Profile",
+                  //     //                           style: GoogleFonts.aBeeZee(
+                  //     //                               textStyle: TextStyle(
+                  //     //                                   fontSize: 15,
+                  //     //                                   fontWeight: FontWeight.w600,
+                  //     //                                   color: Colors.white))),
+                  //     //                     ),
+                  //     //                     Container(
+                  //     //                       height: MediaQuery.of(context).size.width / 12,
+                  //     //                       width: MediaQuery.of(context).size.width / 2.5,
+                  //     //                       decoration: BoxDecoration(
+                  //     //                           borderRadius:
+                  //     //                               BorderRadius.all(Radius.circular(15)),
+                  //     //                           gradient: LinearGradient(
+                  //     //                               begin: Alignment.topLeft,
+                  //     //                               end: Alignment.bottomRight,
+                  //     //                               colors: [
+                  //     //                                 cnst.appPrimaryMaterialColorYellow,
+                  //     //                                 cnst.appPrimaryMaterialColorPink
+                  //     //                               ])),
+                  //     //                       child: MaterialButton(
+                  //     //                         shape: RoundedRectangleBorder(
+                  //     //                             borderRadius: new BorderRadius.circular(9.0)),
+                  //     //                         onPressed: () {
+                  //     //                           _chooseprofilepic(context);
+                  //     //                         },
+                  //     //                         child: Text("Edit Photo",
+                  //     //                             style: GoogleFonts.aBeeZee(
+                  //     //                                 textStyle: TextStyle(
+                  //     //                                     fontSize: 17,
+                  //     //                                     fontWeight: FontWeight.w600,
+                  //     //                                     color: Colors.white))),
+                  //     //                       ),
+                  //     //                     ),
+                  //     // Padding(
+                  //     //   padding: const EdgeInsets.only(top: 15.0),
+                  //     //   child: Row(
+                  //     //     children: <Widget>[
+                  //     //       Chip(
+                  //     //           backgroundColor: Colors.pink,
+                  //     //           padding: const EdgeInsets.symmetric(
+                  //     //               vertical: 13, horizontal: 5),
+                  //     //           shape: RoundedRectangleBorder(
+                  //     //               borderRadius: BorderRadius.only(
+                  //     //                   topRight: Radius.circular(25),
+                  //     //                   bottomRight: Radius.circular(25))),
+                  //     //           label: Icon(
+                  //     //             Icons.person,
+                  //     //             size: 19,
+                  //     //             color: Colors.white,
+                  //     //           )),
+                  //     //       Expanded(
+                  //     //         flex: 3,
+                  //     //         child: Padding(
+                  //     //           padding: const EdgeInsets.only(
+                  //     //               top: 2.0, left: 8.0),
+                  //     //           child: Text("Name",
+                  //     //               style: GoogleFonts.aBeeZee(
+                  //     //                   textStyle: TextStyle(
+                  //     //                       fontSize: 15,
+                  //     //                       fontWeight: FontWeight.w600,
+                  //     //                       color: Colors.black))),
+                  //     //         ),
+                  //     //       ),
+                  //     //       Expanded(
+                  //     //         flex: 1,
+                  //     //         child: Padding(
+                  //     //           padding: const EdgeInsets.all(1.0),
+                  //     //           child: Text(":",
+                  //     //               style: GoogleFonts.aBeeZee(
+                  //     //                   textStyle: TextStyle(
+                  //     //                       fontSize: 15,
+                  //     //                       fontWeight: FontWeight.w600,
+                  //     //                       color: Colors.black))),
+                  //     //         ),
+                  //     //       ),
+                  //     //       Expanded(
+                  //     //         flex: 10,
+                  //     //         child: Padding(
+                  //     //           padding: const EdgeInsets.only(
+                  //     //               top: 2.0, left: 30.0, right: 30),
+                  //     //           child: Container(
+                  //     //             height: 40,
+                  //     //             width: 60,
+                  //     //             child: TextFormField(
+                  //     //               controller: EditName,
+                  //     //               keyboardType: TextInputType.text,
+                  //     //               decoration: InputDecoration(
+                  //     //                   fillColor: Colors.black,
+                  //     //                   contentPadding: EdgeInsets.only(
+                  //     //                       top: 5, left: 10, bottom: 5),
+                  //     //                   focusedBorder: OutlineInputBorder(
+                  //     //                       borderRadius: BorderRadius.all(
+                  //     //                           Radius.circular(25)),
+                  //     //                       borderSide: BorderSide(
+                  //     //                           width: 2,
+                  //     //                           color: Colors.black)),
+                  //     //                   enabledBorder: OutlineInputBorder(
+                  //     //                       borderRadius: BorderRadius.all(
+                  //     //                           Radius.circular(20)),
+                  //     //                       borderSide: BorderSide(
+                  //     //                           width: 1,
+                  //     //                           color: Colors.black)),
+                  //     //                   hintText: 'Enter Your Name',
+                  //     //                   hintStyle: GoogleFonts.aBeeZee(
+                  //     //                       textStyle: TextStyle(
+                  //     //                           fontSize: 14,
+                  //     //                           color: Colors.black))),
+                  //     //             ),
+                  //     //           ),
+                  //     //         ),
+                  //     //       ),
+                  //     //
+                  //     //     ],
+                  //     //   ),
+                  //     // ),
+                  //     //                     Padding(
+                  //     //                       padding: const EdgeInsets.only(top: 20.0),
+                  //     //                       child: Row(
+                  //     //                         children: <Widget>[
+                  //     //                           // Chip(
+                  //     //                           //     backgroundColor: Colors.pink,
+                  //     //                           //     padding: const EdgeInsets.symmetric(
+                  //     //                           //         vertical: 13, horizontal: 5),
+                  //     //                           //     shape: RoundedRectangleBorder(
+                  //     //                           //         borderRadius: BorderRadius.only(
+                  //     //                           //             topRight: Radius.circular(25),
+                  //     //                           //             bottomRight: Radius.circular(25))),
+                  //     //                           //     label: Icon(
+                  //     //                           //       Icons.phone_android,
+                  //     //                           //       size: 19,
+                  //     //                           //       color: Colors.white,
+                  //     //                           //     )),
+                  //     //                           // Container(
+                  //     //                           //   decoration: BoxDecoration(
+                  //     //                           //     borderRadius: BorderRadius.circular(15),
+                  //     //                           //   ),
+                  //     //                           //
+                  //     //                           //   child: Padding(
+                  //     //                           //     padding: const EdgeInsets.only(
+                  //     //                           //         top: 2.0, left: 8.0),
+                  //     //                           //     child: Text("MobileNo",
+                  //     //                           //         style: GoogleFonts.aBeeZee(
+                  //     //                           //             textStyle: TextStyle(
+                  //     //                           //                 fontSize: 15,
+                  //     //                           //                 fontWeight: FontWeight.w600,
+                  //     //                           //                 color: Colors.black))),
+                  //     //                           //   ),
+                  //     //                           // ),
+                  //     //                           // Expanded(
+                  //     //                           //   flex: 1,
+                  //     //                           //   child: Padding(
+                  //     //                           //     padding: const EdgeInsets.all(1.0),
+                  //     //                           //     child: Text(":",
+                  //     //                           //         style: GoogleFonts.aBeeZee(
+                  //     //                           //             textStyle: TextStyle(
+                  //     //                           //                 fontSize: 15,
+                  //     //                           //                 fontWeight: FontWeight.w600,
+                  //     //                           //                 color: Colors.black))),
+                  //     //                           //   ),
+                  //     //                           // ),
+                  //     //                           Expanded(
+                  //     //                             flex: 10,
+                  //     //                             child: Padding(
+                  //     //                               padding: const EdgeInsets.only(
+                  //     //                                   top: 1.0, left: 30.0, right: 30),
+                  //     //                               child: Container(
+                  //     //                                 height: 40,
+                  //     //                                 width: 60,
+                  //     //                                 child: TextFormField(
+                  //     //                                   //readOnly: true,
+                  //     //                                   controller: EditMobile,
+                  //     //                                   keyboardType: TextInputType.phone,
+                  //     //                                   decoration: InputDecoration(
+                  //     //                                       fillColor: Colors.grey[500],
+                  //     //                                       contentPadding: EdgeInsets.only(
+                  //     //                                           top: 5, left: 10, bottom: 5),
+                  //     //                                       focusedBorder: OutlineInputBorder(
+                  //     //                                           borderRadius: BorderRadius.all(
+                  //     //                                               Radius.circular(15)),
+                  //     //                                           borderSide: BorderSide(
+                  //     //                                               width: 1,
+                  //     //                                               color: Colors.black)),
+                  //     //                                       enabledBorder: OutlineInputBorder(
+                  //     //                                           borderRadius: BorderRadius.all(
+                  //     //                                               Radius.circular(20)),
+                  //     //                                           borderSide: BorderSide(
+                  //     //                                               width: 1,
+                  //     //                                               color: Colors.black)),
+                  //     //                                       hintText: 'Enter Mobile No',
+                  //     //                                       hintStyle: GoogleFonts.aBeeZee(
+                  //     //                                           textStyle: TextStyle(
+                  //     //                                               fontSize: 15,
+                  //     //                                               color: Colors.black))),
+                  //     //                                 ),
+                  //     //                               ),
+                  //     //                             ),
+                  //     //                           ),
+                  //     //                         ],
+                  //     //                       ),
+                  //     //                     ),
+                  //     //                     Padding(
+                  //     //                       padding: const EdgeInsets.only(top: 20.0),
+                  //     //                       child: Row(
+                  //     //                         children: <Widget>[
+                  //     // Chip(
+                  //     //     backgroundColor: Colors.pink,
+                  //     //     padding: const EdgeInsets.symmetric(
+                  //     //         vertical: 13, horizontal: 5),
+                  //     //     shape: RoundedRectangleBorder(
+                  //     //         borderRadius: BorderRadius.only(
+                  //     //             topRight: Radius.circular(25),
+                  //     //             bottomRight: Radius.circular(25))),
+                  //     //     label: Icon(
+                  //     //       Icons.email,
+                  //     //       size: 19,
+                  //     //       color: Colors.white,
+                  //     //     )),
+                  //     // Expanded(
+                  //     //   flex: 3,
+                  //     //   child: Padding(
+                  //     //     padding: const EdgeInsets.only(
+                  //     //         top: 2.0, left: 8.0),
+                  //     //     child: Text("Email",
+                  //     //         style: GoogleFonts.aBeeZee(
+                  //     //             textStyle: TextStyle(
+                  //     //                 fontSize: 15,
+                  //     //                 fontWeight: FontWeight.w600,
+                  //     //                 color: Colors.black))),
+                  //     //   ),
+                  //     // ),
+                  //     // Expanded(
+                  //     //   flex: 1,
+                  //     //   child: Padding(
+                  //     //     padding: const EdgeInsets.all(1.0),
+                  //     //     child: Text(":",
+                  //     //         style: GoogleFonts.aBeeZee(
+                  //     //             textStyle: TextStyle(
+                  //     //                 fontSize: 15,
+                  //     //                 fontWeight: FontWeight.w600,
+                  //     //                 color: Colors.black))),
+                  //     //   ),
+                  //     // ),
+                  //     //                           Expanded(
+                  //     //                             flex: 8,
+                  //     //                             child: Padding(
+                  //     //                               padding: const EdgeInsets.only(
+                  //     //                                   top: 1.0, left: 30.0, right: 30),
+                  //     //                               child: Container(
+                  //     //                                 height: 40,
+                  //     //                                 width: 60,
+                  //     //                                 child: TextFormField(
+                  //     //                                   controller: EditEmail,
+                  //     //                                   keyboardType: TextInputType.emailAddress,
+                  //     //                                   decoration: InputDecoration(
+                  //     //                                       fillColor: Colors.grey[200],
+                  //     //                                       contentPadding: EdgeInsets.only(
+                  //     //                                           top: 5, left: 10, bottom: 5),
+                  //     //                                       focusedBorder: OutlineInputBorder(
+                  //     //                                           borderRadius: BorderRadius.all(
+                  //     //                                               Radius.circular(5)),
+                  //     //                                           borderSide: BorderSide(
+                  //     //                                               width: 0,
+                  //     //                                               color: Colors.black)),
+                  //     //                                       enabledBorder: OutlineInputBorder(
+                  //     //                                           borderRadius: BorderRadius.all(
+                  //     //                                               Radius.circular(20)),
+                  //     //                                           borderSide: BorderSide(
+                  //     //                                               width: 1,
+                  //     //                                               color: Colors.black)),
+                  //     //                                       hintText: 'Enter Email Address',
+                  //     //                                       hintStyle: GoogleFonts.aBeeZee(
+                  //     //                                           textStyle: TextStyle(
+                  //     //                                               fontSize: 14,
+                  //     //                                               color: Colors.black))),
+                  //     //                                 ),
+                  //     //                               ),
+                  //     //                             ),
+                  //     //                           ),
+                  //     //                         ],
+                  //     //                       ),
+                  //     //                     ),
+                  //     //
+                  //
+                  //     //                   ],
+                  //     //                 ),
+                  //     //               ),
+                  //     //             ),
+                  //     //           ],
+                  //     //         ),
+                  //     //       ),
+                  //   ],
+                  // ),
+                  /*Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -2967,8 +2981,8 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),*/
-          ),
-        ),
+                ),
+              ),
       ),
     );
   }

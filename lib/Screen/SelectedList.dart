@@ -73,6 +73,17 @@ class _SelectedListState extends State<SelectedList> {
     // TODO: implement initState
     super.initState();
     getAlbumAllData();
+    getAllowdownload();
+  }
+
+  String allowDownload;
+
+  getAllowdownload() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      allowDownload = prefs.getString(cnst.Session.AllowDownload);
+    });
+    print("AllowDownload  ${prefs.getString(cnst.Session.AllowDownload)}");
   }
 
   showMsg(String msg) {
@@ -638,7 +649,8 @@ class _SelectedListState extends State<SelectedList> {
                       ),
                       Row(
                         children: <Widget>[
-                          GestureDetector(
+                          allowDownload == "false"
+                              ? Container():  GestureDetector(
                             onTap: () {
                               if (int.parse(selectedCount) > 0) {
                                 if (SelectedPin != "" &&

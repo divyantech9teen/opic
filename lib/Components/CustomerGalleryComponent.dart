@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pictiknew/Pages/Home.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GalleryComponent extends StatefulWidget {
   var GalleryData;
@@ -17,8 +18,14 @@ class _GalleryComponentState extends State<GalleryComponent> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         print("Isselected = ${widget.GalleryData["IsSelectionDone"]}");
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString(cnst.Session.AllowDownload,
+            widget.GalleryData["AllowDownload"].toString());
+        prefs.setString(
+            cnst.Session.galleryId, widget.GalleryData["Id"].toString());
+        print("AllowDownload  ${prefs.getString(cnst.Session.AllowDownload)}");
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -108,4 +115,14 @@ class _GalleryComponentState extends State<GalleryComponent> {
       ),
     );
   }
+
+// @override
+// void initState() {
+//   setState(() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     prefs.setString(cnst.Session.AllowDownload,
+//         widget.GalleryData["AllowDownload"].toString());
+//     print("AllowDownload  ${prefs.getString(cnst.Session.AllowDownload)}");
+//   });
+// }
 }

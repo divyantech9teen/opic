@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pictiknew/Common/AppService.dart';
 import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:pictiknew/Common/Services.dart';
@@ -21,6 +22,7 @@ class _AddCustomerState extends State<AddCustomer> {
   TextEditingController txtName = new TextEditingController();
   TextEditingController txtMobile = new TextEditingController();
   PermissionStatus _permissionStatus = PermissionStatus.unknown;
+  bool isULoading = false;
   bool _isLoading = false;
   List _selectedContact = [];
   String memberId = "";
@@ -47,6 +49,7 @@ class _AddCustomerState extends State<AddCustomer> {
           gravity: ToastGravity.TOP,
           toastLength: Toast.LENGTH_SHORT);
   }
+
   /* Future<void> requestPermission(PermissionGroup permission) async {
     final List<PermissionGroup> permissions = <PermissionGroup>[permission];
     final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
@@ -108,6 +111,109 @@ class _AddCustomerState extends State<AddCustomer> {
         );
       },
     );
+  }
+
+  accessToken() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        AppServices.AccessToken(prefs.getString(Session.opicxoUserId),
+                prefs.getString(Session.opicxoUserPass))
+            .then((data) async {
+          print("done1");
+          // setState(() {
+          //   isLoading = false;
+          // });
+          //  if (data.value == "true") {
+          print("Message : " + data.access_token);
+          Sms(data.access_token);
+          // Navigator.of(context).pushReplacementNamed('/LoginForm');
+          // } else {
+          //   showMsg("Invalid login Detail");
+          //   print("Invalid Cridintional");
+          // }
+        }, onError: (e) {
+          setState(() {
+            isLoading = false;
+          });
+          print("Something Went Wrong");
+          print("error is " + e.toString());
+        });
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+      print("No Internet Connection");
+    }
+  }
+
+  Sms(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isULoading = true;
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String customeruserName = prefs.getString(Session.UserName);
+        String customerName = prefs.getString(Session.Name);
+        String customerFName = prefs.getString(Session.Name);
+        var body = {
+          "country_id": "101",
+          "mobile_number": "${txtMobile.text}",
+          "type": "170",
+          "token": [
+            {"Customer.FullName": "${customeruserName}"},
+            {"Customer.UserName": "${customerName}"},
+            {"Customer.Password": "${customerFName}"}
+          ]
+        };
+        print(body);
+        AppServices.sendSms(body, token).then((data) async {
+          setState(() {
+            isULoading = false;
+          });
+          if (data.Data == "1") {
+            // setState(() {
+            //   prefs.setString(Session.opicxoStudioId, val);
+            // });
+            _addCustomer();
+            print("data1111");
+
+            Fluttertoast.showToast(
+                msg: "Sms send Successfully",
+                backgroundColor: appPrimaryMaterialColorYellow,
+                textColor: Colors.white,
+                gravity: ToastGravity.TOP,
+                toastLength: Toast.LENGTH_SHORT);
+            Navigator.of(context).pop();
+          } else {
+            setState(() {
+              isULoading = false;
+            });
+          }
+        }, onError: (e) {
+          setState(() {
+            isULoading = false;
+          });
+          Fluttertoast.showToast(msg: "Try Again");
+        });
+      } else {
+        setState(() {
+          isULoading = false;
+        });
+        Fluttertoast.showToast(msg: "No Internet Connection.");
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(msg: "No Internet Connection.");
+    }
   }
 
   _addCustomer() async {
@@ -310,7 +416,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                 if (txtMobile.text != "" &&
                                     txtMobile.text != null) {
                                   if (txtMobile.text.length == 10) {
-                                    _addCustomer();
+                                    accessToken();
                                   } else {
                                     showMsg("Enter Invite Valid Mobile Number");
                                   }

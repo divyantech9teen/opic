@@ -207,7 +207,7 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
                   cnst.Session.Image, data[0]["Image"].toString());
               await prefs.setString(cnst.Session.Name, data[0]["Name"]);
               await prefs.setString(cnst.Session.Mobile, data[0]["Mobile"]);
-              await prefs.setString(cnst.Session.Email, data[0]["UserName"]);
+              await prefs.setString(cnst.Session.Email, data[0]["Email"]);
               await prefs.setString(
                   cnst.Session.StudioName, data[0]["Name"]);
               await prefs.setString(cnst.Session.Password, data[0]["Password"]);
@@ -579,23 +579,23 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
                           //   //    ),
                           //   //  ),
                           // ),
-                          GestureDetector(
-                            onTap: (){
-                              _forgotlaunchURL();
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Forgot password?   ",
-                                  style: TextStyle(
-                                      color: cnst.appPrimaryMaterialColor,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500),
-                                )
-                              ],
-                            ),
-                          ),
+                          // GestureDetector(
+                          //   onTap: (){
+                          //     _forgotlaunchURL();
+                          //   },
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.end,
+                          //     children: [
+                          //       Text(
+                          //         "Forgot password?   ",
+                          //         style: TextStyle(
+                          //             color: cnst.appPrimaryMaterialColor,
+                          //             fontSize: 14.0,
+                          //             fontWeight: FontWeight.w500),
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
 
                           SizedBox(
                             height: 30,
@@ -671,63 +671,63 @@ class _LoginWithUsernameState extends State<LoginWithUsername> {
                                 ],
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                //by rinki on 24/april
-                                //Navigator.pushNamed(context, '/SignUpGuest');
-
-                                _launchURL();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      'Don\'t have an account ?',
-                                      style: GoogleFonts.aBeeZee(
-                                        textStyle: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        'SIGN UP',
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color:
-                                                  cnst.appPrimaryMaterialColor),
-                                        ),
-                                      ),
-                                    ),
-                                    /*ShaderMask(
-                                  shaderCallback: (bounds) => RadialGradient(
-                                          center: Alignment.topLeft,
-                                          colors: [
-                                            cnst.appPrimaryMaterialColorYellow[
-                                                800],
-                                            cnst.appPrimaryMaterialColorPink[
-                                                800]
-                                          ],
-                                          tileMode: TileMode.mirror)
-                                      .createShader(bounds),
-                                  child: Text(
-                                    'SIGN UP',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
-                                ),*/
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     //by rinki on 24/april
+                            //     //Navigator.pushNamed(context, '/SignUpGuest');
+                            //
+                            //     _launchURL();
+                            //   },
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(4.0),
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: <Widget>[
+                            //         Text(
+                            //           'Don\'t have an account ?',
+                            //           style: GoogleFonts.aBeeZee(
+                            //             textStyle: TextStyle(
+                            //                 fontSize: 14,
+                            //                 fontWeight: FontWeight.w600,
+                            //                 color: Colors.black),
+                            //           ),
+                            //         ),
+                            //         Padding(
+                            //           padding: const EdgeInsets.only(left: 5),
+                            //           child: Text(
+                            //             'SIGN UP',
+                            //             style: GoogleFonts.aBeeZee(
+                            //               textStyle: TextStyle(
+                            //                   fontSize: 14,
+                            //                   fontWeight: FontWeight.w600,
+                            //                   color:
+                            //                       cnst.appPrimaryMaterialColor),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //         /*ShaderMask(
+                            //       shaderCallback: (bounds) => RadialGradient(
+                            //               center: Alignment.topLeft,
+                            //               colors: [
+                            //                 cnst.appPrimaryMaterialColorYellow[
+                            //                     800],
+                            //                 cnst.appPrimaryMaterialColorPink[
+                            //                     800]
+                            //               ],
+                            //               tileMode: TileMode.mirror)
+                            //           .createShader(bounds),
+                            //       child: Text(
+                            //         'SIGN UP',
+                            //         style: TextStyle(
+                            //             fontSize: 15,
+                            //             fontWeight: FontWeight.w600,
+                            //             ),
+                            //       ),
+                            //     ),*/
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ],

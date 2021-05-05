@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_slider/image_slider.dart';
 import 'package:pictiknew/Common/AppService.dart';
 import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
@@ -25,7 +26,8 @@ class CustomerGallery extends StatefulWidget {
   _CustomerGalleryState createState() => _CustomerGalleryState();
 }
 
-class _CustomerGalleryState extends State<CustomerGallery> {
+class _CustomerGalleryState extends State<CustomerGallery>
+    with SingleTickerProviderStateMixin {
   DateTime currentBackPressTime;
   TextEditingController name = new TextEditingController();
   TextEditingController mobile = new TextEditingController();
@@ -46,15 +48,15 @@ class _CustomerGalleryState extends State<CustomerGallery> {
       bothdata2 = [],
       bothdata = [];
   int _current = 0, offercurrent = 0, portfoliocurrent = 0;
-
+  TabController tabController;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     accessToken();
-   // GetPhotogrpaherOffers();
- //   GetPortfolioData();
+    // GetPhotogrpaherOffers();
+    //   GetPortfolioData();
     // dataaddedd();
     super.initState();
   }
@@ -415,7 +417,10 @@ class _CustomerGalleryState extends State<CustomerGallery> {
               "data data : " + data.studioBanner[0]['picture_urls'].toString());
           setState(() {
             _data = data.studioBanner;
+
             OpicxoBannerList = data.studioBanner[0]['picture_urls'];
+            tabController =
+                TabController(length: OpicxoBannerList.length, vsync: this);
           });
           print("prodile data : ..." + OpicxoBannerList.toString());
         }, onError: (e) {
@@ -441,6 +446,8 @@ class _CustomerGalleryState extends State<CustomerGallery> {
         setState(() {
           isLoading = true;
         });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
         AppServices.StudioDetail(token).then((data) async {
           setState(() {
             isLoading = false;
@@ -449,6 +456,8 @@ class _CustomerGalleryState extends State<CustomerGallery> {
           setState(() {
             _data = data.studioDetail;
             aboutUs = data.studioDetail[0]["studio_detail"];
+            prefs.setString(
+                Session.opicxoStudiophone, aboutUs["contact_number"]);
           });
           print("prodile data : ..." + aboutUs.toString());
         }, onError: (e) {
@@ -568,372 +577,517 @@ class _CustomerGalleryState extends State<CustomerGallery> {
             ],
           ),
         ),
-        body:isLoading?LoadinComponent(): SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                child: Opacity(
-                  opacity: 0.2,
-                  child: Image.asset(
-                    "images/back002.png",
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Column(
-                      children: [
-                        OpicxoBannerList.length > 0
-                            ? CarouselSlider(
+        body: isLoading
+            ? LoadinComponent()
+            : SingleChildScrollView(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Opacity(
+                        opacity: 0.2,
+                        child: Image.asset(
+                          "images/back002.png",
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Column(
+                            children: [
+                              Container(
                                 height: 180,
-                                viewportFraction: 0.9,
-                                autoPlayAnimationDuration:
-                                    Duration(milliseconds: 1500),
-                                reverse: false,
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                autoPlay: true,
-                                // onPageChanged: (index) {
-                                //   _current = index;
-                                // },
-                                items: OpicxoBannerList.map((i) {
-                                  return Builder(
-                                      builder: (BuildContext context) {
-                                    return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.30,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        //color: Colors.blueAccent,
-                                        child: FadeInImage.assetNetwork(
-                                          placeholder: 'images/opicxologo.png',
-                                          image: "${i}",
-                                          fit: BoxFit.cover,
-                                        ),
-                                        // Image.network(
-                                        //   "${i}",
-                                        //   fit: BoxFit.fill,
-                                        //   width: MediaQuery.of(context).size.width*0.78,
-                                        //   height: MediaQuery.of(context).size.height*0.25,
-                                        // ),
+                                width: MediaQuery.of(context).size.width,
+                                //margin: EdgeInsets.all(10),
+//                decoration: BoxDecoration(
+//                    //borderRadius: BorderRadius.circular(10),
+//                    border:
+//                        Border.all(width: 2, color: appPrimaryMaterialColor)),
+                                child: isLoading == true
+                                    ? Center(child: LoadinComponent())
+                                    : ImageSlider(
+                                        /// Shows the tab indicating circles at the bottom
+                                        showTabIndicator: false,
+
+                                        /// Cutomize tab's colors
+                                        tabIndicatorColor: Colors.grey[400],
+
+                                        /// Customize selected tab's colors
+                                        tabIndicatorSelectedColor: Colors.black,
+
+                                        /// Height of the indicators from the bottom
+                                        tabIndicatorHeight: 16,
+
+                                        /// Size of the tab indicator circles
+                                        tabIndicatorSize: 12,
+
+                                        /// tabController for walkthrough or other implementations
+                                        tabController: tabController,
+
+                                        /// Animation curves of sliding
+                                        curve: Curves.fastOutSlowIn,
+
+                                        /// Width of the slider
+                                        width:
+                                            MediaQuery.of(context).size.width,
+
+                                        /// Height of the slider
+                                        height: 200,
+
+                                        /// If automatic sliding is required
+                                        autoSlide: true,
+
+                                        /// Time for automatic sliding
+                                        duration: new Duration(seconds: 7),
+
+                                        /// If manual sliding is required
+                                        allowManualSlide: true,
+
+                                        /// Children in slideView to slide
+                                        children: OpicxoBannerList.map((i) {
+                                          return Builder(
+                                              builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.30,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: i != null
+                                                  ? Card(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                      ),
+                                                      //color: Colors.blueAccent,
+                                                      child: FadeInImage
+                                                          .assetNetwork(
+                                                        placeholder:
+                                                            'images/opicxologo.png',
+                                                        image: "${i}",
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      // Image.network(
+                                                      //   "${i}",
+                                                      //   fit: BoxFit.fill,
+                                                      //   width: MediaQuery.of(context).size.width*0.78,
+                                                      //   height: MediaQuery.of(context).size.height*0.25,
+                                                      // ),
+                                                    )
+                                                  : Card(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                      ),
+                                                      //color: Colors.blueAccent,
+                                                      child: Image.asset(
+                                                        'images/opicxologo.png',
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      // Image.network(
+                                                      //   "${i}",
+                                                      //   fit: BoxFit.fill,
+                                                      //   width: MediaQuery.of(context).size.width*0.78,
+                                                      //   height: MediaQuery.of(context).size.height*0.25,
+                                                      // ),
+                                                    ),
+                                            );
+                                          });
+                                        }).toList(),
                                       ),
-                                    );
-                                  });
-                                }).toList(),
-                              )
-                            : Container(
-                                height: 150,
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  //color: Colors.blueAccent,
-                                  child: Center(
-                                    child: Text(
-                                      "No Data Found",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                              ),
+                              // OpicxoBannerList.length > 0 ||
+                              //         OpicxoBannerList != null
+                              //     ? CarouselSlider(
+                              //         height: 180,
+                              //
+                              //         viewportFraction: 0.9,
+                              //         autoPlayAnimationDuration:
+                              //             Duration(milliseconds: 1500),
+                              //         reverse: false,
+                              //         autoPlayCurve: Curves.fastOutSlowIn,
+                              //         autoPlay: true,
+                              //         // onPageChanged: (index) {
+                              //         //   _current = index;
+                              //         // },
+                              //         items: OpicxoBannerList.map((i) {
+                              //           return Builder(
+                              //               builder: (BuildContext context) {
+                              //             return Container(
+                              //               height: MediaQuery.of(context)
+                              //                       .size
+                              //                       .height *
+                              //                   0.30,
+                              //               width: MediaQuery.of(context)
+                              //                   .size
+                              //                   .width,
+                              //               child: i != null
+                              //                   ? Card(
+                              //                       shape:
+                              //                           RoundedRectangleBorder(
+                              //                         borderRadius:
+                              //                             BorderRadius.circular(
+                              //                                 20),
+                              //                       ),
+                              //                       //color: Colors.blueAccent,
+                              //                       child: FadeInImage
+                              //                           .assetNetwork(
+                              //                         placeholder:
+                              //                             'images/opicxologo.png',
+                              //                         image: "${i}",
+                              //                         fit: BoxFit.cover,
+                              //                       ),
+                              //                       // Image.network(
+                              //                       //   "${i}",
+                              //                       //   fit: BoxFit.fill,
+                              //                       //   width: MediaQuery.of(context).size.width*0.78,
+                              //                       //   height: MediaQuery.of(context).size.height*0.25,
+                              //                       // ),
+                              //                     )
+                              //                   : Card(
+                              //                       shape:
+                              //                           RoundedRectangleBorder(
+                              //                         borderRadius:
+                              //                             BorderRadius.circular(
+                              //                                 20),
+                              //                       ),
+                              //                       //color: Colors.blueAccent,
+                              //                       child: Image.asset(
+                              //                         'images/opicxologo.png',
+                              //                         fit: BoxFit.cover,
+                              //                       ),
+                              //                       // Image.network(
+                              //                       //   "${i}",
+                              //                       //   fit: BoxFit.fill,
+                              //                       //   width: MediaQuery.of(context).size.width*0.78,
+                              //                       //   height: MediaQuery.of(context).size.height*0.25,
+                              //                       // ),
+                              //                     ),
+                              //             );
+                              //           });
+                              //         }).toList(),
+                              //       )
+                              //     : Container(
+                              //         height: 150,
+                              //         width: MediaQuery.of(context).size.width *
+                              //             0.9,
+                              //         child: Card(
+                              //           shape: RoundedRectangleBorder(
+                              //             borderRadius:
+                              //                 BorderRadius.circular(20),
+                              //           ),
+                              //           //color: Colors.blueAccent,
+                              //           child: Center(
+                              //             child: Text(
+                              //               "No Data Found",
+                              //               style: TextStyle(
+                              //                 fontWeight: FontWeight.bold,
+                              //                 fontSize: 20,
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                              // PhotographerList.length > 0 && PortfolioData.length > 0
+                              //     ? CarouselSlider(
+                              //         height: 200,
+                              //         viewportFraction: 1.0,
+                              //         autoPlayAnimationDuration:
+                              //             Duration(milliseconds: 1500),
+                              //         reverse: false,
+                              //         autoPlayCurve: Curves.fastOutSlowIn,
+                              //         autoPlay: true,
+                              //         onPageChanged: (index) {
+                              //           _current = index;
+                              //         },
+                              //         items: bothdata.map((i) {
+                              //           print(i);
+                              //           return Container(
+                              //             height: MediaQuery.of(context).size.height *
+                              //                 0.30,
+                              //             width: MediaQuery.of(context).size.width,
+                              //             child: GestureDetector(
+                              //               onTap: () {
+                              //                 print(i["isOffers"]);
+                              //                 Navigator.push(
+                              //                   context,
+                              //                   (i["isOffers"]) == "true"
+                              //                       ? MaterialPageRoute(
+                              //                           builder: (context) =>
+                              //                               OfferDetailScreen(
+                              //                             PhotographerListData: i,
+                              //                             current: 0,
+                              //                           ),
+                              //                         )
+                              //                       : MaterialPageRoute(
+                              //                           builder: (context) =>
+                              //                               PortfolioImages(
+                              //                             i["Id"].toString(),
+                              //                             i["Title"].toString(),
+                              //                           ),
+                              //                         ),
+                              //                 );
+                              //               },
+                              //               child: Card(
+                              //                   shape: RoundedRectangleBorder(
+                              //                     borderRadius:
+                              //                         BorderRadius.circular(20),
+                              //                   ),
+                              //                   //color: Colors.blueAccent,
+                              //                   child: Image.network(
+                              //                     i["Image"],
+                              //                     fit: BoxFit.fill,
+                              //                     width: MediaQuery.of(context)
+                              //                             .size
+                              //                             .width *
+                              //                         0.78,
+                              //                     height: MediaQuery.of(context)
+                              //                             .size
+                              //                             .height *
+                              //                         0.25,
+                              //                   )
+                              //                   //     :
+                              //                   // FadeInImage.assetNetwork(
+                              //                   //   placeholder: 'images/opicxologo.png',,
+                              //                   //   //image:"${i[_current]["${cnst.ImgUrl}"]["Image"]}",
+                              //                   //   image: "${cnst.ImgUrl}${i["Image"]}",
+                              //                   //   fit: BoxFit.cover,
+                              //                   // ),
+                              //                   ),
+                              //             ),
+                              //           );
+                              //         }).toList(),
+                              //       )
+                              //     : PhotographerList.length > 0 &&
+                              //             PortfolioData.length == 0
+                              //         ? CarouselSlider(
+                              //             height: 180,
+                              //             viewportFraction: 0.9,
+                              //             autoPlayAnimationDuration:
+                              //                 Duration(milliseconds: 1500),
+                              //             reverse: false,
+                              //             autoPlayCurve: Curves.fastOutSlowIn,
+                              //             autoPlay: true,
+                              //             onPageChanged: (index) {
+                              //               _current = index;
+                              //             },
+                              //             items: bothdata1.map((i) {
+                              //               return Builder(
+                              //                   builder: (BuildContext context) {
+                              //                 return Container(
+                              //                   height: MediaQuery.of(context)
+                              //                           .size
+                              //                           .height *
+                              //                       0.30,
+                              //                   width:
+                              //                       MediaQuery.of(context).size.width,
+                              //                   child: GestureDetector(
+                              //                     onTap: () {
+                              //                       Navigator.push(
+                              //                           context,
+                              //                           MaterialPageRoute(
+                              //                               builder: (context) =>
+                              //                                   OfferDetailScreen(
+                              //                                       PhotographerListData:
+                              //                                           i,
+                              //                                       current: 0)));
+                              //                     },
+                              //                     child: Card(
+                              //                       shape: RoundedRectangleBorder(
+                              //                         borderRadius:
+                              //                             BorderRadius.circular(20),
+                              //                       ),
+                              //                       //color: Colors.blueAccent,
+                              //                       child: Image.network(
+                              //                         i["Image"],
+                              //                         fit: BoxFit.fill,
+                              //                         width: MediaQuery.of(context)
+                              //                                 .size
+                              //                                 .width *
+                              //                             0.78,
+                              //                         height: MediaQuery.of(context)
+                              //                                 .size
+                              //                                 .height *
+                              //                             0.25,
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //                 );
+                              //               });
+                              //             }).toList(),
+                              //           )
+                              //         : PhotographerList.length == 0 &&
+                              //                 PortfolioData.length > 0
+                              //             ? CarouselSlider(
+                              //                 height: 180,
+                              //                 viewportFraction: 0.9,
+                              //                 autoPlayAnimationDuration:
+                              //                     Duration(milliseconds: 1500),
+                              //                 reverse: false,
+                              //                 autoPlayCurve: Curves.fastOutSlowIn,
+                              //                 autoPlay: true,
+                              //                 onPageChanged: (index) {
+                              //                   _current = index;
+                              //                 },
+                              //                 items: bothdata2.map((i) {
+                              //                   return Builder(
+                              //                       builder: (BuildContext context) {
+                              //                     return Container(
+                              //                       height: MediaQuery.of(context)
+                              //                               .size
+                              //                               .height *
+                              //                           0.30,
+                              //                       width: MediaQuery.of(context)
+                              //                           .size
+                              //                           .width,
+                              //                       child: GestureDetector(
+                              //                         onTap: () {
+                              //                           Navigator.push(
+                              //                               context,
+                              //                               MaterialPageRoute(
+                              //                                   builder: (context) =>
+                              //                                       PortfolioImages(
+                              //                                           i["Id"]
+                              //                                               .toString(),
+                              //                                           i["Title"]
+                              //                                               .toString())));
+                              //                         },
+                              //                         child: Card(
+                              //                           shape: RoundedRectangleBorder(
+                              //                             borderRadius:
+                              //                                 BorderRadius.circular(
+                              //                                     20),
+                              //                           ),
+                              //                           //color: Colors.blueAccent,
+                              //                           child:
+                              //                               FadeInImage.assetNetwork(
+                              //                             placeholder:
+                              //                                 'images/opicxologo.png',
+                              //                             image: "${i["Image"]}",
+                              //                             fit: BoxFit.cover,
+                              //                           ),
+                              //                           // Image.network(
+                              //                           //   "${i}",
+                              //                           //   fit: BoxFit.fill,
+                              //                           //   width: MediaQuery.of(context).size.width*0.78,
+                              //                           //   height: MediaQuery.of(context).size.height*0.25,
+                              //                           // ),
+                              //                         ),
+                              //                       ),
+                              //                     );
+                              //                   });
+                              //                 }).toList(),
+                              //               )
+                              //             : Container(
+                              //                 height: 150,
+                              //                 width:
+                              //                     MediaQuery.of(context).size.width *
+                              //                         0.9,
+                              //                 child: Card(
+                              //                   shape: RoundedRectangleBorder(
+                              //                     borderRadius:
+                              //                         BorderRadius.circular(20),
+                              //                   ),
+                              //                   //color: Colors.blueAccent,
+                              //                   child: Center(
+                              //                     child: Text(
+                              //                       "No Data Found",
+                              //                       style: TextStyle(
+                              //                         fontWeight: FontWeight.bold,
+                              //                         fontSize: 20,
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        height: 1,
+                                        color: Colors.black,
                                       ),
-                                    ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        height: 1,
+                                        color: Colors.black,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        height: 1,
+                                        color: Colors.black,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                        // PhotographerList.length > 0 && PortfolioData.length > 0
-                        //     ? CarouselSlider(
-                        //         height: 200,
-                        //         viewportFraction: 1.0,
-                        //         autoPlayAnimationDuration:
-                        //             Duration(milliseconds: 1500),
-                        //         reverse: false,
-                        //         autoPlayCurve: Curves.fastOutSlowIn,
-                        //         autoPlay: true,
-                        //         onPageChanged: (index) {
-                        //           _current = index;
-                        //         },
-                        //         items: bothdata.map((i) {
-                        //           print(i);
-                        //           return Container(
-                        //             height: MediaQuery.of(context).size.height *
-                        //                 0.30,
-                        //             width: MediaQuery.of(context).size.width,
-                        //             child: GestureDetector(
-                        //               onTap: () {
-                        //                 print(i["isOffers"]);
-                        //                 Navigator.push(
-                        //                   context,
-                        //                   (i["isOffers"]) == "true"
-                        //                       ? MaterialPageRoute(
-                        //                           builder: (context) =>
-                        //                               OfferDetailScreen(
-                        //                             PhotographerListData: i,
-                        //                             current: 0,
-                        //                           ),
-                        //                         )
-                        //                       : MaterialPageRoute(
-                        //                           builder: (context) =>
-                        //                               PortfolioImages(
-                        //                             i["Id"].toString(),
-                        //                             i["Title"].toString(),
-                        //                           ),
-                        //                         ),
-                        //                 );
-                        //               },
-                        //               child: Card(
-                        //                   shape: RoundedRectangleBorder(
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(20),
-                        //                   ),
-                        //                   //color: Colors.blueAccent,
-                        //                   child: Image.network(
-                        //                     i["Image"],
-                        //                     fit: BoxFit.fill,
-                        //                     width: MediaQuery.of(context)
-                        //                             .size
-                        //                             .width *
-                        //                         0.78,
-                        //                     height: MediaQuery.of(context)
-                        //                             .size
-                        //                             .height *
-                        //                         0.25,
-                        //                   )
-                        //                   //     :
-                        //                   // FadeInImage.assetNetwork(
-                        //                   //   placeholder: 'images/opicxologo.png',,
-                        //                   //   //image:"${i[_current]["${cnst.ImgUrl}"]["Image"]}",
-                        //                   //   image: "${cnst.ImgUrl}${i["Image"]}",
-                        //                   //   fit: BoxFit.cover,
-                        //                   // ),
-                        //                   ),
-                        //             ),
-                        //           );
-                        //         }).toList(),
-                        //       )
-                        //     : PhotographerList.length > 0 &&
-                        //             PortfolioData.length == 0
-                        //         ? CarouselSlider(
-                        //             height: 180,
-                        //             viewportFraction: 0.9,
-                        //             autoPlayAnimationDuration:
-                        //                 Duration(milliseconds: 1500),
-                        //             reverse: false,
-                        //             autoPlayCurve: Curves.fastOutSlowIn,
-                        //             autoPlay: true,
-                        //             onPageChanged: (index) {
-                        //               _current = index;
-                        //             },
-                        //             items: bothdata1.map((i) {
-                        //               return Builder(
-                        //                   builder: (BuildContext context) {
-                        //                 return Container(
-                        //                   height: MediaQuery.of(context)
-                        //                           .size
-                        //                           .height *
-                        //                       0.30,
-                        //                   width:
-                        //                       MediaQuery.of(context).size.width,
-                        //                   child: GestureDetector(
-                        //                     onTap: () {
-                        //                       Navigator.push(
-                        //                           context,
-                        //                           MaterialPageRoute(
-                        //                               builder: (context) =>
-                        //                                   OfferDetailScreen(
-                        //                                       PhotographerListData:
-                        //                                           i,
-                        //                                       current: 0)));
-                        //                     },
-                        //                     child: Card(
-                        //                       shape: RoundedRectangleBorder(
-                        //                         borderRadius:
-                        //                             BorderRadius.circular(20),
-                        //                       ),
-                        //                       //color: Colors.blueAccent,
-                        //                       child: Image.network(
-                        //                         i["Image"],
-                        //                         fit: BoxFit.fill,
-                        //                         width: MediaQuery.of(context)
-                        //                                 .size
-                        //                                 .width *
-                        //                             0.78,
-                        //                         height: MediaQuery.of(context)
-                        //                                 .size
-                        //                                 .height *
-                        //                             0.25,
-                        //                       ),
-                        //                     ),
-                        //                   ),
-                        //                 );
-                        //               });
-                        //             }).toList(),
-                        //           )
-                        //         : PhotographerList.length == 0 &&
-                        //                 PortfolioData.length > 0
-                        //             ? CarouselSlider(
-                        //                 height: 180,
-                        //                 viewportFraction: 0.9,
-                        //                 autoPlayAnimationDuration:
-                        //                     Duration(milliseconds: 1500),
-                        //                 reverse: false,
-                        //                 autoPlayCurve: Curves.fastOutSlowIn,
-                        //                 autoPlay: true,
-                        //                 onPageChanged: (index) {
-                        //                   _current = index;
-                        //                 },
-                        //                 items: bothdata2.map((i) {
-                        //                   return Builder(
-                        //                       builder: (BuildContext context) {
-                        //                     return Container(
-                        //                       height: MediaQuery.of(context)
-                        //                               .size
-                        //                               .height *
-                        //                           0.30,
-                        //                       width: MediaQuery.of(context)
-                        //                           .size
-                        //                           .width,
-                        //                       child: GestureDetector(
-                        //                         onTap: () {
-                        //                           Navigator.push(
-                        //                               context,
-                        //                               MaterialPageRoute(
-                        //                                   builder: (context) =>
-                        //                                       PortfolioImages(
-                        //                                           i["Id"]
-                        //                                               .toString(),
-                        //                                           i["Title"]
-                        //                                               .toString())));
-                        //                         },
-                        //                         child: Card(
-                        //                           shape: RoundedRectangleBorder(
-                        //                             borderRadius:
-                        //                                 BorderRadius.circular(
-                        //                                     20),
-                        //                           ),
-                        //                           //color: Colors.blueAccent,
-                        //                           child:
-                        //                               FadeInImage.assetNetwork(
-                        //                             placeholder:
-                        //                                 'images/opicxologo.png',
-                        //                             image: "${i["Image"]}",
-                        //                             fit: BoxFit.cover,
-                        //                           ),
-                        //                           // Image.network(
-                        //                           //   "${i}",
-                        //                           //   fit: BoxFit.fill,
-                        //                           //   width: MediaQuery.of(context).size.width*0.78,
-                        //                           //   height: MediaQuery.of(context).size.height*0.25,
-                        //                           // ),
-                        //                         ),
-                        //                       ),
-                        //                     );
-                        //                   });
-                        //                 }).toList(),
-                        //               )
-                        //             : Container(
-                        //                 height: 150,
-                        //                 width:
-                        //                     MediaQuery.of(context).size.width *
-                        //                         0.9,
-                        //                 child: Card(
-                        //                   shape: RoundedRectangleBorder(
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(20),
-                        //                   ),
-                        //                   //color: Colors.blueAccent,
-                        //                   child: Center(
-                        //                     child: Text(
-                        //                       "No Data Found",
-                        //                       style: TextStyle(
-                        //                         fontWeight: FontWeight.bold,
-                        //                         fontSize: 20,
-                        //                       ),
-                        //                     ),
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  height: 1,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  height: 1,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  height: 1,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                              ],
+                            ],
+                          ),
+                          WillPopScope(
+                            onWillPop: onWillPop,
+                            child: FutureBuilder<List>(
+                              future: Services.GetCustomerGalleryList(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                maindata = snapshot.data;
+
+                                return snapshot.connectionState ==
+                                        ConnectionState.done
+                                    ? snapshot.data != null &&
+                                            snapshot.data.length > 0
+                                        ? ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            padding: EdgeInsets.all(0),
+                                            itemCount: maindata.length,
+                                            //shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return GalleryComponent(
+                                                  maindata[index]);
+                                            },
+                                          )
+                                        : NoDataComponent()
+                                    : LoadinComponent();
+                              },
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    WillPopScope(
-                      onWillPop: onWillPop,
-                      child: FutureBuilder<List>(
-                        future: Services.GetCustomerGalleryList(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          maindata = snapshot.data;
-                          return snapshot.connectionState ==
-                                  ConnectionState.done
-                              ? snapshot.data != null &&
-                                      snapshot.data.length > 0
-                                  ? ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      padding: EdgeInsets.all(0),
-                                      itemCount: maindata.length,
-                                      //shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return GalleryComponent(
-                                            maindata[index]);
-                                      },
-                                    )
-                                  : NoDataComponent()
-                              : LoadinComponent();
-                        },
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }

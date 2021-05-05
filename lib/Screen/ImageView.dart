@@ -60,7 +60,18 @@ class _ImageViewState extends State<ImageView> {
     //pr.setMessage('Please Wait');
     // TODO: implement initState
     getLocalData();
+    getAllowdownload();
     super.initState();
+  }
+
+  String allowDownload;
+
+  getAllowdownload() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      allowDownload = prefs.getString(cnst.Session.AllowDownload);
+    });
+    print("AllowDownload  ${prefs.getString(cnst.Session.AllowDownload)}");
   }
 
   getLocalData() async {
@@ -855,55 +866,57 @@ class _ImageViewState extends State<ImageView> {
                           color: Colors.white,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          _downloadFile(
-                              widget.albumData[widget.albumIndex]["Photo"]);
-                          // _saveNetworkImage(
-                          //     "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
-                          // if (SelectedPin != "" &&
-                          //     (PinSelection == "false" ||
-                          //         PinSelection == "" ||
-                          //         PinSelection.toString() == "null")) {
-                          //   downloadAll();
-                          // } else {
-                          //   _saveNetworkImage(
-                          //       "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
-                          // }
-                          // if (widget.albumData[widget.albumIndex]["IsSelected"]
-                          //         .toString() ==
-                          //     "true") {
-                          //   setState(() {
-                          //     widget.albumData[widget.albumIndex]
-                          //         ["IsSelected"] = "false";
-                          //   });
-                          //   widget.onChange(
-                          //       "Remove",
-                          //       widget.albumData[widget.albumIndex]["Id"]
-                          //           .toString(),
-                          //       widget.albumData[widget.albumIndex]["Photo"]
-                          //           .toString());
-                          // } else {
-                          //   setState(() {
-                          //     widget.albumData[widget.albumIndex]
-                          //         ["IsSelected"] = "true";
-                          //   });
-                          //   widget.onChange(
-                          //       "Add",
-                          //       widget.albumData[widget.albumIndex]["Id"]
-                          //           .toString(),
-                          //       widget.albumData[widget.albumIndex]["Photo"]
-                          //           .toString());
-                          // }
-                        },
-                        child: isFav
-                            ? CircularProgressIndicator()
-                            : Icon(
-                                Icons.download_rounded,
-                                size: 25,
-                                color: Colors.white,
-                              ),
-                      ),
+                      allowDownload == "false"
+                          ? Container(height: 30,width: 0,child: Text(""),)
+                          : GestureDetector(
+                              onTap: () {
+                                _downloadFile(widget
+                                    .albumData[widget.albumIndex]["Photo"]);
+                                // _saveNetworkImage(
+                                //     "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
+                                // if (SelectedPin != "" &&
+                                //     (PinSelection == "false" ||
+                                //         PinSelection == "" ||
+                                //         PinSelection.toString() == "null")) {
+                                //   downloadAll();
+                                // } else {
+                                //   _saveNetworkImage(
+                                //       "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
+                                // }
+                                // if (widget.albumData[widget.albumIndex]["IsSelected"]
+                                //         .toString() ==
+                                //     "true") {
+                                //   setState(() {
+                                //     widget.albumData[widget.albumIndex]
+                                //         ["IsSelected"] = "false";
+                                //   });
+                                //   widget.onChange(
+                                //       "Remove",
+                                //       widget.albumData[widget.albumIndex]["Id"]
+                                //           .toString(),
+                                //       widget.albumData[widget.albumIndex]["Photo"]
+                                //           .toString());
+                                // } else {
+                                //   setState(() {
+                                //     widget.albumData[widget.albumIndex]
+                                //         ["IsSelected"] = "true";
+                                //   });
+                                //   widget.onChange(
+                                //       "Add",
+                                //       widget.albumData[widget.albumIndex]["Id"]
+                                //           .toString(),
+                                //       widget.albumData[widget.albumIndex]["Photo"]
+                                //           .toString());
+                                // }
+                              },
+                              child: isFav
+                                  ? CircularProgressIndicator()
+                                  : Icon(
+                                      Icons.download_rounded,
+                                      size: 25,
+                                      color: Colors.white,
+                                    ),
+                            ),
                     ],
                   ),
                 ),
@@ -1169,8 +1182,6 @@ class _BottomSheetState extends State<BottomSheet> {
     print("widget.data");
     print(widget.Data);
     return SafeArea(
-
-
       child: Container(
         //height: 500,
         padding: EdgeInsets.only(
@@ -1197,19 +1208,19 @@ class _BottomSheetState extends State<BottomSheet> {
                 child: IsLoading
                     ? LoadinComponent()
                     : CommentList.length > 0
-                    ? ListView.builder(
-                  padding: EdgeInsets.all(0),
-                  itemCount: CommentList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return PhotoCommentConponent(
-                        CommentList[index], CustomerId, (action, id) {
-                      if (action == "delete") {
-                        deleteComment(id, index);
-                      }
-                    });
-                  },
-                )
-                    : NoDataComponent()),
+                        ? ListView.builder(
+                            padding: EdgeInsets.all(0),
+                            itemCount: CommentList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return PhotoCommentConponent(
+                                  CommentList[index], CustomerId, (action, id) {
+                                if (action == "delete") {
+                                  deleteComment(id, index);
+                                }
+                              });
+                            },
+                          )
+                        : NoDataComponent()),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
