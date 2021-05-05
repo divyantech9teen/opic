@@ -20,6 +20,7 @@ public final class GeneratedPluginRegistrant {
       com.rouf69nb.cloud_audio_player.CloudAudioPlayerPlugin.registerWith(shimPluginRegistry.registrarFor("com.rouf69nb.cloud_audio_player.CloudAudioPlayerPlugin"));
     flutterEngine.getPlugins().add(new flutter.plugins.contactsservice.contactsservice.ContactsServicePlugin());
       de.esys.esysfluttershare.EsysFlutterSharePlugin.registerWith(shimPluginRegistry.registrarFor("de.esys.esysfluttershare.EsysFlutterSharePlugin"));
+    flutterEngine.getPlugins().add(new com.dexterous.flutterlocalnotifications.FlutterLocalNotificationsPlugin());
     flutterEngine.getPlugins().add(new com.example.flutternativeimage.FlutterNativeImagePlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
       io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin.registerWith(shimPluginRegistry.registrarFor("io.adaptant.labs.flutter_windowmanager.FlutterWindowManagerPlugin"));

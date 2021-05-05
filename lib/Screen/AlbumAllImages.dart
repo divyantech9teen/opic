@@ -14,6 +14,7 @@ import 'package:pictiknew/Common/Services.dart';
 import 'package:pictiknew/Components/AllAlbumComponent.dart';
 import 'package:pictiknew/Components/NoDataComponent.dart';
 import 'package:pictiknew/Screen/AllImageSlideShow.dart';
+import 'package:pictiknew/Screen/Notification.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,10 +62,18 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
     //pr.setMessage('Please Wait');
     // TODO: implement initState
     super.initState();
+    localNotifyManger.setOnNotificationReceive(onNotificationReceive);
+    localNotifyManger.setOnNotificationClick(onNotificationClick);
     getAlbumAllData();
     getAllowdownload();
   }
+  onNotificationReceive(ReceivedNotifaction notifaction) {
+    print("Notification Recived : ${notifaction.id}");
+  }
 
+  onNotificationClick(String payload) {
+    print("Payload : ${payload}");
+  }
   String allowDownload;
 
   getAllowdownload() async {
@@ -396,6 +405,7 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
       Platform.isIOS
           ? await GallerySaver.saveImage(path).then((bool success) {
               print("Success = ${success}");
+              sendNotification(DateTime.now());
               Fluttertoast.showToast(
                   msg: "Download Completed",
                   backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -421,6 +431,7 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
     final result =
         await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
     print(result);
+    sendNotification(DateTime.now());
     Fluttertoast.showToast(
         msg: "Download Completed",
         backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -428,7 +439,13 @@ class _AlbumAllImagesState extends State<AlbumAllImages> {
         gravity: ToastGravity.TOP,
         toastLength: Toast.LENGTH_SHORT);
   }
-
+  sendNotification(datetime) async {
+    print("hello notifcation");
+    // DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm a").parse(datetime);
+    DateTime tempDate = datetime;
+    print(tempDate.subtract(Duration(minutes: 30)));
+    await localNotifyManger.showScheduleNotification(datetime);
+  }
   shareFile() async {
     setState(() {
       pr1.show();

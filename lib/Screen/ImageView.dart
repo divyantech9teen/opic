@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -22,6 +23,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AlbumAllImages.dart';
+import 'Notification.dart';
 
 class ImageView extends StatefulWidget {
   List albumData;
@@ -59,9 +61,19 @@ class _ImageViewState extends State<ImageView> {
             color: Colors.black, fontSize: 17.0, fontWeight: FontWeight.w600));
     //pr.setMessage('Please Wait');
     // TODO: implement initState
+    localNotifyManger.setOnNotificationReceive(onNotificationReceive);
+    localNotifyManger.setOnNotificationClick(onNotificationClick);
     getLocalData();
     getAllowdownload();
     super.initState();
+  }
+
+  onNotificationReceive(ReceivedNotifaction notifaction) {
+    print("Notification Recived : ${notifaction.id}");
+  }
+
+  onNotificationClick(String payload) {
+    print("Payload : ${payload}");
   }
 
   String allowDownload;
@@ -228,6 +240,7 @@ class _ImageViewState extends State<ImageView> {
     Platform.isIOS
         ? await GallerySaver.saveImage(url).then((bool success) {
             print("Success = ${success}");
+            sendNotification(DateTime.now());
             Fluttertoast.showToast(
                 backgroundColor: cnst.appPrimaryMaterialColorYellow,
                 msg: "Download Completed",
@@ -239,12 +252,21 @@ class _ImageViewState extends State<ImageView> {
     pr.hide();
   }
 
+  sendNotification(datetime) async {
+    print("hello notifcation");
+    // DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm a").parse(datetime);
+    DateTime tempDate = datetime;
+    print(tempDate.subtract(Duration(minutes: 30)));
+    await localNotifyManger.showScheduleNotification(datetime);
+  }
+
   downloadAndroid(String path) async {
     var response = await Dio()
         .get("${path}", options: Options(responseType: ResponseType.bytes));
     final result =
         await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
     print(result);
+    sendNotification(DateTime.now());
     Fluttertoast.showToast(
         msg: "Download Completed",
         backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -867,56 +889,60 @@ class _ImageViewState extends State<ImageView> {
                         ),
                       ),
                       allowDownload == "false"
-                          ? Container(height: 30,width: 0,child: Text(""),)
+                          ? Container(
+                              height: 30,
+                              width: 0,
+                              child: Text(""),
+                            )
                           : GestureDetector(
-                              onTap: () {
-                                _downloadFile(widget
-                                    .albumData[widget.albumIndex]["Photo"]);
-                                // _saveNetworkImage(
-                                //     "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
-                                // if (SelectedPin != "" &&
-                                //     (PinSelection == "false" ||
-                                //         PinSelection == "" ||
-                                //         PinSelection.toString() == "null")) {
-                                //   downloadAll();
-                                // } else {
-                                //   _saveNetworkImage(
-                                //       "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
-                                // }
-                                // if (widget.albumData[widget.albumIndex]["IsSelected"]
-                                //         .toString() ==
-                                //     "true") {
-                                //   setState(() {
-                                //     widget.albumData[widget.albumIndex]
-                                //         ["IsSelected"] = "false";
-                                //   });
-                                //   widget.onChange(
-                                //       "Remove",
-                                //       widget.albumData[widget.albumIndex]["Id"]
-                                //           .toString(),
-                                //       widget.albumData[widget.albumIndex]["Photo"]
-                                //           .toString());
-                                // } else {
-                                //   setState(() {
-                                //     widget.albumData[widget.albumIndex]
-                                //         ["IsSelected"] = "true";
-                                //   });
-                                //   widget.onChange(
-                                //       "Add",
-                                //       widget.albumData[widget.albumIndex]["Id"]
-                                //           .toString(),
-                                //       widget.albumData[widget.albumIndex]["Photo"]
-                                //           .toString());
-                                // }
-                              },
-                              child: isFav
-                                  ? CircularProgressIndicator()
-                                  : Icon(
-                                      Icons.download_rounded,
-                                      size: 25,
-                                      color: Colors.white,
-                                    ),
-                            ),
+                        onTap: () {
+                          _downloadFile(
+                              widget.albumData[widget.albumIndex]["Photo"]);
+                          // _saveNetworkImage(
+                          //     "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
+                          // if (SelectedPin != "" &&
+                          //     (PinSelection == "false" ||
+                          //         PinSelection == "" ||
+                          //         PinSelection.toString() == "null")) {
+                          //   downloadAll();
+                          // } else {
+                          //   _saveNetworkImage(
+                          //       "${cnst.ImgUrl}${widget.albumData[widget.albumIndex]["Photo"].toString().replaceAll(" ", "%20")}");
+                          // }
+                          // if (widget.albumData[widget.albumIndex]["IsSelected"]
+                          //         .toString() ==
+                          //     "true") {
+                          //   setState(() {
+                          //     widget.albumData[widget.albumIndex]
+                          //         ["IsSelected"] = "false";
+                          //   });
+                          //   widget.onChange(
+                          //       "Remove",
+                          //       widget.albumData[widget.albumIndex]["Id"]
+                          //           .toString(),
+                          //       widget.albumData[widget.albumIndex]["Photo"]
+                          //           .toString());
+                          // } else {
+                          //   setState(() {
+                          //     widget.albumData[widget.albumIndex]
+                          //         ["IsSelected"] = "true";
+                          //   });
+                          //   widget.onChange(
+                          //       "Add",
+                          //       widget.albumData[widget.albumIndex]["Id"]
+                          //           .toString(),
+                          //       widget.albumData[widget.albumIndex]["Photo"]
+                          //           .toString());
+                          // }
+                        },
+                        child: isFav
+                            ? CircularProgressIndicator()
+                            : Icon(
+                                Icons.download_rounded,
+                                size: 25,
+                                color: Colors.white,
+                              ),
+                      ),
                     ],
                   ),
                 ),

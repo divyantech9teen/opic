@@ -18,6 +18,7 @@ import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ImageView.dart';
+import 'Notification.dart';
 import 'SelectedAlbum.dart';
 
 class PendingList extends StatefulWidget {
@@ -60,12 +61,20 @@ class _PendingListState extends State<PendingList> {
     //pr.setMessage('Please Wait');
     // TODO: implement initState
     super.initState();
+    localNotifyManger.setOnNotificationReceive(onNotificationReceive);
+    localNotifyManger.setOnNotificationClick(onNotificationClick);
     getAlbumAllData();
     getAllowdownload();
   }
 
   String allowDownload;
+  onNotificationReceive(ReceivedNotifaction notifaction) {
+    print("Notification Recived : ${notifaction.id}");
+  }
 
+  onNotificationClick(String payload) {
+    print("Payload : ${payload}");
+  }
   getAllowdownload() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -279,6 +288,7 @@ class _PendingListState extends State<PendingList> {
       Platform.isIOS
           ? await GallerySaver.saveImage(path).then((bool success) {
               print("Success = ${success}");
+              sendNotification(DateTime.now());
               Fluttertoast.showToast(
                   msg: "Download Completed",
                   backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -290,13 +300,20 @@ class _PendingListState extends State<PendingList> {
     }
     isLoading = false;
   }
-
+  sendNotification(datetime) async {
+    print("hello notifcation");
+    // DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm a").parse(datetime);
+    DateTime tempDate = datetime;
+    print(tempDate.subtract(Duration(minutes: 30)));
+    await localNotifyManger.showScheduleNotification(datetime);
+  }
   downloadAndroid(String path) async {
     var response = await Dio()
         .get("${path}", options: Options(responseType: ResponseType.bytes));
     final result =
         await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
     print(result);
+    sendNotification(DateTime.now());
     Fluttertoast.showToast(
         msg: "Download Completed",
         backgroundColor: cnst.appPrimaryMaterialColorYellow,

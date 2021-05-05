@@ -66,6 +66,9 @@ dependencies:
   get_it: ^1.0.3+2
   flutter_windowmanager: ^0.0.1+1
   image_slider: ^1.0.2
+  flutter_local_notifications:
+  rxdart: ^0.26.0
+
 
 #  maps_launcher: ^1.2.2+2
 

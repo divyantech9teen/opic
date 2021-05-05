@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Common/Constants.dart' as cnst;
@@ -30,15 +31,23 @@ void main() {
 
 
 class MyApp extends StatefulWidget {
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState(){
     super.initState();
+    // var initializationSettingsAndroid = new AndroidInitializationSettings('app_icon');
+    // var initializationSettingsIOS = new IOSInitializationSettings();
+    // var initializationSettings = new InitializationSettings( AndroidInitializationSettings('app_icon'),, initializationSettingsIOS);
+    // flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    // flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    //     selectNotification: onSelectNotification);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -46,6 +55,12 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitDown,
     ]);
     secureScreen();
+    //========
+    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    // If you have skipped STEP 3 then change app_icon to @mipmap/ic_launcher
+    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    // If you have skipped STEP 3 then change app_icon to @mipmap/ic_launcher
+
   }
 
   @override
@@ -98,4 +113,6 @@ class _MyAppState extends State<MyApp> {
           buttonColor: cnst.appPrimaryMaterialColorPink,
         ));
   }
+
+
 }

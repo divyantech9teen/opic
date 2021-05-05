@@ -13,6 +13,7 @@ import 'package:pictiknew/Common/Constants.dart';
 import 'package:pictiknew/Common/Services.dart';
 import 'package:pictiknew/Components/NoDataComponent.dart';
 import 'package:pictiknew/Components/SelectedAlbumComponent.dart';
+import 'package:pictiknew/Screen/Notification.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:pictiknew/Common/Constants.dart' as cnst;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,6 +57,7 @@ class _SelectedListState extends State<SelectedList> {
   ProgressDialog pr1;
 
   String SelectedPin = "", PinSelection = "";
+
   void initState() {
     pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
     pr.style(
@@ -72,11 +74,29 @@ class _SelectedListState extends State<SelectedList> {
     //pr.setMessage('Please Wait');
     // TODO: implement initState
     super.initState();
+    localNotifyManger.setOnNotificationReceive(onNotificationReceive);
+    localNotifyManger.setOnNotificationClick(onNotificationClick);
     getAlbumAllData();
     getAllowdownload();
   }
 
+  onNotificationReceive(ReceivedNotifaction notifaction) {
+    print("Notification Recived : ${notifaction.id}");
+  }
+
+  onNotificationClick(String payload) {
+    print("Payload : ${payload}");
+  }
+
   String allowDownload;
+
+  sendNotification(datetime) async {
+    print("hello notifcation");
+    // DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm a").parse(datetime);
+    DateTime tempDate = datetime;
+    print(tempDate.subtract(Duration(minutes: 30)));
+    await localNotifyManger.showScheduleNotification(datetime);
+  }
 
   getAllowdownload() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -177,6 +197,7 @@ class _SelectedListState extends State<SelectedList> {
       Platform.isIOS
           ? await GallerySaver.saveImage(path).then((bool success) {
               print("Success = ${success}");
+              sendNotification(DateTime.now());
               Fluttertoast.showToast(
                   msg: "Download Completed",
                   backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -202,6 +223,7 @@ class _SelectedListState extends State<SelectedList> {
     final result =
         await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
     print(result);
+    sendNotification(DateTime.now());
     Fluttertoast.showToast(
         msg: "Download Completed",
         backgroundColor: cnst.appPrimaryMaterialColorYellow,
@@ -650,57 +672,60 @@ class _SelectedListState extends State<SelectedList> {
                       Row(
                         children: <Widget>[
                           allowDownload == "false"
-                              ? Container():  GestureDetector(
-                            onTap: () {
-                              if (int.parse(selectedCount) > 0) {
-                                if (SelectedPin != "" &&
-                                    (PinSelection == "false" ||
-                                        PinSelection == "" ||
-                                        PinSelection.toString() == "null")) {
-                                  downloadAll();
-                                } else {
-                                  pr1 = new ProgressDialog(context,
-                                      type: ProgressDialogType.Normal);
-                                  pr1.style(
-                                      message: "Please Wait",
-                                      borderRadius: 10.0,
-                                      progressWidget: Container(
-                                        padding: EdgeInsets.all(15),
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      elevation: 10.0,
-                                      insetAnimCurve: Curves.easeInOut,
-                                      messageTextStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w600));
-                                  downloadAll();
-                                }
-                              } else {
-                                Fluttertoast.showToast(
-                                    backgroundColor:
-                                        cnst.appPrimaryMaterialColorYellow,
-                                    msg: "No Image Selected.",
-                                    textColor: Colors.white,
-                                    gravity: ToastGravity.BOTTOM,
-                                    toastLength: Toast.LENGTH_SHORT);
-                              }
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(5),
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: cnst.appPrimaryMaterialColorPink,
-                              ),
-                              child: Icon(
-                                Icons.file_download,
-                                size: 17,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                              ? Container()
+                              : GestureDetector(
+                                  onTap: () {
+                                    if (int.parse(selectedCount) > 0) {
+                                      if (SelectedPin != "" &&
+                                          (PinSelection == "false" ||
+                                              PinSelection == "" ||
+                                              PinSelection.toString() ==
+                                                  "null")) {
+                                        downloadAll();
+                                      } else {
+                                        pr1 = new ProgressDialog(context,
+                                            type: ProgressDialogType.Normal);
+                                        pr1.style(
+                                            message: "Please Wait",
+                                            borderRadius: 10.0,
+                                            progressWidget: Container(
+                                              padding: EdgeInsets.all(15),
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
+                                            elevation: 10.0,
+                                            insetAnimCurve: Curves.easeInOut,
+                                            messageTextStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w600));
+                                        downloadAll();
+                                      }
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          backgroundColor: cnst
+                                              .appPrimaryMaterialColorYellow,
+                                          msg: "No Image Selected.",
+                                          textColor: Colors.white,
+                                          gravity: ToastGravity.BOTTOM,
+                                          toastLength: Toast.LENGTH_SHORT);
+                                    }
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.all(5),
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: cnst.appPrimaryMaterialColorPink,
+                                    ),
+                                    child: Icon(
+                                      Icons.file_download,
+                                      size: 17,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
                           GestureDetector(
                             onTap: () {
                               if (selectedPhoto.length > 0) {
